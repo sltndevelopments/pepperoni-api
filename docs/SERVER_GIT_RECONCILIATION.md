@@ -11,19 +11,31 @@ This document is the plan. Step 1 is **measurement only**.
 
 ## What step 1 does
 
-Manual workflow: `.github/workflows/vps-git-reconciliation.yml`
-(`workflow_dispatch`). It uses the same `VPS_HOST` / `VPS_SSH_KEY` secrets as
-`deploy-vps.yml`, SSHs as root, and runs
-`scripts/vps_git_recon_readonly.sh` **piped from the runner**. The script on
-the VPS copy of `main` is never required.
+Workflow: `.github/workflows/vps-git-reconciliation.yml`. Triggers:
+
+- `workflow_dispatch`
+- `push` to `main` filtered on `ops/recon-trigger.txt` (merge of that file
+  runs the job; no `pull_request`, so PRs do not SSH to prod)
+
+The repo is **public**: Actions logs and artifacts are world-readable. The
+runner therefore never writes the plaintext tar. SSH stdout is piped into
+`scripts/seal_vps_git_recon.py`, which keeps the tar in memory, prints
+**aggregate counts only** (`untracked`, `ignored`, `modified`,
+`cron_entries`, `systemd_entries`), and encrypts with `age` to the committed
+recipient `ops/recon-age.pub`. The artifact is **only**
+`recon-report.tar.age`. Decrypt locally with the matching age identity
+(private key is not in git).
+
+It uses the same `VPS_HOST` / `VPS_SSH_KEY` secrets as `deploy-vps.yml`,
+SSHs as root, and runs `scripts/vps_git_recon_readonly.sh` **piped from the
+runner**. The script on the VPS copy of `main` is never required.
 
 The job **must not** modify the server: no `git add`, `commit`, `reset`,
 `checkout`, `clean`, `stash`, `pull`, or `push`; no `rm` / `mkdir` / file
 writes or shell redirects on the VPS. Every `git` invocation sets
 `GIT_OPTIONAL_LOCKS=0` so git does not create an index lock. The collector
-prints a **tar stream on stdout**; the runner unpacks it into `recon-report/`
-and uploads the `vps-git-reconciliation` artifact. An empty
-`git-status-porcelain.txt` is a clean tree and is accepted. Members:
+prints a **tar stream on stdout**. An empty `git-status-porcelain.txt` inside
+the tar is a clean tree and is accepted. Members (inside the encrypted tar):
 
 - `git-status-porcelain.txt` and `git-status-porcelain-ignored.txt`
 - `untracked.txt` / `ignored.txt` (the out-of-git set)
@@ -98,8 +110,10 @@ running** until another writer exists (for example CI that syncs Sheets and
 deploys the result). Stopping `sync-vps.sh` would freeze `api.pepperoni.tatar`
 on the last git snapshot.
 
-1. **Now (this PR):** run the workflow, store the artifact, do not change
-   the server.
+1. **Now:** merging a change to `ops/recon-trigger.txt` (or dispatching
+   the workflow) encrypts the report and prints counts in the job log.
+   Do not change the server. Decrypt the `.age` artifact privately before
+   labelling paths.
 2. Label every path on the artifact with the three buckets. Human review.
 3. For `should-be-in-git`: PR from a clean checkout, then deploy as usual.
 4. For `generated-by-cron`: keep generating on the VPS. Optionally gitignore
