@@ -1,0 +1,70 @@
+name: Search queries export
+
+# Public repo: Actions logs and artifacts are world-readable.
+# Stream the export tar on stdout, print aggregate counts only, encrypt
+# with age, upload only the .age file. The plaintext tar never touches disk.
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - ops/queries-trigger.txt
+
+permissions:
+  contents: read
+
+jobs:
+  export:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install age and cryptography
+        run: |
+          sudo apt-get update -qq && sudo apt-get install -y age
+          pip install cryptography
+
+      - name: Export, count, and encrypt
+        env:
+          GSC_SERVICE_ACCOUNT_KEY: ${{ secrets.GSC_SERVICE_ACCOUNT_KEY }}
+          YANDEX_WM_TOKEN: ${{ secrets.YANDEX_WM_TOKEN }}
+        run: |
+          set -euo pipefail
+          test -n "${GSC_SERVICE_ACCOUNT_KEY:-}"
+          test -n "${YANDEX_WM_TOKEN:-}"
+          set +e
+          python3 scripts/export_search_queries.py \
+            | python3 scripts/seal_search_queries.py \
+                --recipient-file ops/recon-age.pub \
+                --out search-queries.tar.age
+          rcs=("${PIPESTATUS[@]}")
+          export_rc=${rcs[0]}
+          seal_rc=${rcs[1]}
+          set -e
+          if [ "$export_rc" -ne 0 ]; then
+            echo "search-queries-export: export failed" >&2
+            exit 1
+          fi
+          if [ "$seal_rc" -ne 0 ]; then
+            echo "search-queries-export: seal failed" >&2
+            exit 1
+          fi
+          test -f search-queries.tar.age
+          test ! -e search-queries.tar
+          test ! -d search-queries
+
+      - name: Upload encrypted export
+        uses: actions/upload-artifact@v4
+        with:
+          name: search-queries
+          path: search-queries.tar.age
+          if-no-files-found: error
+          retention-days: 30
