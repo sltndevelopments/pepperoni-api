@@ -1,117 +1,237 @@
-#!/usr/bin/env bash
-# Read-only snapshot of the Selectel VPS git tree vs origin.
-# Writes ONLY under an output directory that must sit outside the repo.
-# Inspect only: no index or HEAD mutation, no fetch from origin.
-set -euo pipefail
+#!/usr/bin/env python3
+"""Read-only VPS git snapshot. Prints a tar stream to stdout. No disk writes."""
+from __future__ import annotations
 
-REPO="${REPO_DIR:-/var/www/pepperoni/repo}"
-OUT="${1:-/tmp/pepperoni-git-recon}"
+import io
+import os
+import stat
+import subprocess
+import sys
+import tarfile
+from datetime import datetime, timezone
 
-if [[ ! -d "$REPO/.git" ]]; then
-  echo "vps_git_recon_readonly: $REPO is not a git repo" >&2
-  exit 1
-fi
+REPO = os.environ.get("REPO_DIR", "/var/www/pepperoni/repo")
+GIT_ENV = dict(os.environ)
+GIT_ENV["GIT_OPTIONAL_LOCKS"] = "0"
 
-# Refuse to write into the working tree (or any path that resolves inside it).
-repo_real="$(cd "$REPO" && pwd -P)"
-mkdir -p "$OUT"
-out_real="$(cd "$OUT" && pwd -P)"
-case "$out_real" in
-  "$repo_real"|"$repo_real"/*)
-    echo "vps_git_recon_readonly: OUTDIR must not be inside $repo_real" >&2
-    exit 1
-    ;;
-esac
 
-rm -rf "$OUT"
-mkdir -p "$OUT"
-{
-  echo "# pepperoni VPS git reconciliation (READ-ONLY)"
-  echo "collected_at_utc=$(date -u +%Y-%m-%dT%H:%M:%SZ)"
-  echo "host=$(hostname -f 2>/dev/null || hostname)"
-  echo "repo=$repo_real"
-  echo "pwd_at_collect=$(pwd)"
-} > "$OUT/meta.txt"
+def die(msg):
+    sys.stderr.write(msg + "\n")
+    raise SystemExit(1)
 
-cd "$REPO"
 
-git rev-parse HEAD > "$OUT/HEAD.txt"
-git rev-parse --abbrev-ref HEAD > "$OUT/branch.txt"
-git status --porcelain=v1 -uall > "$OUT/git-status-porcelain.txt"
-git status --porcelain=v1 --ignored -uall > "$OUT/git-status-porcelain-ignored.txt"
-git ls-files --others --exclude-standard > "$OUT/untracked.txt"
-git ls-files --others --ignored --exclude-standard > "$OUT/ignored.txt"
-git diff --stat > "$OUT/git-diff-stat.txt"
-git diff --numstat > "$OUT/git-diff-numstat.txt"
-git diff --name-only > "$OUT/git-diff-names.txt"
+def git(*args):
+    return subprocess.run(
+        ["git", *args],
+        cwd=REPO,
+        env=GIT_ENV,
+        capture_output=True,
+        text=True,
+        check=False,
+    )
 
-{
-  echo "=== crontab -l ==="
-  crontab -l 2>&1 || true
-  echo
-  echo "=== /etc/cron.d (pepperoni / seo / sync) ==="
-  if compgen -G "/etc/cron.d/*" > /dev/null; then
-    grep -HEn 'pepperoni|sync-vps|seo-agent|seo-worker|seo-agent-vps' /etc/cron.d/* 2>/dev/null || true
-  else
-    echo "(no /etc/cron.d files)"
-  fi
-} > "$OUT/crontab.txt"
 
-{
-  echo "=== systemctl list-timers --all ==="
-  systemctl list-timers --all --no-pager 2>&1 || true
-  echo
-  echo "=== pepperoni / seo / sync units ==="
-  systemctl list-units --type=service --all --no-pager 2>&1 | grep -Ei 'pepperoni|seo-agent|seo-worker|sync-vps' || true
-  echo
-  echo "=== unit files under /etc/systemd/system ==="
-  shopt -s nullglob
-  for unit in /etc/systemd/system/pepperoni* /etc/systemd/system/*seo* /etc/systemd/system/*sync*; do
-    echo "----- $unit -----"
-    # Paths only: do not cat env files that may hold secrets.
-    grep -E '^(Description|WorkingDirectory|ExecStart|ExecStartPre|EnvironmentFile)=' "$unit" 2>/dev/null || true
-  done
-  echo
-  echo "=== units whose WorkingDirectory or ExecStart mention the repo ==="
-  grep -Rl '/var/www/pepperoni/repo' /etc/systemd/system /lib/systemd/system 2>/dev/null | sort -u || true
-} > "$OUT/systemd.txt"
+def run(argv):
+    try:
+        proc = subprocess.run(argv, capture_output=True, text=True, check=False)
+    except OSError as exc:
+        return "(missing %s: %s)\n" % (argv[0], exc)
+    out = proc.stdout or ""
+    err = proc.stderr or ""
+    if proc.returncode != 0 and err:
+        return out + err
+    return out if out else err
 
-{
-  echo "# last-modified times of dirty / untracked / ignored paths"
-  echo "# format: mtime_utc  size  path"
-  # Paths from porcelain (XY path / rename "old -> new")
-  awk '
-    {
-      line = $0
-      sub(/^../, "", line)
-      sub(/^ /, "", line)
-      if (line ~ / -> /) {
-        split(line, a, / -> /)
-        print a[2]
-      } else {
-        print line
-      }
+
+def porcelain_paths(text):
+    rename_arrow = " -" + chr(62) + " "
+    paths = []
+    for raw in text.splitlines():
+        if not raw:
+            continue
+        if len(raw) < 2:
+            continue
+        line = raw[2:]
+        line = line.lstrip(" ")
+        if rename_arrow in line:
+            line = line.split(rename_arrow, 1)[1]
+        if line:
+            paths.append(line)
+    # unique, stable
+    seen = set()
+    ordered = []
+    for p in paths:
+        if p not in seen:
+            seen.add(p)
+            ordered.append(p)
+    return ordered
+
+
+def mtimes_block(paths):
+    lines = [
+        "# last-modified times of dirty / untracked / ignored paths",
+        "# format: mtime_utc  size  path",
+    ]
+    if not paths:
+        lines.append("(working tree clean)")
+        return "\n".join(lines) + "\n"
+    for rel in paths:
+        abs_path = os.path.join(REPO, rel)
+        try:
+            st = os.lstat(abs_path)
+        except OSError:
+            lines.append("MISSING\t-\t%s" % rel)
+            continue
+        mtime = datetime.fromtimestamp(st.st_mtime, tz=timezone.utc)
+        lines.append("%s\t%s\t%s" % (mtime.strftime("%Y-%m-%d %H:%M:%S.%f %z"), st.st_size, rel))
+    return "\n".join(lines) + "\n"
+
+
+def systemd_block():
+    parts = [
+        "=== systemctl list-timers --all ===\n",
+        run(["systemctl", "list-timers", "--all", "--no-pager"]),
+        "\n=== pepperoni / seo / sync units ===\n",
+    ]
+    units = run(["systemctl", "list-units", "--type=service", "--all", "--no-pager"])
+    interesting = [
+        line for line in units.splitlines()
+        if any(key in line.lower() for key in ("pepperoni", "seo-agent", "seo-worker", "sync-vps"))
+    ]
+    parts.append("\n".join(interesting) + ("\n" if interesting else ""))
+    parts.append("\n=== unit files under /etc/systemd/system ===\n")
+    roots = ("/etc/systemd/system", "/lib/systemd/system")
+    mentioned = []
+    for root in roots:
+        if not os.path.isdir(root):
+            continue
+        for name in sorted(os.listdir(root)):
+            low = name.lower()
+            path = os.path.join(root, name)
+            if not (low.startswith("pepperoni") or "seo" in low or "sync" in low):
+                if os.path.isfile(path):
+                    try:
+                        body = open(path, encoding="utf-8", errors="replace").read()
+                    except OSError:
+                        body = ""
+                    if "/var/www/pepperoni/repo" in body:
+                        mentioned.append(path)
+                continue
+            if not os.path.isfile(path):
+                continue
+            parts.append("----- %s -----\n" % path)
+            try:
+                body = open(path, encoding="utf-8", errors="replace").read()
+            except OSError:
+                body = ""
+            for line in body.splitlines():
+                if line.startswith((
+                    "Description=",
+                    "WorkingDirectory=",
+                    "ExecStart=",
+                    "ExecStartPre=",
+                    "EnvironmentFile=",
+                )):
+                    parts.append(line + "\n")
+            if "/var/www/pepperoni/repo" in body:
+                mentioned.append(path)
+    parts.append("\n=== units whose WorkingDirectory or ExecStart mention the repo ===\n")
+    parts.append("\n".join(sorted(set(mentioned))) + ("\n" if mentioned else ""))
+    return "".join(parts)
+
+
+def crontab_block():
+    parts = ["=== crontab -l ===\n", run(["crontab", "-l"]), "\n=== /etc/cron.d (pepperoni / seo / sync) ===\n"]
+    cron_d = "/etc/cron.d"
+    if os.path.isdir(cron_d):
+        names = sorted(os.listdir(cron_d))
+        if not names:
+            parts.append("(no /etc/cron.d files)\n")
+        else:
+            hits = []
+            for name in names:
+                path = os.path.join(cron_d, name)
+                try:
+                    body = open(path, encoding="utf-8", errors="replace").read()
+                except OSError:
+                    continue
+                for i, line in enumerate(body.splitlines(), 1):
+                    low = line.lower()
+                    if any(key in low for key in (
+                        "pepperoni", "sync-vps", "seo-agent", "seo-worker", "seo-agent-vps",
+                    )):
+                        hits.append("%s:%d:%s" % (path, i, line))
+            parts.append("\n".join(hits) + ("\n" if hits else ""))
+    else:
+        parts.append("(no /etc/cron.d files)\n")
+    return "".join(parts)
+
+
+def main():
+    if not os.path.isdir(os.path.join(REPO, ".git")):
+        die("vps_git_recon_readonly: %s is not a git repo" % REPO)
+
+    head = git("rev-parse", "HEAD")
+    branch = git("rev-parse", "--abbrev-ref", "HEAD")
+    status = git("status", "--porcelain=v1", "-uall")
+    status_ignored = git("status", "--porcelain=v1", "--ignored", "-uall")
+    untracked = git("ls-files", "--others", "--exclude-standard")
+    ignored = git("ls-files", "--others", "--ignored", "--exclude-standard")
+    diff_stat = git("diff", "--stat")
+    diff_numstat = git("diff", "--numstat")
+    diff_names = git("diff", "--name-only")
+
+    dirty = porcelain_paths(status_ignored.stdout)
+    host = run(["hostname", "-f"]).strip() or run(["hostname"]).strip()
+    try:
+        pwd = os.getcwd()
+    except OSError:
+        pwd = ""
+
+    meta_lines = [
+        "# pepperoni VPS git reconciliation (READ-ONLY)",
+        "collected_at_utc=%s" % datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
+        "host=%s" % host,
+        "repo=%s" % os.path.realpath(REPO),
+        "pwd_at_collect=%s" % pwd,
+        "path_count=%d" % len(dirty),
+        "untracked_count=%d" % len([ln for ln in untracked.stdout.splitlines() if ln]),
+        "ignored_count=%d" % len([ln for ln in ignored.stdout.splitlines() if ln]),
+        "modified_tracked_count=%d" % len([ln for ln in diff_names.stdout.splitlines() if ln]),
+        "",
+    ]
+
+    files = {
+        "meta.txt": "\n".join(meta_lines),
+        "HEAD.txt": head.stdout,
+        "branch.txt": branch.stdout,
+        "git-status-porcelain.txt": status.stdout,
+        "git-status-porcelain-ignored.txt": status_ignored.stdout,
+        "untracked.txt": untracked.stdout,
+        "ignored.txt": ignored.stdout,
+        "git-diff-stat.txt": diff_stat.stdout,
+        "git-diff-numstat.txt": diff_numstat.stdout,
+        "git-diff-names.txt": diff_names.stdout,
+        "dirty-paths.txt": ("\n".join(dirty) + "\n") if dirty else "",
+        "crontab.txt": crontab_block(),
+        "systemd.txt": systemd_block(),
+        "mtimes.txt": mtimes_block(dirty),
     }
-  ' "$OUT/git-status-porcelain-ignored.txt" | sed '/^$/d' | sort -u > "$OUT/dirty-paths.txt"
-  if [[ ! -s "$OUT/dirty-paths.txt" ]]; then
-    echo "(working tree clean)"
-  else
-    while IFS= read -r rel; do
-      if [[ -e "$rel" || -L "$rel" ]]; then
-        stat --printf='%y\t%s\t%n\n' "$rel" 2>/dev/null || true
-      else
-        printf 'MISSING\t-\t%s\n' "$rel"
-      fi
-    done < "$OUT/dirty-paths.txt"
-  fi
-} > "$OUT/mtimes.txt"
 
-{
-  echo "path_count=$(wc -l < "$OUT/dirty-paths.txt" | tr -d ' ')"
-  echo "untracked_count=$(wc -l < "$OUT/untracked.txt" | tr -d ' ')"
-  echo "ignored_count=$(wc -l < "$OUT/ignored.txt" | tr -d ' ')"
-  echo "modified_tracked_count=$(wc -l < "$OUT/git-diff-names.txt" | tr -d ' ')"
-} >> "$OUT/meta.txt"
+    # Stream tar to stdout only. Empty porcelain is a valid clean-repo report.
+    with tarfile.open(fileobj=sys.stdout.buffer, mode="w|") as tf:
+        now = int(datetime.now(timezone.utc).timestamp())
+        for name, text in files.items():
+            data = text.encode("utf-8")
+            info = tarfile.TarInfo(name=name)
+            info.size = len(data)
+            info.mtime = now
+            info.mode = stat.S_IRUSR | stat.S_IWUSR | stat.S_IRGRP | stat.S_IROTH
+            tf.addfile(info, io.BytesIO(data))
 
-echo "READ-ONLY report written to $out_real"
-ls -la "$out_real"
+    sys.stderr.write("READ-ONLY report streamed as tar (%d members)\n" % len(files))
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

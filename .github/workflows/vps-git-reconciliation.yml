@@ -1,7 +1,7 @@
 name: VPS git reconciliation (read-only)
 
 # Manual only. Uses the same Selectel SSH secrets as deploy-vps.yml.
-# Must not change anything on the VPS — report artifact only.
+# Must not change anything on the VPS — stream a tar to the runner, write locally.
 on:
   workflow_dispatch:
 
@@ -24,16 +24,17 @@ jobs:
           mkdir -p ~/.ssh recon-report
           printf '%s\n' "$VPS_SSH_KEY" > ~/.ssh/vps_key
           chmod 600 ~/.ssh/vps_key
+          # Remote side: python stdin only, tar on stdout. No scp, no /tmp writes.
           ssh -i ~/.ssh/vps_key -o IdentitiesOnly=yes -o StrictHostKeyChecking=accept-new \
             "root@${VPS_HOST}" \
-            'bash -s -- /tmp/pepperoni-git-recon' \
-            < scripts/vps_git_recon_readonly.sh
-          scp -i ~/.ssh/vps_key -o IdentitiesOnly=yes -o StrictHostKeyChecking=accept-new -r \
-            "root@${VPS_HOST}:/tmp/pepperoni-git-recon/." recon-report/
-          # Drop the key from the runner workspace before the artifact step.
-          rm -f ~/.ssh/vps_key
-          test -s recon-report/git-status-porcelain.txt
-          test -s recon-report/meta.txt
+            'export GIT_OPTIONAL_LOCKS=0; python3 -' \
+            < scripts/vps_git_recon_readonly.sh \
+            > recon-report.tar
+          tar -xf recon-report.tar -C recon-report
+          rm -f recon-report.tar ~/.ssh/vps_key
+          # Empty porcelain is a clean working tree — accept a zero-byte file.
+          test -f recon-report/git-status-porcelain.txt
+          test -f recon-report/meta.txt
           echo "=== meta ==="
           cat recon-report/meta.txt
 

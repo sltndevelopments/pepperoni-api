@@ -18,9 +18,12 @@ Manual workflow: `.github/workflows/vps-git-reconciliation.yml`
 the VPS copy of `main` is never required.
 
 The job **must not** modify the server: no `git add`, `commit`, `reset`,
-`checkout`, `clean`, `stash`, `pull`, or `push`; no edits under
-`/var/www/pepperoni/repo`. Output is written to `/tmp/pepperoni-git-recon`
-and uploaded as the `vps-git-reconciliation` artifact:
+`checkout`, `clean`, `stash`, `pull`, or `push`; no `rm` / `mkdir` / file
+writes or shell redirects on the VPS. Every `git` invocation sets
+`GIT_OPTIONAL_LOCKS=0` so git does not create an index lock. The collector
+prints a **tar stream on stdout**; the runner unpacks it into `recon-report/`
+and uploads the `vps-git-reconciliation` artifact. An empty
+`git-status-porcelain.txt` is a clean tree and is accepted. Members:
 
 - `git-status-porcelain.txt` and `git-status-porcelain-ignored.txt`
 - `untracked.txt` / `ignored.txt` (the out-of-git set)
