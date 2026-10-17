@@ -17,7 +17,7 @@
   "counts": {
     "301": 410,
     "410": 1059,
-    "noindex": 34
+    "noindex": 38
   },
   "verification_files_excluded": [
     "d0a735c825c78ddf.html",
@@ -19560,6 +19560,58 @@
       "canonical_target": "/halal",
       "status": "noindex",
       "reason": "thin ISO 22000 note; certificate facts already live on /halal",
+      "clicks_28d": 0.0,
+      "impressions_28d": 0.0
+    },
+    {
+      "url": "/cases/gfc",
+      "file": "cases/gfc.html",
+      "intent": "private client-consent draft",
+      "language": "ru",
+      "owner": "sales",
+      "source": "evidence_registry gfc_pepperoni_240111",
+      "canonical_target": null,
+      "status": "noindex",
+      "reason": "client consent draft; not for organic index until owner opens it",
+      "clicks_28d": 0.0,
+      "impressions_28d": 0.0
+    },
+    {
+      "url": "/cases/sweet-life",
+      "file": "cases/sweet-life.html",
+      "intent": "private client-consent draft",
+      "language": "ru",
+      "owner": "sales",
+      "source": "evidence_registry sweet_life_pepperoni_118665",
+      "canonical_target": null,
+      "status": "noindex",
+      "reason": "client consent draft; not for organic index until owner opens it",
+      "clicks_28d": 0.0,
+      "impressions_28d": 0.0
+    },
+    {
+      "url": "/cases/tatneft",
+      "file": "cases/tatneft.html",
+      "intent": "private client-consent draft",
+      "language": "ru",
+      "owner": "sales",
+      "source": "public/cases.html + public/about.html; no evidence_registry id",
+      "canonical_target": null,
+      "status": "noindex",
+      "reason": "client consent draft; not for organic index until owner opens it",
+      "clicks_28d": 0.0,
+      "impressions_28d": 0.0
+    },
+    {
+      "url": "/cases/aslam-ompk",
+      "file": "cases/aslam-ompk.html",
+      "intent": "private client-consent draft",
+      "language": "ru",
+      "owner": "sales",
+      "source": "public/about.html + public/cases.html; no evidence_registry id",
+      "canonical_target": null,
+      "status": "noindex",
+      "reason": "client consent draft; not for organic index until owner opens it",
       "clicks_28d": 0.0,
       "impressions_28d": 0.0
     }
