@@ -47,6 +47,8 @@ item_b=(0 0 0 0 0 0 0 0)
 item_st=("OK" "OK" "OK" "OK" "OK" "OK" "OK" "OK")
 backup_paths=()
 delete_paths=()
+edit_paths_6=()
+edit_paths_7=()
 
 entry_size() {
   local path="$1"
@@ -74,6 +76,30 @@ add_delete() {
     backup_paths+=("$path")
     delete_paths+=("$path")
   fi
+}
+
+add_edit() {
+  local idx="$1" path="$2"
+  if [[ -f "$path" && ! -L "$path" ]]; then
+    item_n[idx]=$(( ${item_n[idx]} + 1 ))
+    item_b[idx]=$(( ${item_b[idx]} + $(entry_size "$path") ))
+    backup_paths+=("$path")
+    if [[ "$idx" == "6" ]]; then
+      edit_paths_6+=("$path")
+    else
+      edit_paths_7+=("$path")
+    fi
+  fi
+}
+
+remove_delete_path() {
+  local target="$1" p
+  local -a out=()
+  for p in "${delete_paths[@]+"${delete_paths[@]}"}"; do
+    [[ "$p" == "$target" ]] && continue
+    out+=("$p")
+  done
+  delete_paths=("${out[@]+"${out[@]}"}")
 }
 
 collect_1() {
@@ -142,10 +168,8 @@ collect_6() {
     [[ -d "$dir" ]] || continue
     while IFS= read -r p; do
       [[ -n "$p" ]] || continue
-      item_n[6]=$(( ${item_n[6]} + 1 ))
-      item_b[6]=$(( ${item_b[6]} + $(entry_size "$p") ))
-      add_backup "$p"
-    done < <(grep -RIlF -- "$OLD_MCP_PATH" "$dir" 2>/dev/null || true)
+      add_edit 6 "$p"
+    done < <(grep -rIlF -- "$OLD_MCP_PATH" "$dir" 2>/dev/null || true)
   done
 }
 
@@ -155,9 +179,10 @@ collect_7() {
     return 0
   fi
   add_backup "$AI_BOTS_CRON"
-  if [[ -f "$AI_BOTS_CRON" ]] && grep -qF -- "$OLD_REPO_PREFIX" "$AI_BOTS_CRON"; then
+  if [[ -f "$AI_BOTS_CRON" && ! -L "$AI_BOTS_CRON" ]] && grep -qF -- "$OLD_REPO_PREFIX" "$AI_BOTS_CRON"; then
     item_n[7]=$(( ${item_n[7]} + 1 ))
     item_b[7]=$(( ${item_b[7]} + $(entry_size "$AI_BOTS_CRON") ))
+    edit_paths_7+=("$AI_BOTS_CRON")
   fi
 }
 
@@ -182,10 +207,13 @@ print_status() {
 
 unique_list() {
   local -n src=$1
+  local require_exist="${2:-1}"
   local p seen=""
   local -a out=()
   for p in "${src[@]+"${src[@]}"}"; do
-    [[ -e "$p" || -L "$p" ]] || continue
+    if [[ "$require_exist" == "1" ]]; then
+      [[ -e "$p" || -L "$p" ]] || continue
+    fi
     case " $seen " in
       *" $p "*) continue ;;
     esac
@@ -325,6 +353,7 @@ do_backup() {
 }
 
 apply_installs() {
+  local p item6_ok=1
   if [[ ! -f "$LOG_CRON" ]] || ! cmp -s "$LOG_CRON" <(printf '%s\n' "$LOG_CRON_LINE"); then
     printf '%s\n' "$LOG_CRON_LINE" >"$LOG_CRON"
     chmod 644 "$LOG_CRON"
@@ -335,32 +364,37 @@ apply_installs() {
     fi
     chmod 700 "$ETC_PEPPERONI"
     install -m 600 "$MCP_SRC" "$MCP_DST"
-    if ! cmp -s "$MCP_SRC" "$MCP_DST"; then
+    if ! cmp -s "$MCP_SRC" "$MCP_DST" 2>/dev/null; then
       item_st[6]="ABORT"
-      return 0
+      item6_ok=0
+      remove_delete_path "$MCP_SRC"
     fi
   fi
-  local dir p
   local -a units=()
-  for dir in "$SYSTEMD_DIR" "$CRON_D" "$CRON_SPOOL" "$SUPERVISOR_DIR" "$ROOT_CONFIG"; do
-    [[ -d "$dir" ]] || continue
-    while IFS= read -r p; do
-      [[ -n "$p" ]] || continue
-      sed -i "s|${OLD_MCP_PATH}|${NEW_MCP_PATH}|g" "$p"
-      if [[ "$p" == "$SYSTEMD_DIR"/* ]]; then
-        units+=("$(basename "$p")")
+  if [[ "$item6_ok" -eq 1 ]]; then
+    for p in "${edit_paths_6[@]+"${edit_paths_6[@]}"}"; do
+      if [[ -f "$p" && ! -L "$p" ]]; then
+        sed -i "s|${OLD_MCP_PATH}|${NEW_MCP_PATH}|g" "$p"
+        if [[ "$p" == "$SYSTEMD_DIR"/* ]]; then
+          units+=("$(basename "$p")")
+        fi
       fi
-    done < <(grep -RIlF -- "$OLD_MCP_PATH" "$dir" 2>/dev/null || true)
-  done
-  if [[ ${#units[@]} -gt 0 ]]; then
-    systemctl daemon-reload >/dev/null 2>&1 || true
-    local u
-    for u in "${units[@]}"; do
-      systemctl restart "$u" >/dev/null 2>&1 || true
     done
+    unique_list units 0
+    if [[ ${#units[@]} -gt 0 ]]; then
+      systemctl daemon-reload >/dev/null 2>&1 || true
+      local u
+      for u in "${units[@]}"; do
+        systemctl restart "$u" >/dev/null 2>&1 || true
+      done
+    fi
   fi
-  if [[ "${item_st[7]}" != "ABORT" && -f "$AI_BOTS_CRON" ]]; then
-    sed -i "s|${OLD_REPO_PREFIX}|${NEW_REPO_PREFIX}|g" "$AI_BOTS_CRON"
+  if [[ "${item_st[7]}" != "ABORT" ]]; then
+    for p in "${edit_paths_7[@]+"${edit_paths_7[@]}"}"; do
+      if [[ -f "$p" && ! -L "$p" ]]; then
+        sed -i "s|${OLD_REPO_PREFIX}|${NEW_REPO_PREFIX}|g" "$p"
+      fi
+    done
   fi
 }
 
@@ -370,7 +404,7 @@ apply_delete_manifest() {
     rm -f "$p"
   done
   if [[ -d "$REPO/data/tmp" ]]; then
-    find "$REPO/data/tmp" -depth -type d -empty -delete
+    find "$REPO/data/tmp" -mindepth 1 -depth -type d -empty -delete
   fi
 }
 
@@ -383,6 +417,8 @@ collect_6
 collect_7
 unique_list backup_paths
 unique_list delete_paths
+unique_list edit_paths_6
+unique_list edit_paths_7
 collect_cron_globs
 unique_list backup_paths
 
@@ -416,6 +452,8 @@ item_n=(0 0 0 0 0 0 0 0)
 item_b=(0 0 0 0 0 0 0 0)
 backup_paths=()
 delete_paths=()
+edit_paths_6=()
+edit_paths_7=()
 collect_1
 collect_2
 collect_3

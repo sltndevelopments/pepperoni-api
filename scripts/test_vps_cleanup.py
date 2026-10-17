@@ -64,12 +64,23 @@ def main() -> int:
     check(".tmp" in script and "mv \"" in script, "backup writes .tmp then mv")
     check("if ! do_backup" not in script, "do_backup is not under if !")
     check("backup_rc=$?" in script, "captures do_backup rc")
-    check("grep -RIlF" in script or "grep -IlF" in script,
-          "item 6 uses grep -IlF text-only")
+    check("grep -rIlF" in script, "item 6 uses grep -rIlF text-only")
+    check("grep -RIlF" not in script and "grep -R" not in script,
+          "item 6 does not use grep -R")
     check("grep -rlFZ" not in script, "item 6 no longer uses grep -rlFZ")
+    check("edit_paths_6" in script and "edit_paths_7" in script,
+          "edit targets are frozen at collect")
     check("apply_delete_manifest" in script, "apply deletes from the frozen manifest")
-    check("find \"$REPO/data/tmp\" -depth -type d -empty -delete" in script,
-          "empty tmp dirs deleted after manifest rm")
+    check(
+        'find "$REPO/data/tmp" -mindepth 1 -depth -type d -empty -delete' in script,
+        "empty tmp subdirs deleted; tmp itself stays",
+    )
+    apply_body = script[script.find("apply_installs()"):script.find("apply_delete_manifest()")]
+    check("grep" not in apply_body, "apply does not re-scan with grep")
+    check("-f \"$p\" && ! -L \"$p\"" in apply_body or
+          '-f "$p" && ! -L "$p"' in apply_body,
+          "apply edits only regular non-symlink files")
+    check("remove_delete_path" in script, "cmp abort removes MCP_SRC from delete_paths")
 
     apply_guard = script.find('if [[ "$MODE" != "apply" ]]')
     backup_call = script.find("\ndo_backup\n")
@@ -240,6 +251,10 @@ def _fixture() -> None:
             f"EnvironmentFile={repo}/deploy/rinatsultan-mcp.env\n",
             encoding="utf-8",
         )
+        wants = systemd / "multi-user.wants"
+        wants.mkdir()
+        wants_unit = wants / "demo.service"
+        wants_unit.symlink_to(unit)
         (cron_d / "pepperoni-ai-bots").write_text(
             "5 6 * * * root /usr/bin/python3 /opt/pepperoni-api/infra/scripts/parse-ai-bots.py\n",
             encoding="utf-8",
@@ -294,6 +309,10 @@ def _fixture() -> None:
         check(not (repo / "scripts" / "_wtest").exists(), "apply removes empty _wtest")
         check(not (repo / "data" / "tmp" / "stale").exists(), "apply empties tmp files")
         check(not (repo / "data" / "tmp" / "link").exists(), "apply removes tmp symlink")
+        check((repo / "data" / "tmp").is_dir(), "apply keeps the tmp folder")
+        check(wants_unit.is_symlink(), "wants unit stays a symlink after apply")
+        check(os.path.realpath(wants_unit) == os.path.realpath(unit),
+              "wants unit still points at the real unit")
         check(not old_q.exists(), "apply deletes old quarantine file")
         check((repo / "data" / "quarantine" / "fresh.html").is_file(),
               "apply keeps recent quarantine file")
@@ -324,6 +343,86 @@ def _fixture() -> None:
               f"post-apply dry-run is zeros ({zeros})")
         check(keep_db.read_text(encoding="utf-8") == "live",
               "agent.db still intact after apply")
+
+    _fixture_item6_abort()
+
+
+def _base_env(base: Path) -> tuple[Path, Path, Path, Path, dict[str, str]]:
+    repo = base / "repo"
+    cron_d = base / "cron.d"
+    etc_pep = base / "pepperoni"
+    systemd = base / "systemd"
+    lock = base / "sync.lock"
+    for d in (
+        repo / "scripts",
+        repo / "data" / "tmp",
+        repo / "data" / "quarantine",
+        repo / "data" / "logs",
+        repo / "sales-agent" / "data",
+        repo / "infra" / "scripts",
+        repo / "deploy",
+        cron_d,
+        etc_pep,
+        systemd,
+        base / "spool",
+        base / "supervisor",
+        base / "root-config",
+    ):
+        d.mkdir(parents=True, exist_ok=True)
+    lock.write_bytes(b"")
+    (repo / "data" / "tmp" / "stale").write_text("x", encoding="utf-8")
+    (repo / "infra" / "scripts" / "parse-ai-bots.py").write_text("# ok\n", encoding="utf-8")
+    mcp = repo / "deploy" / "rinatsultan-mcp.env"
+    mcp.write_text("PLACEHOLDER=1\n", encoding="utf-8")
+    unit = systemd / "demo.service"
+    unit.write_text(
+        f"EnvironmentFile={repo}/deploy/rinatsultan-mcp.env\n",
+        encoding="utf-8",
+    )
+    (cron_d / "pepperoni-ai-bots").write_text(
+        "5 6 * * * root /usr/bin/python3 /opt/pepperoni-api/infra/scripts/parse-ai-bots.py\n",
+        encoding="utf-8",
+    )
+    env = {
+        "MODE": "apply",
+        "REPO": str(repo),
+        "LOCK_FILE": str(lock),
+        "BACKUP_DIR": str(base / "backups"),
+        "CRON_D": str(cron_d),
+        "ETC_PEPPERONI": str(etc_pep),
+        "SYSTEMD_DIR": str(systemd),
+        "CRON_SPOOL": str(base / "spool"),
+        "SUPERVISOR_DIR": str(base / "supervisor"),
+        "ROOT_CONFIG": str(base / "root-config"),
+        "OLD_ROOT": str(base / "opt-missing"),
+        "MCP_SRC": str(mcp),
+        "MCP_DST": str(etc_pep / "rinatsultan-mcp.env"),
+        "AI_BOTS_CRON": str(cron_d / "pepperoni-ai-bots"),
+        "LOG_CRON": str(cron_d / "pepperoni-log-retention"),
+    }
+    return repo, mcp, unit, cron_d, env
+
+
+def _fixture_item6_abort() -> None:
+    with tempfile.TemporaryDirectory() as tmp:
+        base = Path(tmp)
+        repo, mcp, unit, cron_d, env = _base_env(base)
+        dest = Path(env["MCP_DST"])
+        dest.mkdir(parents=True)
+        applied = _run(env)
+        check(applied.returncode == 0, f"cmp-abort apply exits 0 ({applied.stderr.strip()})")
+        check("rinatsultan" not in applied.stderr and "PLACEHOLDER" not in applied.stderr,
+              "cmp abort log has no env path or value")
+        check(re.search(r"^6: ABORT$", applied.stdout, re.M), "cmp mismatch sets item 6 ABORT")
+        check(mcp.is_file(), "cmp abort keeps MCP_SRC")
+        check(
+            f"EnvironmentFile={repo}/deploy/rinatsultan-mcp.env" in unit.read_text(encoding="utf-8"),
+            "cmp abort skips item 6 reference edits",
+        )
+        cron = (cron_d / "pepperoni-ai-bots").read_text(encoding="utf-8")
+        check("/var/www/pepperoni/repo/" in cron, "cmp abort still applies item 7")
+        check(not (repo / "data" / "tmp" / "stale").exists(), "cmp abort still deletes tmp files")
+        check((repo / "data" / "tmp").is_dir(), "cmp abort keeps the tmp folder")
 
 
 if __name__ == "__main__":
