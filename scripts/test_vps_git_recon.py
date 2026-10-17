@@ -146,6 +146,17 @@ def main() -> int:
     check("vps-git-reconciliation" in wf, "artifact name is vps-git-reconciliation")
     check("test ! -e recon-report.tar" in wf, "workflow asserts no plaintext tar on disk")
     check("GIT_OPTIONAL_LOCKS=0" in wf, "workflow exports GIT_OPTIONAL_LOCKS=0 on SSH")
+    check(re.search(r"trap\s+['\"]rm -f ~/.ssh/vps_key['\"]\s+EXIT", wf),
+          "workflow trap deletes the SSH key on EXIT")
+    check(re.search(r"ssh\s+-q\s+-o\s+BatchMode=yes\b", wf),
+          "ssh runs with -q and BatchMode=yes")
+    check("2>/dev/null" in wf, "ssh stderr is discarded (no public-log passthrough)")
+    check("vps-git-reconciliation: ssh failed" in wf,
+          "ssh failure prints only a fixed message")
+    check("age failed: %s" not in sealer,
+          "sealer does not interpolate age stderr into the exit message")
+    check('raise SystemExit("seal_vps_git_recon: age failed")' in sealer,
+          "sealer uses a fixed age-failed message")
 
     check("open(" not in sealer.split("encrypt_to_age")[0] or "stdin" in sealer,
           "sealer reads the tar from stdin")
@@ -209,6 +220,8 @@ def main() -> int:
     check(".age" in docs and "age" in docs.lower(),
           "docs say the artifact is age-encrypted")
     check("counts" in docs.lower(), "docs say the job log is counts-only")
+    check("trap" in docs.lower() and "batchmode" in docs.lower(),
+          "docs mention trap + BatchMode failure hygiene")
 
     # Live local collector: stream tar, accept empty porcelain.
     with tempfile.TemporaryDirectory() as tmp:
@@ -326,6 +339,41 @@ def _check_counts_and_seal() -> None:
         check(not leaked_seal, "sealer stdout has no paths/contents %s" % leaked_seal)
         check("untracked=12" in stdout and "cron_entries=2" in stdout,
               "sealer prints aggregate counts")
+
+        # Failed age: planted stderr must not appear in sealer output.
+        fail_bin = tmp_path / "failbin"
+        fail_bin.mkdir()
+        fail_age = fail_bin / "age"
+        fail_age.write_text(
+            "#!/bin/sh\n"
+            "echo 'age diagnostic: data/runtime-secret.json sk-leaked-secret-value' >&2\n"
+            "exit 7\n",
+            encoding="utf-8",
+        )
+        fail_age.chmod(0o755)
+        fail_env = dict(os.environ)
+        fail_env["PATH"] = str(fail_bin) + os.pathsep + fail_env.get("PATH", "")
+        fail_out = tmp_path / "fail.tar.age"
+        fail_proc = subprocess.run(
+            [sys.executable, str(ROOT / "scripts" / "seal_vps_git_recon.py"),
+             "--recipient-file", str(recip), "--out", str(fail_out)],
+            cwd=tmp_path,
+            env=fail_env,
+            input=data,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            check=False,
+        )
+        fail_err = fail_proc.stderr.decode("utf-8", errors="replace")
+        fail_out_text = fail_proc.stdout.decode("utf-8", errors="replace")
+        check(fail_proc.returncode != 0, "sealer exits non-zero when age fails")
+        check("seal_vps_git_recon: age failed" in fail_err,
+              "failed age prints the fixed error message")
+        leaked_fail = [n for n in (*PLANTED_PATHS, *PLANTED_SECRETS,
+                                   "age diagnostic", "exit 7")
+                       if n in fail_err or n in fail_out_text]
+        check(not leaked_fail, "failed age does not leak age stderr %s" % leaked_fail)
+        check(not fail_out.exists(), "failed age does not leave a ciphertext file")
 
         # Real age, when present (local / recon workflow). Same no-path contract.
         if __import__("shutil").which("age"):

@@ -26,6 +26,12 @@ recipient `ops/recon-age.pub`. The artifact is **only**
 `recon-report.tar.age`. Decrypt locally with the matching age identity
 (private key is not in git).
 
+Failure paths stay public-safe: the runner `trap`s `rm -f ~/.ssh/vps_key`
+on `EXIT` so the key file is gone even when the step fails; `ssh` runs
+`-q -o BatchMode=yes` with stderr discarded and a fixed `ssh failed`
+line on error; `age` failures print a fixed message and never echo
+age's own diagnostics.
+
 It uses the same `VPS_HOST` / `VPS_SSH_KEY` secrets as `deploy-vps.yml`,
 SSHs as root, and runs `scripts/vps_git_recon_readonly.sh` **piped from the
 runner**. The script on the VPS copy of `main` is never required.
