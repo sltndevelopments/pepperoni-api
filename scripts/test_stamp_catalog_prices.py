@@ -32,6 +32,10 @@ def main() -> int:
           "KD-053 (bakery) stamps as pricePerUnit")
     check(prices.get("KD-050", {}).get("field") == "pricePerUnit",
           "KD-050 (bakery) stamps as pricePerUnit")
+    check(prices.get("KD-009", {}).get("per_piece") == 92.0,
+          "KD-009 catalog has pricePerPiece 92")
+    check(prices.get("KD-010", {}).get("per_piece") == 138.0,
+          "KD-010 catalog has pricePerPiece 138")
 
     pack_amt = "650" + ",00 " + "\u20bd"
     pack_row = (
@@ -50,6 +54,22 @@ def main() -> int:
     stamped = stamp_text(f"<table>{piece_row}</table>", prices, "blog/chak-chak.html")
     check('data-price-field="pricePerUnit"' in stamped,
           "bakery row tagged pricePerUnit")
+
+    per_row = (
+        "<table><thead><tr><th>SKU</th><th>Формат</th><th>Пачка</th>"
+        "<th>Цена EXW</th><th>За шт</th><th>Короб</th></tr></thead><tbody>"
+        "<tr><td><a href=\"/products/kd-009\">KD-009</a></td>"
+        "<td>100 г × 3</td><td>0,3 кг</td><td>276 ₽</td>"
+        "<td>276,00 ₽</td><td>7,2 кг</td></tr></tbody></table>"
+    )
+    stamped = stamp_text(per_row, prices, "blog/kotlety-dlya-burgerov-optom.html")
+    check('data-price-field="pricePerPiece"' in stamped,
+          "За шт column tagged pricePerPiece")
+    p009 = prices["KD-009"]["per_piece"]
+    from stamp_catalog_prices import ru_money
+    check(f"{ru_money(p009)} \u20bd" in stamped, "За шт column uses pricePerPiece")
+    pack = str(int(prices["KD-009"]["piece"]))
+    check(stamped.count(pack + " \u20bd") == 1, "pack EXW column stays the pack price")
 
     # Rebuild live blog pages from products.json, then the price gate must pass.
     import stamp_catalog_prices as stamper

@@ -196,6 +196,7 @@ def source_files() -> list[Path]:
             "test_no_hardcoded_prices.py",
             "test_no_hardcoded_prices_mutation.py",
             "test_stamp_catalog_prices.py",
+            "test_blog_price_per_piece.py",
         }:
             continue
         seen.add(resolved)
