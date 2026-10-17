@@ -364,7 +364,7 @@ def render(c: dict, lang: str, gen: dict) -> str:
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>{gen['title']}</title>
 <meta name="description" content="{gen['meta_description']}">
-<meta name="robots" content="{"noindex, follow" if lang == "ru" and c["slug"] == "bahrain" else "index, follow"}">
+<meta name="robots" content="{"noindex, follow" if lang == "ru" and c["slug"] in {"bahrain", "kuwait"} else "index, follow"}">
 <link rel="canonical" href="{url}">
 <link rel="icon" href="/favicon.ico" sizes="any">
 {hreflang_block(c['slug'], c['langs'], c['iso'])}

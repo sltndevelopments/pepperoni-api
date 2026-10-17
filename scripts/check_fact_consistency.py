@@ -226,8 +226,16 @@ def check_products_self(by_sku: dict[str, dict]) -> list[str]:
                 f"{sku} {row.get('name')} shelfLife is {row.get('shelfLife')!r}, "
                 "owner/Sheet column G is 90 суток"
             )
-        # SEO description cells may still say 60 for chak-chak; the named
-        # shelf-life column is SoT and must not fail this check.
+        for key in ("seoDescriptionRU", "seoDescriptionEN"):
+            text = str(row.get(key) or "")
+            for match in re.finditer(
+                r"(\d+)\s*(?:суток|сут\.?|days?)\b", text, re.I
+            ):
+                got = int(match.group(1))
+                if got != want:
+                    issues.append(
+                        f"{sku} {key} shelf-life {got} != catalog {want}"
+                    )
         offers = row.get("offers") or {}
         currency = offers.get("priceCurrency")
         if currency and currency != "RUB":
@@ -578,10 +586,28 @@ UNAVAILABLE_EXPORT = [
      "Azerbaijan framed as unavailable (use «available for supply»)"),
     (re.compile(r"Uzbekistan[^.\n]{0,80}not shipments"),
      "Uzbekistan framed as unavailable (use «available for supply»)"),
-    (re.compile(r"не можем постав"),
-     "export copy says we cannot supply"),
-    (re.compile(r"cannot supply", re.I),
-     "export copy says we cannot supply"),
+    (re.compile(
+        r"(?:Узбекистан|Азербайджан|Армени\w*|Таджикистан|Грузи\w*|Цербер|Cerberus)"
+        r"[^.\n]{0,140}не можем постав"
+    ),
+     "UZ/AZ/Cerberus framed as cannot-supply"),
+    (re.compile(
+        r"не можем постав[^.\n]{0,140}"
+        r"(?:Узбекистан|Азербайджан|Армени\w*|Таджикистан|Грузи\w*|Цербер|Cerberus)"
+    ),
+     "UZ/AZ/Cerberus framed as cannot-supply"),
+    (re.compile(
+        r"(?:Uzbekistan|Azerbaijan|Armenia|Tajikistan|Georgia|Cerberus)"
+        r"[^.\n]{0,140}cannot supply",
+        re.I,
+    ),
+     "UZ/AZ/Cerberus framed as cannot-supply"),
+    (re.compile(
+        r"cannot supply[^.\n]{0,140}"
+        r"(?:Uzbekistan|Azerbaijan|Armenia|Tajikistan|Georgia|Cerberus)",
+        re.I,
+    ),
+     "UZ/AZ/Cerberus framed as cannot-supply"),
 ]
 LOCALE_SKIP = re.compile(r"^(hy|tg|ka|kk|ky|uz|az|zh|ar|he)/")
 FACT_SKIP_NAMES = {

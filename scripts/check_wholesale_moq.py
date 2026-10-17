@@ -34,6 +34,12 @@ FIGURE = re.compile(
     re.I,
 )
 ALLOW = re.compile(r"паллет|pallet|тонн|tonnes?|\btons?\b", re.I)
+# Pack/net weight next to нарезка / упаковка / фасовка / вес / батон is not MOQ.
+PACK_WEIGHT = re.compile(
+    r"(?:нарезк\w*|упаковк\w*|фасовк\w*|вес(?:ом)?|батон|net\s+weight|pack(?:age)?)"
+    r"\s*(?:—|-|:)?\s*\d[\d\s,.]*\s*(?:кг|kg)",
+    re.I,
+)
 
 SCAN = [
     ("public", ("*.html", "*.txt", "*.md")),
@@ -46,6 +52,7 @@ SKIP_NAMES = {"check_wholesale_moq.py", "check_stm_min_run.py", "fix_moq_100kg.p
 
 
 def sentences(text: str):
+    text = re.sub(r"</(?:li|p|tr|h[1-6]|div)>|<br\s*/?>", "\n", text, flags=re.I)
     text = re.sub(r"<[^>]+>", " ", text)
     for s in re.split(r"(?<=[.!?…])\s+|\n+|\||[{}\[\]]", text):
         if s.strip():
@@ -61,7 +68,8 @@ def scan(path: Path) -> list[str]:
     for sent in sentences(text):
         if not CTX.search(sent):
             continue
-        m = FIGURE.search(sent)
+        stripped = PACK_WEIGHT.sub(" ", sent)
+        m = FIGURE.search(stripped)
         if not m:
             continue
         # «одна паллета» / «pallet MOQ» anywhere in the sentence means the

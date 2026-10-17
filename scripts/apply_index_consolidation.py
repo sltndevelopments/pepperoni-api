@@ -241,8 +241,10 @@ def topic_target(path: str, lang: str) -> str | None:
         return f"{prefix}/kazylyk"
     if any(x in slug for x in ("vetchina", "halal-ham", "ham-wholesale")):
         return f"{prefix}/vetchina-optom"
-    if "kurica-halyal" in slug:
+    if "kurica-halyal" in slug or "kuritsa-halyal" in slug:
         return f"{prefix}/products"
+    if "postavki-myasa" in slug or slug.endswith("restorany-horeca"):
+        return f"{prefix}/dlya-horeca"
     if "echpoch" in slug:
         return "/en/vyipechka-halyal" if en else "/blog/echpochmak"
     if "elesh" in slug:
