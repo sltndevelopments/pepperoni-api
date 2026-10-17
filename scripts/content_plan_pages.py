@@ -353,13 +353,17 @@ def product_offer_ld(p: dict, lang: str, offer_url: str) -> dict:
     except Exception:
         pass
     if price is not None:
-        node["offers"] = {
+        offer = {
             "@type": "Offer",
             "url": offer_url,
             "priceCurrency": offers.get("priceCurrency") or "RUB",
             "price": price,
-            "availability": offers.get("availability") or "https://schema.org/InStock",
         }
+        # Availability only from products.json — never invent InStock.
+        avail = str(offers.get("availability") or "").strip()
+        if avail:
+            offer["availability"] = avail
+        node["offers"] = offer
     return node
 
 

@@ -158,6 +158,58 @@ def main() -> int:
     gone = (ROOT / "deploy" / "nginx" / "trust-reset-gone.conf").read_text(encoding="utf-8")
     check("chakchak-optom" not in gone and "chakchak-wholesale-gifts" not in gone,
           "nginx 410 no longer covers chakchak blogs")
+
+    # (a) Every EN KD-018 list price carries a unit from products.json.
+    p018 = catalog["KD-018"]
+    unit_en = "RUB/pack" if (p018.get("offers") or {}).get("price") not in (None, "") else "RUB/"
+    bare_en = []
+    for path in (ROOT / "public" / "en").rglob("*.html"):
+        text = path.read_text(encoding="utf-8")
+        for m in re.finditer(r"245\.00 RUB(?!/)", text):
+            bare_en.append(str(path.relative_to(ROOT / "public")))
+    check(not bare_en, f"EN KD-018 prices have a unit ({unit_en}); bare: {bare_en}")
+    check("245.00 RUB/pack" in html_of("en/sosiska-v-teste.html"),
+          "EN /sosiska-v-teste KD-018 price is RUB/pack")
+
+    # (b) EXW / availability / 884A on the four landings each have a source field.
+    basis_ru = str(FACTS["terms"]["basis"])
+    basis_en = "EXW Kazan"
+    cert_num = FACTS["certificates"]["halal_bakery"]["number"]
+    ev_cert = bakery_halal_line("ru")
+    ev_cert_en = bakery_halal_line("en")
+    pages = (
+        ("chak-chak-optom.html", ru, "ru"),
+        ("en/chak-chak-optom.html", en, "en"),
+        ("halyal-vypechka-optom-dlya-pekaren.html", art_ru, "ru"),
+        ("en/halyal-vypechka-optom-dlya-pekaren.html", art_en, "en"),
+    )
+    for rel, page, lang in pages:
+        basis = basis_en if lang == "en" else basis_ru
+        cert = ev_cert_en if lang == "en" else ev_cert
+        check(basis in page, f"{rel} EXW from site_facts.terms.basis")
+        check(cert_num in page and (cert.split("—")[0].strip() in page or cert_num in page),
+              f"{rel} 884A from evidence_registry.halal_dum_rt_884a_2025 / site_facts.certificates.halal_bakery")
+        for blob in re.findall(r'<script type="application/ld\+json">(.*?)</script>', page, re.S):
+            try:
+                node = json.loads(blob)
+            except json.JSONDecodeError:
+                continue
+            nodes = node if isinstance(node, list) else [node]
+            for item in nodes:
+                offer = item.get("offers") if isinstance(item, dict) else None
+                if not isinstance(offer, dict):
+                    continue
+                sku = item.get("sku")
+                if not sku:
+                    continue
+                catalog_avail = str((catalog.get(sku, {}).get("offers") or {}).get("availability") or "").strip()
+                page_avail = str(offer.get("availability") or "").strip()
+                if catalog_avail:
+                    check(page_avail == catalog_avail,
+                          f"{rel} {sku} Offer.availability from products.json offers.availability")
+                else:
+                    check("availability" not in offer,
+                          f"{rel} {sku} Offer omits availability (no catalog field)")
     return 1 if fail else 0
 
 
