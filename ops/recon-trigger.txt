@@ -1,1 +1,1 @@
-2026-10-17T05:00:00Z serialize recon behind deploy: concurrency vps-pepperoni + sleep 60
+2026-10-17T05:15:00Z wait for deploy via API; distinct concurrency groups

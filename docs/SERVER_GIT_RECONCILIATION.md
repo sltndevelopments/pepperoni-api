@@ -17,10 +17,13 @@ Workflow: `.github/workflows/vps-git-reconciliation.yml`. Triggers:
 - `push` to `main` filtered on `ops/recon-trigger.txt` (merge of that file
   runs the job; no `pull_request`, so PRs do not SSH to prod)
 
-Recon and `Deploy to VPS` share the workflow concurrency group
-`vps-pepperoni` with `cancel-in-progress: false`, so they queue instead
-of overlapping on the VPS. The recon job `sleep 60`s after it starts
-(and therefore after a just-finished deploy) before SSH.
+Deploy and recon use **distinct** concurrency groups (`deploy-vps` and
+`vps-recon`, both `cancel-in-progress: false`) so a queued recon cannot
+cancel a pending deploy. Before SSH, recon polls the Actions API until
+two consecutive checks find no Deploy to VPS run in queued / in_progress
+/ waiting / pending / requested (10 minute deadline; fixed error line
+only). If the clock minute is 0 or 9 modulo 10 it then sleeps 90 s to
+miss `sync-vps.sh`'s `*/10` window.
 
 The repo is **public**: Actions logs and artifacts are world-readable. The
 runner therefore never writes the plaintext tar. SSH stdout is piped into

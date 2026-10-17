@@ -5,9 +5,9 @@ on:
     branches: [main]
   workflow_dispatch:
 
-# Same group as VPS git reconciliation: one SSH writer/reader at a time.
+# Own group: recon must not be able to evict a pending deploy.
 concurrency:
-  group: vps-pepperoni
+  group: deploy-vps
   cancel-in-progress: false
 
 jobs:
