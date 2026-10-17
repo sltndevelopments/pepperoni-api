@@ -47,124 +47,164 @@ Allow: /ai.txt
 
 # ───────── Traditional search engines ─────────
 User-agent: Googlebot
+Disallow: /cases/
 Allow: /
 
 User-agent: Googlebot-Image
+Disallow: /cases/
 Allow: /
 
 User-agent: Googlebot-News
+Disallow: /cases/
 Allow: /
 
 User-agent: Bingbot
+Disallow: /cases/
 Allow: /
 
 User-agent: YandexBot
+Disallow: /cases/
 Allow: /
 
 User-agent: YandexImages
+Disallow: /cases/
 Allow: /
 
 User-agent: YandexMarket
+Disallow: /cases/
 Allow: /
 
 User-agent: YandexAdditional
+Disallow: /cases/
 Allow: /
 
 User-agent: Mail.Ru
+Disallow: /cases/
 Allow: /
 
 User-agent: DuckDuckBot
+Disallow: /cases/
 Allow: /
 
 User-agent: Baiduspider
+Disallow: /cases/
 Allow: /
 
 User-agent: Naverbot
+Disallow: /cases/
 Allow: /
 
 User-agent: Yeti
+Disallow: /cases/
 Allow: /
 
 User-agent: SeznamBot
+Disallow: /cases/
 Allow: /
 
 User-agent: Applebot
+Disallow: /cases/
 Allow: /
 
 # ───────── AI / LLM crawlers ─────────
 User-agent: GPTBot
+Disallow: /cases/
 Allow: /
 
 User-agent: ChatGPT-User
+Disallow: /cases/
 Allow: /
 
 User-agent: OAI-SearchBot
+Disallow: /cases/
 Allow: /
 
 User-agent: ClaudeBot
+Disallow: /cases/
 Allow: /
 
 User-agent: anthropic-ai
+Disallow: /cases/
 Allow: /
 
 User-agent: Claude-Web
+Disallow: /cases/
 Allow: /
 
 User-agent: PerplexityBot
+Disallow: /cases/
 Allow: /
 
 User-agent: Perplexity-User
+Disallow: /cases/
 Allow: /
 
 User-agent: Google-Extended
+Disallow: /cases/
 Allow: /
 
 User-agent: Applebot-Extended
+Disallow: /cases/
 Allow: /
 
 User-agent: DeepSeekBot
+Disallow: /cases/
 Allow: /
 
 User-agent: Grok
+Disallow: /cases/
 Allow: /
 
 User-agent: xAI
+Disallow: /cases/
 Allow: /
 
 User-agent: cohere-ai
+Disallow: /cases/
 Allow: /
 
 User-agent: Meta-ExternalAgent
+Disallow: /cases/
 Allow: /
 
 User-agent: Meta-ExternalFetcher
+Disallow: /cases/
 Allow: /
 
 User-agent: Bytespider
+Disallow: /cases/
 Allow: /
 
 User-agent: Amazonbot
+Disallow: /cases/
 Allow: /
 
 User-agent: Mistral
+Disallow: /cases/
 Allow: /
 
 User-agent: LeChatBot
+Disallow: /cases/
 Allow: /
 
 User-agent: YandexGPT
+Disallow: /cases/
 Allow: /
 
 User-agent: Alice
+Disallow: /cases/
 Allow: /
 
 User-agent: SberBot
+Disallow: /cases/
 Allow: /
 
 User-agent: Diffbot
+Disallow: /cases/
 Allow: /
 
 User-agent: CCBot
+Disallow: /cases/
 Allow: /
 
 # ───────── Sitemaps ─────────

@@ -222,6 +222,49 @@ def shell(lang: str, slug: str, title: str, desc: str, h1: str, body: str,
 </html>"""
 
 
+def _row_price_kind(p: dict) -> str:
+    offers = p.get("offers") or {}
+    if offers.get("pricePerUnit") not in (None, ""):
+        return "piece"
+    if offers.get("price") not in (None, ""):
+        return "pack"
+    if offers.get("pricePerBox") not in (None, ""):
+        return "box"
+    return "unknown"
+
+
+def sku_table_note(products: list[dict], lang: str) -> str:
+    """Price footnote matches the units actually shown in the table."""
+    kinds = {_row_price_kind(p) for p in products}
+    if lang == "ru":
+        if kinds == {"piece"}:
+            unit = "Для выпечки в каталоге указана цена за штуку. "
+        elif kinds == {"pack"}:
+            unit = "Цена указана за упаковку. "
+        elif "pack" in kinds and "piece" in kinds:
+            unit = "Мясные позиции — цена за упаковку; для выпечки в каталоге указана цена за штуку. "
+        else:
+            unit = ""
+        return (
+            "Цена — из products.json, EXW Казань, с НДС. "
+            + unit
+            + "Пустая ячейка значит, что сумму подтверждает отдел продаж."
+        )
+    if kinds == {"piece"}:
+        unit = "Bakery rows use per-piece price. "
+    elif kinds == {"pack"}:
+        unit = "Rows use per-pack price. "
+    elif "pack" in kinds and "piece" in kinds:
+        unit = "Pack rows use per-pack price; bakery rows use per-piece price. "
+    else:
+        unit = ""
+    return (
+        "Price is from products.json, EXW Kazan, VAT included. "
+        + unit
+        + "A blank cell means sales confirms the amount."
+    )
+
+
 def sku_table(products: list[dict], lang: str) -> str:
     head = ("SKU", "Название", "Масса", "Хранение", "Срок", "Цена EXW") if lang == "ru" else (
         "SKU", "Name", "Weight", "Storage", "Shelf life", "EXW price")
@@ -235,13 +278,7 @@ def sku_table(products: list[dict], lang: str) -> str:
             f"<td>{catalog_units(p.get('shelfLife'), lang)}</td>"
             f"<td>{price_label(p, lang)}</td></tr>"
         )
-    note = (
-        "Цена — из products.json, EXW Казань, с НДС. Для выпечки в каталоге указана цена за штуку. "
-        "Пустая ячейка значит, что сумму подтверждает отдел продаж."
-        if lang == "ru" else
-        "Price is from products.json, EXW Kazan, VAT included. Bakery rows use per-piece price. "
-        "A blank cell means sales confirms the amount."
-    )
+    note = sku_table_note(products, lang)
     return (
         "<table><thead><tr>" + "".join(f"<th>{h}</th>" for h in head)
         + "</tr></thead><tbody>" + "".join(rows) + "</tbody></table><p>" + note + "</p>"
