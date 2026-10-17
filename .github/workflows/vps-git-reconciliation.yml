@@ -47,8 +47,11 @@ jobs:
             | python3 scripts/seal_vps_git_recon.py \
                 --recipient-file ops/recon-age.pub \
                 --out recon-report.tar.age
-          ssh_rc=${PIPESTATUS[0]}
-          seal_rc=${PIPESTATUS[1]}
+          # Snapshot the whole array first. Reading PIPESTATUS[0] then [1]
+          # resets it; under set -u the second read is an unbound variable.
+          rcs=("${PIPESTATUS[@]}")
+          ssh_rc=${rcs[0]}
+          seal_rc=${rcs[1]}
           set -e
           if [ "$ssh_rc" -ne 0 ]; then
             echo "vps-git-reconciliation: ssh failed" >&2

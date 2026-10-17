@@ -153,6 +153,13 @@ def main() -> int:
     check("2>/dev/null" in wf, "ssh stderr is discarded (no public-log passthrough)")
     check("vps-git-reconciliation: ssh failed" in wf,
           "ssh failure prints only a fixed message")
+    check('rcs=("${PIPESTATUS[@]}")' in wf,
+          "workflow snapshots PIPESTATUS in one assignment")
+    check("${rcs[0]}" in wf and "${rcs[1]}" in wf,
+          "workflow reads ssh/seal rc from the PIPESTATUS snapshot")
+    check("ssh_rc=${PIPESTATUS[0]}" not in wf and "seal_rc=${PIPESTATUS[1]}" not in wf,
+          "workflow does not read PIPESTATUS[0] then [1]")
+    _check_pipestatus_snapshot()
     check("age failed: %s" not in sealer,
           "sealer does not interpolate age stderr into the exit message")
     check('raise SystemExit("seal_vps_git_recon: age failed")' in sealer,
@@ -267,6 +274,60 @@ def main() -> int:
 
     _check_counts_and_seal()
     return 1 if fail else 0
+
+
+def _check_pipestatus_snapshot() -> None:
+    """Exercise the workflow's PIPESTATUS snapshot under bash set -u."""
+    success = r"""
+set -euo pipefail
+set +e
+true | true
+rcs=("${PIPESTATUS[@]}")
+ssh_rc=${rcs[0]}
+seal_rc=${rcs[1]}
+set -e
+if [ "$ssh_rc" -ne 0 ]; then
+  echo "vps-git-reconciliation: ssh failed" >&2
+  exit 1
+fi
+if [ "$seal_rc" -ne 0 ]; then
+  echo "vps-git-reconciliation: seal failed" >&2
+  exit 1
+fi
+printf 'OK ssh_rc=%s seal_rc=%s\n' "$ssh_rc" "$seal_rc"
+"""
+    proc = subprocess.run(
+        ["bash", "-c", success],
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        check=False,
+        text=True,
+    )
+    check(proc.returncode == 0, "PIPESTATUS snapshot success path exits 0 under set -u")
+    check("OK ssh_rc=0 seal_rc=0" in proc.stdout,
+          "PIPESTATUS snapshot success path reads both rcs")
+    check("unbound variable" not in (proc.stderr or ""),
+          "PIPESTATUS snapshot success path has no unbound-variable error")
+
+    broken = r"""
+set -euo pipefail
+set +e
+true | true
+ssh_rc=${PIPESTATUS[0]}
+seal_rc=${PIPESTATUS[1]}
+printf 'reached ssh_rc=%s seal_rc=%s\n' "$ssh_rc" "$seal_rc"
+"""
+    broken_proc = subprocess.run(
+        ["bash", "-c", broken],
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        check=False,
+        text=True,
+    )
+    check(broken_proc.returncode != 0,
+          "naive PIPESTATUS[0] then [1] fails under set -u")
+    check("unbound variable" in (broken_proc.stderr or ""),
+          "naive PIPESTATUS[1] is the unbound-variable failure")
 
 
 def _check_counts_and_seal() -> None:
