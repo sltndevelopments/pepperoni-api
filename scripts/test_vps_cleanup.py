@@ -12,6 +12,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 SCRIPT = ROOT / "scripts" / "vps_cleanup.sh"
+RESOLVE = ROOT / "scripts" / "vps_cleanup_resolve_mode.sh"
 WORKFLOW = ROOT / ".github" / "workflows" / "vps-cleanup.yml"
 DEPLOY = ROOT / ".github" / "workflows" / "deploy-vps.yml"
 RECON = ROOT / ".github" / "workflows" / "vps-git-reconciliation.yml"
@@ -32,6 +33,18 @@ def _names_in_find(text: str) -> list[str]:
     return re.findall(r"""-name\s+['"]([^'"]+)['"]""", text)
 
 
+def _resolve(status_lines: str) -> str:
+    proc = subprocess.run(
+        ["bash", str(RESOLVE)],
+        input=status_lines,
+        text=True,
+        capture_output=True,
+        cwd=str(ROOT),
+    )
+    check(proc.returncode == 0, f"resolver exits 0 for {status_lines!r}")
+    return proc.stdout.strip()
+
+
 def main() -> int:
     script = SCRIPT.read_text(encoding="utf-8")
     wf = WORKFLOW.read_text(encoding="utf-8")
@@ -39,32 +52,44 @@ def main() -> int:
     recon = RECON.read_text(encoding="utf-8")
 
     check("set -euo pipefail" in script, "script uses set -euo pipefail")
+    check("umask 077" in script, "umask 077 at the top")
     check('MODE="${MODE:-${1:-dry-run}}"' in script, "default mode is dry-run")
     check("/var/www/pepperoni/repo/data/sync.lock" in script,
-          "flocks the requested lock path")
+          "uses the requested lock path")
+    check('exec 9<"$LOCK_FILE"' in script, "opens the lock read-only")
+    check("lock missing" in script, "missing lock prints lock missing")
     check("flock -w 900" in script, "flock waits 900 s")
     check("backup failed, no changes" in script, "backup failure uses the fixed line")
+    check("chmod 700 \"$BACKUP_DIR\"" in script, "backup dir chmod 700")
+    check(".tmp" in script and "mv \"" in script, "backup writes .tmp then mv")
+    check("if ! do_backup" not in script, "do_backup is not under if !")
+    check("backup_rc=$?" in script, "captures do_backup rc")
+    check("grep -RIlF" in script or "grep -IlF" in script,
+          "item 6 uses grep -IlF text-only")
+    check("grep -rlFZ" not in script, "item 6 no longer uses grep -rlFZ")
+    check("apply_delete_manifest" in script, "apply deletes from the frozen manifest")
+    check("find \"$REPO/data/tmp\" -depth -type d -empty -delete" in script,
+          "empty tmp dirs deleted after manifest rm")
 
     apply_guard = script.find('if [[ "$MODE" != "apply" ]]')
-    backup_call = script.find("if ! do_backup")
+    backup_call = script.find("\ndo_backup\n")
     check(apply_guard != -1 and backup_call != -1 and apply_guard < backup_call,
           "dry-run exits before backup")
     dry_chunk = script[apply_guard:backup_call]
     check("exit 0" in dry_chunk, "dry-run path exits 0")
-    check("apply_1" not in dry_chunk, "dry-run chunk does not call apply")
+    check("mkdir" not in dry_chunk, "dry-run chunk has no mkdir")
+    check("apply_installs" not in dry_chunk, "dry-run chunk does not call apply")
     check("rm -f" not in dry_chunk and "sed -i" not in dry_chunk,
           "dry-run chunk has no rm/sed")
 
-    apply_fn = script.find("apply_1()")
-    check(apply_fn != -1, "apply_1 function exists")
-    check(script.find("do_backup()") < apply_fn, "do_backup() is defined before apply_*")
-    check(backup_call < script.find("\napply_1\n"), "do_backup() runs before apply_1")
+    apply_fn = script.find("apply_installs()")
+    check(apply_fn != -1, "apply_installs function exists")
+    check(script.find("do_backup()") < apply_fn, "do_backup() is defined before apply")
     check(script.find("sed -i") > apply_fn, "sed -i is inside apply_*")
     check(script.find("install -m 600") > apply_fn, "install -m 600 is inside apply_*")
-    check(script.find("rm -f") > script.find("write_crontab_dumps"),
-          "rm -f is only in backup dumps or apply_*")
     check(script.find("tar czf") > script.find("do_backup()"),
           "tar czf is inside do_backup")
+    check("no crontab" in script, "crontab dumps tell no crontab from a read error")
 
     names = _names_in_find(script)
     check("agent.bak.*.db" in names, "item 4 names agent.bak.*.db")
@@ -104,6 +129,13 @@ def main() -> int:
     check("sleep 15" in wf and "+ 180" in wf, "minute guard cap 3 min")
     check(wf.find("status=in_progress") < wf.find("ssh -q"),
           "deploy skip precedes SSH")
+    check("--name-status" in wf, "resolve mode uses git diff --name-status")
+    check("vps_cleanup_resolve_mode.sh" in wf, "workflow calls the mode resolver")
+    check("mode=none" in wf or "mode == 'dry-run'" in wf,
+          "SSH runs only for dry-run or apply")
+    check("steps.mode.outputs.mode == 'dry-run'" in wf and
+          "steps.mode.outputs.mode == 'apply'" in wf,
+          "SSH step requires an explicit dry-run or apply mode")
     check((ROOT / "ops/cleanup-dryrun-trigger.txt").is_file(), "dry-run trigger file exists")
     check((ROOT / "ops/cleanup-apply-trigger.txt").is_file(), "apply trigger file exists")
     ignore = (ROOT / ".gitignore").read_text(encoding="utf-8")
@@ -113,6 +145,26 @@ def main() -> int:
     check("/var/www/pepperoni/repo/infra/scripts/parse-ai-bots.py" in readme,
           "README uses the live repo path")
     check("/opt/pepperoni-api/" not in readme, "README has no old prefix")
+
+    check(_resolve("A\tops/cleanup-dryrun-trigger.txt\n") == "none",
+          "added dry-run trigger is none")
+    check(_resolve("A\tops/cleanup-apply-trigger.txt\n") == "none",
+          "added apply trigger is none")
+    check(
+        _resolve(
+            "A\tops/cleanup-dryrun-trigger.txt\nA\tops/cleanup-apply-trigger.txt\n"
+        ) == "none",
+        "merge adding both triggers is none",
+    )
+    check(_resolve("M\tops/cleanup-dryrun-trigger.txt\n") == "dry-run",
+          "modified dry-run trigger is dry-run")
+    check(_resolve("M\tops/cleanup-apply-trigger.txt\n") == "apply",
+          "modified apply trigger is apply")
+    check(_resolve("M\tops/cleanup-apply-trigger.txt\nM\tREADME.md\n") == "apply",
+          "modified apply trigger plus other files is apply")
+    check(_resolve("M\tops/cleanup-dryrun-trigger.txt\nM\tops/cleanup-apply-trigger.txt\n")
+          == "dry-run",
+          "both triggers modified prefers dry-run")
 
     check("test_vps_cleanup.py" in {p.name for p in (ROOT / "scripts").glob("test_*.py")},
           "test file is auto-discovered")
@@ -150,7 +202,7 @@ def _fixture() -> None:
         lock = base / "sync.lock"
         for d in (
             repo / "scripts",
-            repo / "data" / "tmp",
+            repo / "data" / "tmp" / "nested",
             repo / "data" / "quarantine",
             repo / "data" / "logs",
             repo / "sales-agent" / "data",
@@ -164,8 +216,10 @@ def _fixture() -> None:
             root_cfg,
         ):
             d.mkdir(parents=True, exist_ok=True)
+        lock.write_bytes(b"")
         (repo / "scripts" / "_wtest").write_bytes(b"")
         (repo / "data" / "tmp" / "stale").write_text("x", encoding="utf-8")
+        (repo / "data" / "tmp" / "link").symlink_to(repo / "data" / "tmp" / "stale")
         (repo / "data" / "quarantine_baseline.json").write_text("{}", encoding="utf-8")
         old_q = repo / "data" / "quarantine" / "old.html"
         old_q.write_text("q", encoding="utf-8")
@@ -208,13 +262,22 @@ def _fixture() -> None:
             "AI_BOTS_CRON": str(cron_d / "pepperoni-ai-bots"),
             "LOG_CRON": str(cron_d / "pepperoni-log-retention"),
         }
+
+        missing = dict(env)
+        missing["LOCK_FILE"] = str(base / "no-such-lock")
+        miss = _run(missing)
+        check(miss.returncode != 0, "missing lock exits nonzero")
+        check("lock missing" in miss.stderr, "missing lock prints lock missing")
+
         dry = _run(env)
         check(dry.returncode == 0, f"fixture dry-run exits 0 ({dry.stderr.strip()})")
         out = dry.stdout
         check("backup would include" in out, "dry-run reports backup would include")
         check(keep_db.read_text(encoding="utf-8") == "live", "dry-run leaves agent.db")
         check(mcp.is_file(), "dry-run does not move the env file")
-        check(not list(backups.glob("cleanup-*.tar.gz")), "dry-run writes no backup")
+        check(not backups.exists() or not list(backups.glob("cleanup-*.tar.gz")),
+              "dry-run writes no backup")
+        check(not backups.exists(), "dry-run does not mkdir the backup dir")
         check("/opt/pepperoni-api/" in (cron_d / "pepperoni-ai-bots").read_text(encoding="utf-8"),
               "dry-run does not rewrite cron")
         for line in out.splitlines():
@@ -229,8 +292,8 @@ def _fixture() -> None:
         check("backup:" in applied.stdout and "bytes" in applied.stdout,
               "apply prints backup size")
         check(not (repo / "scripts" / "_wtest").exists(), "apply removes empty _wtest")
-        check(not (repo / "data" / "tmp" / "stale").exists(), "apply empties tmp")
-        check((repo / "data" / "tmp").is_dir(), "apply keeps tmp dir")
+        check(not (repo / "data" / "tmp" / "stale").exists(), "apply empties tmp files")
+        check(not (repo / "data" / "tmp" / "link").exists(), "apply removes tmp symlink")
         check(not old_q.exists(), "apply deletes old quarantine file")
         check((repo / "data" / "quarantine" / "fresh.html").is_file(),
               "apply keeps recent quarantine file")
@@ -251,6 +314,7 @@ def _fixture() -> None:
         check(len(tars) == 1, "apply wrote one backup archive")
         if tars:
             check(oct(tars[0].stat().st_mode & 0o777) == "0o600", "backup is mode 600")
+            check(not tars[0].name.endswith(".tmp"), "backup is not left as .tmp")
 
         env["MODE"] = "dry-run"
         after = _run(env)

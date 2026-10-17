@@ -43,23 +43,16 @@ jobs:
             echo "mode=${{ github.event.inputs.mode || 'dry-run' }}" >> "$GITHUB_OUTPUT"
             exit 0
           fi
-          mode=dry-run
           before="${{ github.event.before }}"
           if [ -n "$before" ] && [ "$before" != "0000000000000000000000000000000000000000" ]; then
-            mapfile -t names < <(git diff --name-only "$before" "${{ github.sha }}")
+            mode=$(git diff --name-status "$before" "${{ github.sha }}" | bash scripts/vps_cleanup_resolve_mode.sh)
           else
-            mapfile -t names < <(git diff --name-only "${{ github.sha }}^" "${{ github.sha }}")
-          fi
-          apply=0
-          dry=0
-          for n in "${names[@]}"; do
-            [ "$n" = "ops/cleanup-apply-trigger.txt" ] && apply=1
-            [ "$n" = "ops/cleanup-dryrun-trigger.txt" ] && dry=1
-          done
-          if [ "$apply" -eq 1 ] && [ "$dry" -eq 0 ]; then
-            mode=apply
+            mode=$(git diff --name-status "${{ github.sha }}^" "${{ github.sha }}" | bash scripts/vps_cleanup_resolve_mode.sh)
           fi
           echo "mode=$mode" >> "$GITHUB_OUTPUT"
+          if [ "$mode" = "none" ]; then
+            echo "vps-cleanup: skip, mode=none"
+          fi
 
       - name: Skip if Deploy to VPS is in_progress
         id: gate
@@ -78,7 +71,7 @@ jobs:
           fi
 
       - name: Cleanup over SSH
-        if: steps.gate.outputs.skip != '1'
+        if: steps.gate.outputs.skip != '1' && (steps.mode.outputs.mode == 'dry-run' || steps.mode.outputs.mode == 'apply')
         env:
           VPS_HOST: ${{ secrets.VPS_HOST }}
           VPS_SSH_KEY: ${{ secrets.VPS_SSH_KEY }}
