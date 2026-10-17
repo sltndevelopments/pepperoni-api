@@ -19,6 +19,7 @@ from landing_chrome import (  # noqa: E402
     is_lcp_render_slug,
     stylesheet_link,
     topbar_html,
+    ym_queue_stub,
 )
 from metrika_snippet import ensure_metrika_html  # noqa: E402
 from organization_ld import SCRIPT  # noqa: E402
@@ -858,7 +859,7 @@ def _hub_chrome(slug: str, page_css: str, ld_html: str) -> dict[str, str]:
         return {
             "gtm_head": "",
             "ld_head": "",
-            "css_head": f"  {fonts}\n  {sheet}",
+            "css_head": f"  {ym_queue_stub()}\n  {fonts}\n  {sheet}",
             "rest_css": f'<style id="kd-page-rest">{page_css}</style>',
             "ld_tail": ld_html,
             "analytics": delayed_analytics(),

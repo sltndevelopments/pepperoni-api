@@ -198,12 +198,24 @@ def main() -> int:
         check("font-display:swap" in html.replace(" ", ""),
               f"{rel} fonts use font-display:swap")
         check('id="kd-hero-critical"' in head, f"{rel} inlines hero critical CSS")
+        crit = ""
+        m = re.search(r'<style id="kd-hero-critical">(.*?)</style>', head, re.I | re.S)
+        if m:
+            crit = m.group(1).replace(" ", "")
+        check(".kd-topnav{" in crit and ".kd-navwrap{display:none}" in crit,
+              f"{rel} critical CSS styles the topbar/nav")
+        check(".kd-btn--primary{" in crit and "@media(max-width:900px)" in crit,
+              f"{rel} critical CSS hides the hamburger until the sheet loads")
         check("animation:none" in html.replace(" ", ""),
               f"{rel} hero text has no opacity/transform animation")
         check("gtm.js" not in head.lower() and "GTM-W2Q5S8HF" not in head,
               f"{rel} has no GTM in <head>")
         check("googletagmanager.com" not in head and "mc.yandex.ru" not in head,
               f"{rel} does not preconnect third-party analytics")
+        check("window.ym=window.ym||function(){(ym.a=ym.a||[]).push(arguments)}"
+              in head.replace(" ", ""),
+              f"{rel} creates the ym queue stub in <head>")
+        check("metrika/tag.js" not in head, f"{rel} does not load tag.js from <head>")
         check("application/ld+json" not in head, f"{rel} keeps JSON-LD out of <head>")
         body = html.split("</head>", 1)[1] if "</head>" in html else ""
         body_no_js = re.sub(

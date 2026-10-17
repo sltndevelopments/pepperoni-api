@@ -7,10 +7,13 @@ Usage: python3 scripts/gen-index.py
 
 from datetime import datetime
 import json
+import sys
 from pathlib import Path
 
 ROOT = Path(__file__).parent.parent
 PUBLIC = ROOT / "public"
+sys.path.insert(0, str(ROOT / "scripts"))
+from landing_chrome import ym_queue_stub  # noqa: E402
 
 YEAR = datetime.now().year
 SKU_COUNT = len(json.loads((PUBLIC / "products.json").read_text(
@@ -230,6 +233,7 @@ select.dl-select{{padding:6px 10px;border-radius:6px;border:1px solid #ddd;font-
 .seg-card__desc{{font-size:.82rem;color:var(--muted);line-height:1.5;flex:1}}.seg-card__case{{margin-top:12px;font-size:.78rem;color:var(--green);font-weight:600}}
 .seg-card__arrow{{margin-left:4px}}
 </style>
+{ym_queue_stub()}
 </head>
 <body>
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W2Q5S8HF" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
@@ -917,6 +921,7 @@ select.dl-select{{padding:6px 10px;border-radius:6px;border:1px solid #ddd;font-
 .footer__bottom{{border-top:1px solid #333;padding-top:14px;text-align:center;font-size:.78rem;color:#999}}
 @media(max-width:600px){{.hero{{padding:40px 0 32px}}.usps{{padding:32px 0 0}}.nav__links{{gap:10px;font-size:.82rem}}.certs__inner{{gap:16px}}}}
 </style>
+{ym_queue_stub()}
 </head>
 <body>
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W2Q5S8HF" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>

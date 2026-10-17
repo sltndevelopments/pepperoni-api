@@ -143,10 +143,19 @@ def product_price(sku_row: dict | None):
         return None
 
 
+def manifest_keep_count() -> int:
+    data = json.loads(MANIFEST.read_text(encoding="utf-8"))
+    counts = data.get("counts") or {}
+    if "keep" in counts:
+        return int(counts["keep"])
+    return sum(1 for row in data.get("entries", []) if row.get("status") == "keep")
+
+
 def main() -> int:
     products = catalog()
     targets = keep_targets()
-    check(len(targets) == 250, f"validates every keep page ({len(targets)})")
+    want = manifest_keep_count()
+    check(len(targets) == want, f"validates every keep page ({len(targets)}/{want})")
     check(any(row["is_product"] for row in targets), "validates product cards")
     check(any(row.get("kind") == "hub" for row in targets), "validates landing hubs")
     check(any(row.get("kind") == "guide" for row in targets), "validates guides")

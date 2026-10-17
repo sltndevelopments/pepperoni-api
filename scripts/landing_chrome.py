@@ -38,13 +38,41 @@ HERO_CRITICAL_CSS = (
     "body.kd-landing .hero,body.kd-landing .hero__copy,body.kd-landing .hero h1,"
     "body.kd-landing h1,body.kd-landing .hero-subtitle,body.kd-landing .hero__sub{"
     "opacity:1;transform:none;animation:none;transition:none}"
-    ".kd-topbar{min-height:56px}"
+    ".kd-topbar{position:sticky;top:0;z-index:50;min-height:56px;"
+    "background:#fbfbfd;border-bottom:1px solid #e6e4df}"
     ".kd-topbar__in{display:flex;align-items:center;gap:12px;max-width:1120px;"
-    "margin:0 auto;padding:10px 24px}"
-    ".kd-brand{font-weight:800;color:#111614;text-decoration:none}"
+    "margin:0 auto;padding:10px 24px;min-height:58px}"
+    ".kd-brand{font-weight:800;color:#111614;text-decoration:none;white-space:nowrap}"
+    ".kd-brand span{color:#16723c}"
+    ".kd-navwrap{display:none}"
+    ".kd-topnav{display:flex;gap:16px;font-size:.88rem;flex-wrap:wrap}"
+    ".kd-topnav a{color:#5c6660;text-decoration:none}"
+    ".kd-topbar__spacer{flex:1}"
+    ".kd-topphone{font-weight:700;color:#111614;text-decoration:none;"
+    "white-space:nowrap;font-size:.92rem}"
+    ".kd-langs summary{list-style:none;cursor:pointer;font-size:.86rem;"
+    "padding:6px 10px;border:1px solid #e6e4df;border-radius:99px;"
+    "display:flex;align-items:center;background:#fff}"
+    ".kd-langs summary::-webkit-details-marker{display:none}"
+    ".kd-btn{display:inline-flex;align-items:center;padding:9px 15px;"
+    "border-radius:99px;font-weight:650;font-size:.88rem;text-decoration:none}"
+    ".kd-btn--primary{background:#111614;color:#fff}"
+    "@media(max-width:900px){.kd-topnav--wide{display:none}"
+    ".kd-navwrap{display:block}}"
+    "@media(max-width:560px){.kd-topphone{display:none}}"
     "body.kd-landing .badge{display:inline-block;background:#16723c;color:#fff;"
     "padding:4px 12px;border-radius:4px;font-size:.85rem;font-weight:600;"
     "margin:6px 4px 20px 0}"
+)
+
+# Tiny Metrika queue in <head>. tag.js still loads after `load` so early
+# reachGoal calls (micro_form_start, lead submit) push onto ym.a instead of
+# throwing. Do not load mc.yandex.ru from this snippet.
+YM_QUEUE_STUB = (
+    "<script>"
+    "window.ym=window.ym||function(){(ym.a=ym.a||[]).push(arguments)};"
+    "ym.l=+new Date;"
+    "</script>"
 )
 
 # Same contract as gen-index.py `/`: GTM/Metrika stay out of <head>, arm after
@@ -101,6 +129,11 @@ LANDINGS: list[tuple[str, str, str]] = [
 
 def is_lcp_render_slug(slug: str) -> bool:
     return slug in LCP_RENDER_SLUGS
+
+
+def ym_queue_stub() -> str:
+    """Head-only Metrika queue. Does not fetch tag.js."""
+    return YM_QUEUE_STUB
 
 
 def delayed_analytics() -> str:
