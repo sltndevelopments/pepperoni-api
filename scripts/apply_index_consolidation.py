@@ -212,7 +212,7 @@ def static_target(path: str, lang: str) -> tuple[str | None, bool]:
         "/en/export/yemen": "/en/export",
         "/ar/export/yemen": "/en/export",
         "/what-is-halal-pepperoni-v2": "/blog/what-is-halal-pepperoni",
-        "/what-is-echpochmak-v2": "/halyal-vypechka-optom-dlya-pekaren",
+        "/what-is-echpochmak-v2": "/blog/echpochmak",
     }
     if path in mappings:
         return mappings[path], True
@@ -236,10 +236,19 @@ def topic_target(path: str, lang: str) -> str | None:
     prefix = "/en" if en else ""
     if "kazylyk" in slug or "казылык" in slug:
         return "/en/blog/kazylyk-horse-meat-sausage" if en else "/blog/kazylyk"
+    # Horse sausage / kazylyk — never the bakery wholesale hub.
+    if "tatarskaya-kolbasa" in slug or "kolbasa-iz-koniny" in slug:
+        return f"{prefix}/kazylyk"
+    if any(x in slug for x in ("vetchina", "halal-ham", "ham-wholesale")):
+        return f"{prefix}/vetchina-optom"
+    if "kurica-halyal" in slug:
+        return f"{prefix}/products"
     if "echpoch" in slug:
-        return (
-            "/en/halyal-vypechka-optom-dlya-pekaren"
-            if en else "/halyal-vypechka-optom-dlya-pekaren")
+        return "/en/vyipechka-halyal" if en else "/blog/echpochmak"
+    if "elesh" in slug:
+        return "/en/vyipechka-halyal" if en else "/blog/elesh"
+    if "gubad" in slug:
+        return f"{prefix}/vyipechka-halyal"
     if any(x in slug for x in ("hotdog", "hot-dog", "sosis", "sausage")):
         return (
             "/en/blog/beef-hotdog-sausages-halal"
@@ -256,10 +265,8 @@ def topic_target(path: str, lang: str) -> str | None:
         return f"{prefix}/blog/halal-certification-russia"
     if "karmin" in slug or "carmine" in slug or "e120" in slug:
         return f"{prefix}/blog/karmin-e120-haram"
-    if any(x in slug for x in ("tatar", "vypech", "bakery", "gubad", "elesh")):
-        return (
-            "/en/halyal-vypechka-optom-dlya-pekaren"
-            if en else "/halyal-vypechka-optom-dlya-pekaren")
+    if any(x in slug for x in ("tatar", "vypech", "bakery")):
+        return f"{prefix}/vyipechka-halyal"
     if "pepperoni" in slug or "peperoni" in slug:
         if any(x in slug for x in ("slice", "narez", "diametr", "razmer", "spec")):
             return (

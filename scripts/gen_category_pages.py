@@ -8,6 +8,7 @@ Run: python scripts/gen_category_pages.py
 
 import json
 import sys
+from html import escape
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
@@ -19,9 +20,12 @@ from site_facts import (  # noqa: E402
     certs_category_en,
     certs_category_ru,
     meat_halal_number,
+    term,
 )
+from wholesale_nav import brand_title_suffix, wholesale_block  # noqa: E402
 
 PUBLIC = Path(__file__).parent.parent / "public"
+HERO_SLUGS = {"kotlety-dlya-burgerov", "kazylyk", "vetchina-optom"}
 PRODUCTS = json.loads((PUBLIC / "products.json").read_text())["products"]
 MANIFEST_PATH = Path(__file__).parent.parent / "data" / "index_manifest.json"
 
@@ -195,6 +199,56 @@ def _photo_block(products):
     )
 
 
+def _first_product_image(products):
+    for product in products:
+        for key in ("imageMain", "imagePack", "imageSlice"):
+            src = product.get(key)
+            if src:
+                return src, product
+    return "", None
+
+
+def _hero_block(cfg, h1, intro, products, wholesale_html, table_html):
+    src, product = _first_product_image(products)
+    sku = (product or {}).get("sku") or ""
+    alt = f"{(product or {}).get('name') or h1}"
+    img = ""
+    if src:
+        img = (
+            f'<div class="hero__media"><img src="{escape(src)}" alt="{escape(alt)}" '
+            f'width="800" height="533" fetchpriority="high" decoding="async">'
+            f'<span class="hero__tag">{escape(sku)}</span></div>'
+        )
+    return f"""<section class="hero" id="hero"><div class="hero__grid">
+  <div class="hero__copy">
+    <p class="eyebrow">Казанские Деликатесы · данные актуального каталога</p>
+    <h1>{h1}</h1>
+    <p class="hero__sub">{intro}</p>
+  </div>
+  {img}
+  <div class="hero__actions">
+    <div class="badges">
+      <span class="badge">Халяль ДУМ РТ</span>
+      <span class="badge badge-outline">ХАССП / ISO 22000</span>
+      <span class="badge badge-outline">Оптовые поставки</span>
+    </div>
+    <div class="btn-row">
+      <a class="cta" href="#zayavka">Получить КП</a>
+      <a class="cta cta-outline" href="https://wa.me/79872170202">WhatsApp</a>
+    </div>
+  </div>
+</div></section>
+<section class="section" id="optom">
+  {wholesale_html}
+  <div class="tbl">
+  {table_html}
+  </div>
+  <div class="btn-row">
+    <a class="cta" href="#zayavka">Получить КП</a>
+  </div>
+</section>"""
+
+
 def _lead_form(slug, label):
     return f"""<form class="lead-form" id="lead-{slug}" novalidate data-experiment-id="{slug}-ru" data-msg-sending="Отправляем…" data-msg-ok="Заявка принята. Отдел продаж ответит по указанному контакту." data-msg-err-phone="Укажите телефон или WhatsApp." data-msg-err-phone-invalid="Проверьте номер." data-msg-err-consent="Нужно согласие на обработку данных." data-msg-err-rate="Слишком много попыток. Позвоните нам." data-msg-err-generic="Не удалось отправить. Позвоните +7 987 217-02-02." data-msg-err-network="Нет сети. Позвоните +7 987 217-02-02.">
       <input type="hidden" name="category" value="{label}">
@@ -265,11 +319,12 @@ def _catalog_seo(cfg: dict, products: list) -> tuple[str, str, str, str] | None:
     skus = " / ".join(p.get("sku") or "" for p in products)
     if slug == "kazylyk":
         return (
-            "Казылык оптом — сыровяленая колбаса из конины | Казанские Деликатесы",
+            brand_title_suffix("Казылык оптом — сыровяленая колбаса из конины", "ru"),
             "Казылык оптом — сыровяленая колбаса из конины",
             (
-                f"Казылык — сыровяленая колбаса из конины, {n} SKU: {bits}. "
-                "Мясная основа: конина и конский жир. Халяль ДУМ РТ. EXW Казань."
+                f"Казылык оптом из конины, {n} SKU: {bits}. "
+                "Мясная основа: конина и конский жир. Халяль ДУМ РТ. EXW Казань. "
+                "Заявка — получить КП."
             ),
             (
                 f"Казылык — сыровяленая колбаса из конины. В категории {n} "
@@ -281,19 +336,18 @@ def _catalog_seo(cfg: dict, products: list) -> tuple[str, str, str, str] | None:
         )
     if slug == "kotlety-dlya-burgerov":
         return (
-            f"Котлеты для бургеров оптом — халяль {skus} | Казанские Деликатесы",
-            "Котлеты для бургеров оптом — халяль, заморозка –18 °C",
+            brand_title_suffix("Котлеты для бургеров оптом", "ru"),
+            f"Котлеты для бургеров оптом — халяль {skus}",
             (
                 f"Котлеты для бургеров и гамбургеров оптом: {bits}. "
                 "Состав в карточке — говядина и мякоть куриного окорока. "
-                "Халяль ДУМ РТ. EXW Казань."
+                "Халяль ДУМ РТ. EXW Казань. Заявка — получить КП."
             ),
             (
-                f"Котлеты для бургеров и гамбургеров: {n} замороженные позиции "
-                f"{skus}. Форматы, состав и заявка — также в "
+                f"Котлеты для бургеров оптом: {n} замороженные позиции "
+                f"{skus}. Форматы и спецификации — в таблице каталога и в "
                 "<a href=\"/blog/kotlety-dlya-burgerov-optom\">гиде</a>. "
-                "Ниже данные актуального каталога; коммерческие условия "
-                "согласуются для конкретного запроса."
+                "Коммерческие условия согласуются для конкретного запроса."
             ),
         )
     return None
@@ -381,6 +435,37 @@ def build_page(cfg):
     if cfg.get("related_links"):
         links = " · ".join(f'<a href="{u}">{t}</a>' for t, u in cfg["related_links"])
         related_html = f'<p style="margin-top:12px;font-size:.9rem;color:#555;">Смотрите также: {links}</p>'
+    moq = (term("moq", "ru") or "").strip()
+    moq_line = f"<p>Минимальный заказ — {moq}. Базис — EXW Казань.</p>" if moq else ""
+    wholesale_html = f"""<aside class="hero-facts" id="optom" style="background:#f7f6f2;border:1px solid #e6e4df;border-radius:14px;padding:18px 20px;margin:20px 0">
+    <h2 style="margin-top:0">Опт и заявка</h2>
+    {moq_line}
+    <p>Форматы и цены — из актуального каталога в таблице ниже. Коммерческое предложение готовим по SKU и объёму.</p>
+    <p><a class="cta" href="#zayavka">Получить КП</a>
+       <a class="cta cta-outline" href="https://wa.me/79872170202">WhatsApp</a></p>
+  </aside>
+  {wholesale_block("ru", "/" + cfg["slug"])}"""
+    table_html = _sku_table(products)
+    hero = cfg["slug"] in HERO_SLUGS
+    og_src, _ = _first_product_image(products) if hero else ("", None)
+    og_image = og_src or "https://pepperoni.tatar/images/pepperoni-halal.png"
+    if hero:
+        lead_html = _hero_block(
+            cfg, h1, intro, products,
+            wholesale_html.replace(' id="optom"', "", 1),
+            table_html,
+        )
+        assortment_table = ""
+    else:
+        lead_html = f"""  <p class="hero-subtitle">Казанские Деликатесы · данные актуального каталога</p>
+  <h1>{h1}</h1>
+  <span class="badge">Халяль ДУМ РТ</span>
+  <span class="badge badge-outline">ХАССП / ISO 22000</span>
+  <span class="badge badge-outline">Оптовые поставки</span>
+
+  <p>{intro}</p>
+  {wholesale_html}"""
+        assortment_table = table_html
 
     url = f"https://pepperoni.tatar/{cfg['slug']}"
     en_url = f"https://pepperoni.tatar/en/{cfg['slug']}"
@@ -408,14 +493,14 @@ def build_page(cfg):
   <meta property="og:title" content="{title}">
   <meta property="og:description" content="{desc}">
   <meta property="og:url" content="{url}">
-  <meta property="og:image" content="https://pepperoni.tatar/images/pepperoni-halal.png">
+  <meta property="og:image" content="{og_image}">
   <meta property="og:locale" content="ru_RU">
   <meta property="og:site_name" content="Pepperoni.tatar — Казанские деликатесы">
 
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="{title}">
   <meta name="twitter:description" content="{desc}">
-  <meta name="twitter:image" content="https://pepperoni.tatar/images/pepperoni-halal.png">
+  <meta name="twitter:image" content="{og_image}">
 
   <script type="application/ld+json">
   {{
@@ -457,13 +542,7 @@ def build_page(cfg):
 <div class="container">
   <nav><a href="/">← Все продукты</a></nav>
 
-  <p class="hero-subtitle">Казанские Деликатесы · данные актуального каталога</p>
-  <h1>{h1}</h1>
-  <span class="badge">Халяль ДУМ РТ</span>
-  <span class="badge badge-outline">ХАССП / ISO 22000</span>
-  <span class="badge badge-outline">Оптовые поставки</span>
-
-  <p>{intro}</p>
+  {lead_html}
   <p>Производим эту категорию в Казани для HoReCa, сетей, АЗС и дистрибьюторов. Минимальный заказ — одна паллета, сборная паллета из нескольких SKU возможна. Цены EXW Казань. С поставкой идут халяль-сертификат, декларация соответствия, ВСД («Меркурий») и маркировка «Честный знак».</p>
 
   <h2>Для кого</h2>
@@ -475,7 +554,7 @@ def build_page(cfg):
   </ul>
 
   <h2>Ассортимент ({len(products)} SKU)</h2>
-  {_sku_table(products)}
+  {assortment_table}
   <div class="products-grid">
 {cards}
   </div>

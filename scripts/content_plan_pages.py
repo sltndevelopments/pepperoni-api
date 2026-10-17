@@ -1466,9 +1466,7 @@ def write_chakchak() -> None:
                 "<p>Смежные страницы: "
                 "<a href=\"/vyipechka-halyal\">выпечка халяль</a> · "
                 "<a href=\"/halyal-vypechka-optom-dlya-pekaren\">выпечка для пекарен и кофеен</a> · "
-                "<a href=\"/zamorozhennaya-vypechka-dlya-kofeen\">заморозка для кофеен</a> · "
-                "<a href=\"/blog/chakchak-optom\">заметка чак-чак оптом</a> · "
-                "<a href=\"/blog/chakchak-wholesale-gifts\">подарочный чак-чак</a>.</p>"
+                "<a href=\"/zamorozhennaya-vypechka-dlya-kofeen\">заморозка для кофеен</a>.</p>"
             )
             faq = [
                 ("Какие SKU на этой странице?",
@@ -1523,9 +1521,7 @@ def write_chakchak() -> None:
                 "<p>Related: "
                 "<a href=\"/en/vyipechka-halyal\">halal bakery</a> · "
                 "<a href=\"/en/halyal-vypechka-optom-dlya-pekaren\">bakery for bakeries and coffee shops</a> · "
-                "<a href=\"/en/zamorozhennaya-vypechka-dlya-kofeen\">frozen bakery for coffee shops</a> · "
-                "<a href=\"/en/blog/chakchak-optom\">chak-chak wholesale note</a> · "
-                "<a href=\"/en/blog/chakchak-wholesale-gifts\">gift chak-chak note</a>.</p>"
+                "<a href=\"/en/zamorozhennaya-vypechka-dlya-kofeen\">frozen bakery for coffee shops</a>.</p>"
             )
             faq = [
                 ("Which SKUs are on this page?",

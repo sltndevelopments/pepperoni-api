@@ -144,8 +144,9 @@ RU_GUIDES = [
     ("blog/kotlety-dlya-burgerov-optom.html", "burger patty procurement"),
     ("blog/private-label-kolbasnyh-izdeliy.html", "private-label buying guide"),
     ("blog/halal-certification-russia.html", "halal certification in Russia"),
-    ("blog/karmin-e120-haram.html", "carmine E120 policy"),
     ("blog/tolko-halyal-kakie-kategorii-myasa.html", "halal-only scope and meat categories (buyer FAQ)"),
+    ("blog/echpochmak.html", "what echpochmak is"),
+    ("blog/elesh.html", "what elesh is"),
 ]
 
 EN_GUIDES = [
@@ -156,7 +157,6 @@ EN_GUIDES = [
     ("en/blog/kazylyk-horse-meat-sausage.html", "what kazylyk is"),
     ("en/blog/beef-hotdog-sausages-halal.html", "hot-dog sausage procurement"),
     ("en/blog/burger-patties-wholesale-halal.html", "burger patty procurement"),
-    ("en/blog/private-label-meat-products.html", "private-label buying guide"),
     ("en/blog/halal-certification-russia.html", "halal certification in Russia"),
 ]
 

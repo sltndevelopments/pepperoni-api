@@ -10,6 +10,7 @@ import urllib.request
 sys.path.insert(0, os.path.dirname(__file__))
 from organization_ld import ORGANIZATION, SCRIPT  # noqa: E402
 from catalog_prices import positive  # noqa: E402
+from wholesale_nav import wholesale_block  # noqa: E402
 
 OUT = "public/products"
 LCP_IMG_DIR = "public/images/products"
@@ -698,6 +699,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             cm = p["cookingMethods"].replace("<", "&lt;").replace(">", "&gt;")
             html += f'<div class="section-block"><h2 class="section-title">Способы приготовления</h2><p style="font-size:.9rem;color:#444;line-height:1.6;margin:0">{cm}</p></div>\n'
         html += deep_html
+        html += wholesale_block("ru", f"/products/{p['sku'].lower()}")
         html += '''<footer>
 <p><a href="/pepperoni">Пепперони</a> · <a href="/price">Прайс</a> · <a href="/kak-zakazat">Как заказать</a> · <a href="/about">О компании</a> · <a href="/faq">FAQ</a> · <a href="/delivery">Доставка</a> · <a href="/openapi.yaml">API для дистрибьюторов</a></p>
 <p>© <a href="https://kazandelikates.tatar">Казанские Деликатесы</a> · <a href="https://pepperoni.tatar">pepperoni.tatar</a></p>

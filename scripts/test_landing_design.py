@@ -30,6 +30,22 @@ def html_of(rel: str) -> str:
     return (ROOT / "public" / rel).read_text(encoding="utf-8")
 
 
+def _is_sitewide_identity(node) -> bool:
+    """Organization / LocalBusiness injected sitewide is not landing copy."""
+    if isinstance(node, list):
+        return all(_is_sitewide_identity(item) for item in node)
+    if not isinstance(node, dict):
+        return False
+    kind = node.get("@type")
+    kinds = kind if isinstance(kind, list) else [kind]
+    node_id = str(node.get("@id") or "")
+    if "Organization" in kinds and node_id.endswith("#organization"):
+        return True
+    if "LocalBusiness" in kinds and node_id.endswith("#localbusiness"):
+        return True
+    return False
+
+
 def core_facts(html: str) -> dict:
     """Title, robots, canonical, JSON-LD — chrome must not change these."""
     title = re.search(r"<title>(.*?)</title>", html, re.S | re.I)
@@ -42,9 +58,13 @@ def core_facts(html: str) -> dict:
         r'<script type="application/ld\+json">(.*?)</script>', html, re.S | re.I
     ):
         try:
-            lds.append(json.loads(blob))
+            node = json.loads(blob)
         except json.JSONDecodeError:
             lds.append(blob.strip())
+            continue
+        if _is_sitewide_identity(node):
+            continue
+        lds.append(node)
     return {
         "title": title.group(1).strip() if title else "",
         "desc": desc.group(1) if desc else "",

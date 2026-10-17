@@ -9,6 +9,7 @@ import urllib.parse
 sys.path.insert(0, os.path.dirname(__file__))
 from organization_ld import ORGANIZATION, SCRIPT  # noqa: E402
 from catalog_prices import positive  # noqa: E402
+from wholesale_nav import wholesale_block  # noqa: E402
 
 OUT = "public/en/products"
 PRODUCTS_JSON = "public/products.json"
@@ -713,6 +714,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             cm = p["cookingMethods"].replace("Способы приготовления:", "Methods:").replace("Гриль", "Grill").replace("роликовый грил", "roller grill").replace("жарка на решетке", "griddle").replace("сковороде", "pan").replace("или", "or")
             html += f'<div class="section-block"><h2 class="section-title">Cooking methods</h2><p style="font-size:.9rem;color:#444;line-height:1.6;margin:0">{cm}</p></div>\n'
         html += deep_html
+        html += wholesale_block("en", f"/en/products/{p['sku'].lower()}")
         html += '''<footer>
 <p><a href="/en/pepperoni">Pepperoni</a> · <a href="/en/price">Price list</a> · <a href="/en/kak-zakazat">How to order</a> · <a href="/en/about">About</a> · <a href="/en/faq">FAQ</a> · <a href="/en/delivery">Delivery</a> · <a href="/openapi.yaml">API for Distributors</a></p>
 <p>© <a href="https://kazandelikates.tatar">Kazan Delicacies</a> · <a href="https://pepperoni.tatar">pepperoni.tatar</a></p>
