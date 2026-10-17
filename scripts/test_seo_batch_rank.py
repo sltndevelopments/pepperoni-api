@@ -56,7 +56,7 @@ def main() -> int:
     check(by_sku["KD-045"]["category"] == "Премиум Казылык", "KD-045 is kazylyk")
 
     kazy = html("kazylyk.html")
-    check("Казылык оптом — сыровяленая колбаса из конины" in title_of("kazylyk.html"), "RU kazylyk title")
+    check("Казылык купить оптом — что это и цена" in title_of("kazylyk.html"), "RU kazylyk title")
     check(h1_of("kazylyk.html").startswith("Казылык оптом"), "RU kazylyk H1")
     check("конины" in desc_of("kazylyk.html"), "RU kazylyk desc names horse meat")
     check('href="/blog/kazylyk"' in kazy, "RU kazylyk links to informational blog")
@@ -74,7 +74,7 @@ def main() -> int:
     check('href="/blog/sosiski-dlya-hot-dogov-optom"' in hot, "RU hotdog links to guide")
 
     pep = html("pepperoni.html")
-    check("Пепперони халяль — купить оптом" in title_of("pepperoni.html"), "RU pepperoni title")
+    check("Пепперони халяль — что это и из чего" in title_of("pepperoni.html"), "RU pepperoni title")
     check("куриный" in h1_of("pepperoni.html").lower() or "куриный" in pep, "RU pepperoni H1/body is chicken")
     check("+7 987 217-02-02" in pep, "RU pepperoni hero has phone")
     moq_ru = term("moq", "ru")

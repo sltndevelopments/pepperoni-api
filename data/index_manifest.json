@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generated_at": "2026-10-17T10:00:17.043315+00:00",
+  "generated_at": "2026-10-17T11:03:19.945380+00:00",
   "policy": {
     "indexable_min": 180,
     "indexable_max": 250,
@@ -116,6 +116,17 @@
       "owner": "editorial",
       "source": "evidence registry + cited sources",
       "canonical_target": "/blog/kotlety-dlya-burgerov-optom",
+      "status": "keep",
+      "kind": "guide"
+    },
+    {
+      "url": "/blog/kuritsa-halyal-chem-otlichaetsya",
+      "file": "blog/kuritsa-halyal-chem-otlichaetsya.html",
+      "intent": "how halal chicken differs",
+      "language": "ru",
+      "owner": "editorial",
+      "source": "evidence registry + cited sources",
+      "canonical_target": "/blog/kuritsa-halyal-chem-otlichaetsya",
       "status": "keep",
       "kind": "guide"
     },
@@ -1711,17 +1722,6 @@
       "owner": "export",
       "source": "owner-approved country export landing",
       "canonical_target": "/export/kazakhstan",
-      "status": "keep",
-      "kind": "export-country"
-    },
-    {
-      "url": "/export/kuwait",
-      "file": "export/kuwait.html",
-      "intent": "export landing Kuwait",
-      "language": "ru",
-      "owner": "export",
-      "source": "owner-approved country export landing",
-      "canonical_target": "/export/kuwait",
       "status": "keep",
       "kind": "export-country"
     },
@@ -8660,19 +8660,6 @@
       "impressions_28d": 0.0
     },
     {
-      "url": "/blog/kuritsa-halyal-chem-otlichaetsya",
-      "file": "blog/kuritsa-halyal-chem-otlichaetsya.html",
-      "intent": "legacy URL retirement",
-      "language": "ru",
-      "owner": "seo",
-      "source": "fresh GSC query×page + index policy",
-      "canonical_target": null,
-      "status": "410",
-      "reason": "no distinct supported intent or evidence",
-      "clicks_28d": 1.0,
-      "impressions_28d": 227.0
-    },
-    {
       "url": "/blog/lamb-sausages-halal-wholesale",
       "file": "blog/lamb-sausages-halal-wholesale.html",
       "intent": "legacy URL retirement",
@@ -9173,9 +9160,9 @@
       "language": "ru",
       "owner": "seo",
       "source": "fresh GSC query×page + index policy",
-      "canonical_target": null,
-      "status": "410",
-      "reason": "no distinct supported intent or evidence",
+      "canonical_target": "/dlya-horeca",
+      "status": "301",
+      "reason": "equivalent HoReCa hub",
       "clicks_28d": 0.0,
       "impressions_28d": 11.0
     },
@@ -13102,6 +13089,19 @@
       "canonical_target": "/export/bahrain",
       "status": "noindex",
       "reason": "page kept; dropped from 250-URL allowlist for /sosiski-halyal-optom",
+      "clicks_28d": 0.0,
+      "impressions_28d": 0.0
+    },
+    {
+      "url": "/export/kuwait",
+      "file": "export/kuwait.html",
+      "intent": "export landing Kuwait kept off the index to free a keep slot",
+      "language": "ru",
+      "owner": "seo",
+      "source": "SEO follow-up batch 2026-10-17",
+      "canonical_target": "/export/kuwait",
+      "status": "noindex",
+      "reason": "page kept; dropped from 250-URL allowlist (0 GSC impressions) for /blog/kuritsa-halyal-chem-otlichaetsya",
       "clicks_28d": 0.0,
       "impressions_28d": 0.0
     },

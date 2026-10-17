@@ -118,6 +118,11 @@ JERKS_EXTRA_STYLE = """
     .trust__l{font-size:.74rem;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-soft);font-weight:700}
     .trust__v{font-weight:750;margin-top:4px}
     .cards{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:16px}
+    .card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:18px 20px;box-shadow:var(--shadow);margin:0}
+    .card h3{margin:0 0 8px;font-size:1.02rem}
+    .card p,.card ul{margin:0}
+    .card__ico{font-size:1.35rem;margin-bottom:8px}
+    .card a{color:var(--brand);font-weight:650;text-decoration:none}
     @media(max-width:900px){.trust,.cards{grid-template-columns:repeat(2,1fr)}}
     @media(max-width:560px){.trust,.cards{grid-template-columns:1fr}}
 """
@@ -207,11 +212,45 @@ def _price_label(p):
     return "—"
 
 
+_PACK_FMT_RE = re.compile(r"\(?\s*(\d+)\s*г\s*[×xх]\s*(\d+)\s*шт\s*\)?", re.I)
+
+
+def _catalog_weight_kg(p):
+    raw = str(p.get("weight") or "").strip()
+    if not raw:
+        return None
+    try:
+        return float(
+            raw.lower().replace(",", ".").replace(" ", "").replace("кг", "").replace("kg", "")
+        )
+    except ValueError:
+        return None
+
+
+def _table_format(p) -> str:
+    """Pack format from the name or packageType — never SEO text.
+
+    Same disagreement rule as the commercial pages: if pieces × grams
+    does not equal catalog ``weight``, show «—».
+    """
+    for text in (p.get("name") or "", p.get("packageType") or ""):
+        match = _PACK_FMT_RE.search(text)
+        if not match:
+            continue
+        grams, pieces = int(match.group(1)), int(match.group(2))
+        pack_kg = pieces * grams / 1000.0
+        weight_kg = _catalog_weight_kg(p)
+        if weight_kg is None or abs(pack_kg - weight_kg) > 0.01:
+            return "—"
+        return f"{pieces} × {grams} г"
+    return "—"
+
+
 def _sku_table(products):
     rows = []
     for p in products:
         sku = p["sku"]
-        fmt = p.get("packageType") or p.get("casing") or "—"
+        fmt = _table_format(p)
         rows.append(
             "<tr>"
             f"<td><a href=\"/products/{sku.lower()}\">{sku}</a></td>"
@@ -436,27 +475,53 @@ def _meat_groups(products: list) -> tuple[list[dict], list[dict]]:
     return beef, chicken
 
 
-def meat_type_html(products: list, prefix: str = "") -> str:
+def _sku_link_items(rows: list, prefix: str = "") -> str:
+    items = []
+    for p in rows:
+        sku = p.get("sku") or ""
+        href = f"{prefix}/products/{sku.lower()}"
+        items.append(
+            f'<li><a href="{href}">{escape(sku)}</a> — '
+            f"{escape(p.get('name') or sku)}</li>"
+        )
+    return "".join(items)
+
+
+def meat_type_html(products: list, prefix: str = "", cards: bool = False) -> str:
     beef, chicken = _meat_groups(products)
     if not beef and not chicken:
         return ""
-    blocks = [
+    note = (
         "<p>Блоки ниже — по первому ингредиенту из каталога, с поправкой на "
         "название (SKU с бараниной, индейкой или кониной в имени не попадают "
         "в говяжьи или куриные). Полный состав — в карточке SKU.</p>"
-    ]
+    )
+    if cards:
+        cards_html = []
+        for heading, ico, rows in (
+            ("Говяжьи", "🥩", beef),
+            ("Куриные", "🐔", chicken),
+        ):
+            if not rows:
+                continue
+            cards_html.append(
+                f'<div class="card"><div class="card__ico" aria-hidden="true">{ico}</div>'
+                f"<h3>{heading}</h3><ul>\n{_sku_link_items(rows, prefix)}\n</ul></div>"
+            )
+        return (
+            '<section class="section" id="po-myasu">\n'
+            "<h2>По виду мяса</h2>\n"
+            f"{note}\n"
+            f'<div class="cards">\n{"".join(cards_html)}\n</div>\n'
+            "</section>"
+        )
+    blocks = [note]
     for heading, rows in (("Говяжьи", beef), ("Куриные", chicken)):
         if not rows:
             continue
-        items = []
-        for p in rows:
-            sku = p.get("sku") or ""
-            href = f"{prefix}/products/{sku.lower()}"
-            items.append(
-                f'<li><a href="{href}">{escape(sku)}</a> — '
-                f"{escape(p.get('name') or sku)}</li>"
-            )
-        blocks.append(f"<h2>{heading}</h2><ul>\n{''.join(items)}\n</ul>")
+        blocks.append(
+            f"<h2>{heading}</h2><ul>\n{_sku_link_items(rows, prefix)}\n</ul>"
+        )
     return '<section id="po-myasu">\n' + "\n".join(blocks) + "\n</section>"
 
 
@@ -468,19 +533,20 @@ def _catalog_seo(cfg: dict, products: list) -> tuple[str, str, str, str] | None:
     skus = " / ".join(p.get("sku") or "" for p in products)
     if slug == "kazylyk":
         return (
-            brand_title_suffix("Казылык оптом — сыровяленая колбаса из конины", "ru"),
-            "Казылык оптом — сыровяленая колбаса из конины",
+            brand_title_suffix("Казылык купить оптом — что это и цена", "ru"),
+            "Казылык оптом — что это",
             (
-                f"Казылык оптом из конины, {n} SKU: {bits}. "
-                "Мясная основа: конина и конский жир. Халяль ДУМ РТ. EXW Казань. "
-                "Заявка — получить КП."
+                "Казылык — что это: сыровяленая колбаса из конины. "
+                "Мясная основа: конина и конский жир. "
+                f"Купить оптом у производителя: цена в каталоге, {n} SKU. "
+                "Халяль ДУМ РТ. EXW Казань. Заявка — получить КП."
             ),
             (
-                f"Казылык — сыровяленая колбаса из конины. В категории {n} "
-                "охлаждённые позиции «Премиум». Что это за продукт и чем он "
-                "отличается от казы — в <a href=\"/blog/kazylyk\">статье</a>. "
-                "Ниже SKU и характеристики из products.json; условия заказа "
-                "подтверждает отдел продаж."
+                f"Казылык — что это: сыровяленая колбаса из конины. В категории {n} "
+                "охлаждённые позиции «Премиум». Цена и фасовка — в таблице каталога, "
+                "не в заголовке. Чем казылык отличается от казы — в "
+                "<a href=\"/blog/kazylyk\">статье</a>. "
+                "Ниже SKU из products.json; условия заказа подтверждает отдел продаж."
             ),
         )
     if slug == "kotlety-dlya-burgerov":
@@ -563,6 +629,60 @@ def _catalog_seo(cfg: dict, products: list) -> tuple[str, str, str, str] | None:
             ),
         )
     return None
+
+
+def _audience_block(jerks: bool) -> str:
+    items = (
+        ("HoReCa", "/dlya-horeca", "Рестораны, столовые, кейтеринг"),
+        ("Сети", "/dlya-setey", "Розничные сети и собственная марка полки"),
+        ("АЗС", "/dlya-azs", "Форматы street food и гриль"),
+        ("Дистрибьюторы", "/dlya-distributorov", "Опт со склада в Казани"),
+    )
+    if not jerks:
+        lis = "".join(f'<li><a href="{href}">{name}</a></li>' for name, href, _ in items)
+        return f"<h2>Для кого</h2>\n  <ul>\n    {lis}\n  </ul>"
+    cards = "".join(
+        f'<a class="card" href="{href}"><div class="card__ico" aria-hidden="true">→</div>'
+        f"<h3>{name}</h3><p>{desc}</p></a>"
+        for name, href, desc in items
+    )
+    return (
+        '<section class="section" id="dlya-kogo"><h2>Для кого</h2>'
+        f'<div class="cards">{cards}</div></section>'
+    )
+
+
+def _docs_block(halal_no: str, jerks: bool) -> str:
+    items = (
+        (f"Халяль ДУМ РТ № {halal_no}", "Сертификат на производство. Комплект к отгрузке — по запросу."),
+        ("HACCP, ISO 22000:2018, ТР ТС 021/2011", "Система безопасности и техрегламент."),
+        ("Декларация, ВСД, «Честный знак»", "Декларация соответствия, «Меркурий», электронная накладная."),
+        ("EXW Казань", "Базис цен. Срок отгрузки называем по конкретному заказу."),
+    )
+    if not jerks:
+        lis = "".join(f"<li>{title}</li>" for title, _desc in items)
+        return f"<h2>Документы и отгрузка</h2>\n  <ul>\n    {lis}\n  </ul>"
+    cards = "".join(
+        f'<div class="card"><h3>{title}</h3><p>{desc}</p></div>'
+        for title, desc in items
+    )
+    return (
+        '<section class="section" id="dokumenty"><h2>Документы и отгрузка</h2>'
+        f'<div class="cards">{cards}</div></section>'
+    )
+
+
+def _features_block(features_html: str, jerks: bool) -> str:
+    if not jerks:
+        return f"<h2>Преимущества</h2>\n  <ul>\n{features_html}\n  </ul>"
+    items = re.findall(r"<li>(.*?)</li>", features_html)
+    cards = "".join(
+        f'<div class="card"><h3>{item}</h3></div>' for item in items
+    )
+    return (
+        '<section class="section section--soft" id="preimushestva"><h2>Преимущества</h2>'
+        f'<div class="cards">{cards}</div></section>'
+    )
 
 
 def _trust_strip(halal_no: str) -> str:
@@ -787,15 +907,9 @@ def build_page(cfg, jerks=False):
   <p>Производим эту категорию в Казани для HoReCa, сетей, АЗС и дистрибьюторов. Минимальный заказ — 1 паллета. Цены EXW Казань. С поставкой идут халяль-сертификат, декларация соответствия, ВСД («Меркурий») и маркировка «Честный знак».</p>
 
   {f'<h2>{cfg["extra_h2"]}</h2><p>{cfg["extra_p"]}</p>' if cfg.get("extra_h2") else ""}
-  {meat_type_html(products) if cfg.get("slug") in SAUSAGE_MEAT_SLUGS else ""}
+  {meat_type_html(products, cards=jerks) if cfg.get("slug") in SAUSAGE_MEAT_SLUGS else ""}
   {russia_delivery_html(cfg.get("slug") or "") if cfg.get("slug") in RUSSIA_DELIVERY_SLUGS else ""}
-  <h2>Для кого</h2>
-  <ul>
-    <li><a href="/dlya-horeca">HoReCa</a></li>
-    <li><a href="/dlya-setey">Сети</a></li>
-    <li><a href="/dlya-azs">АЗС</a></li>
-    <li><a href="/dlya-distributorov">Дистрибьюторы</a></li>
-  </ul>
+  {_audience_block(jerks)}
 
   <h2 id="assortiment">Ассортимент ({len(products)} SKU)</h2>
   {assortment_table}
@@ -809,18 +923,8 @@ def build_page(cfg, jerks=False):
   <h2>Спецификации</h2>
   <p>Состав, масса, хранение и срок годности — в карточке SKU и на маркировке. Полный прайс: <a href="/price">/price</a> · <a href="/prices.xlsx">Excel</a> · <a href="/prices.pdf">PDF</a>. Как заказать: <a href="/kak-zakazat">/kak-zakazat</a>.</p>
 
-  <h2>Документы и отгрузка</h2>
-  <ul>
-    <li>Халяль ДУМ РТ № {halal_no}</li>
-    <li>HACCP, ISO 22000:2018, ТР ТС 021/2011</li>
-    <li>Декларация соответствия, ВСД («Меркурий»), «Честный знак», электронная накладная</li>
-    <li>Базис цен — EXW Казань. Срок отгрузки называем по конкретному заказу.</li>
-  </ul>
-
-  <h2>Преимущества</h2>
-  <ul>
-{features_html}
-  </ul>
+  {_docs_block(halal_no, jerks)}
+  {_features_block(features_html, jerks)}
 
   <h2 id="zayavka">Заказать оптом</h2>
   <p>Обязателен контакт. Компания, сегмент, город или страна и объём в месяц можно не заполнять.</p>

@@ -89,11 +89,14 @@ EXPORT_COUNTRIES = [
     ("uae", "export landing UAE"),
     ("uzbekistan", "export landing Uzbekistan (Cerberus readiness)"),
 ]
-# /export/bahrain stays on disk as noindex to free one keep slot (250 ceiling).
+# RU /export/bahrain and /export/kuwait stay on disk as noindex so the
+# allowlist can hold the chilled-sausage hub and the restored chicken guide
+# without crossing the 250 ceiling. Both had no GSC impressions.
+RU_NOINDEX_EXPORT = {"bahrain", "kuwait"}
 RU_PAGES.extend(
     _page(f"export/{slug}.html", intent, "export", "owner-approved country export landing")
     for slug, intent in EXPORT_COUNTRIES
-    if slug != "bahrain"
+    if slug not in RU_NOINDEX_EXPORT
 )
 
 EN_PAGES = [
@@ -148,6 +151,7 @@ RU_GUIDES = [
     ("blog/private-label-kolbasnyh-izdeliy.html", "private-label buying guide"),
     ("blog/halal-certification-russia.html", "halal certification in Russia"),
     ("blog/tolko-halyal-kakie-kategorii-myasa.html", "halal-only scope and meat categories (buyer FAQ)"),
+    ("blog/kuritsa-halyal-chem-otlichaetsya.html", "how halal chicken differs"),
     ("blog/echpochmak.html", "what echpochmak is"),
     ("blog/elesh.html", "what elesh is"),
 ]

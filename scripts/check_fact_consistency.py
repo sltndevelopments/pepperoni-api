@@ -40,7 +40,8 @@ PHONE_E164 = re.compile(r"\+?7[\s\-()]?987[\s\-()]?217[\s\-()]?02[\s\-()]?02")
 WRONG_WA = "79274297220"
 CHAK_SKU = {"KD-053", "KD-054"}
 CHAK_HINT = re.compile(r"чак-?чак|chak-?chak|KD-053|KD-054", re.I)
-SHELF_60 = re.compile(r"(?<!\d)60\s*(?:суток|сут\.?|days?)\b", re.I)
+SHELF_UNIT = r"(?:суток|сут\.?|дней|дн\.?|days?)"
+SHELF_60 = re.compile(rf"(?<!\d)60\s*{SHELF_UNIT}\b", re.I)
 KD012_OK = re.compile(
     r"(?:not in the (?:current )?catalog|is retired|снят(?:а|о)?\b|"
     r"в текущем каталоге нет|нет в (?:текущем )?каталог)",
@@ -147,7 +148,7 @@ def walk_public_files() -> list[Path]:
 
 
 def shelf_days(text: str) -> int | None:
-    m = re.search(r"(\d+)\s*(?:суток|сут\.?|days?)\b", text or "", re.I)
+    m = re.search(rf"(\d+)\s*{SHELF_UNIT}\b", text or "", re.I)
     return int(m.group(1)) if m else None
 
 
@@ -226,8 +227,16 @@ def check_products_self(by_sku: dict[str, dict]) -> list[str]:
                 f"{sku} {row.get('name')} shelfLife is {row.get('shelfLife')!r}, "
                 "owner/Sheet column G is 90 суток"
             )
-        # SEO description cells may still say 60 for chak-chak; the named
-        # shelf-life column is SoT and must not fail this check.
+        for key in ("seoDescriptionRU", "seoDescriptionEN"):
+            text = str(row.get(key) or "")
+            for match in re.finditer(
+                rf"(\d+)\s*{SHELF_UNIT}\b", text, re.I
+            ):
+                got = int(match.group(1))
+                if got != want:
+                    issues.append(
+                        f"{sku} {key} shelf-life {got} != catalog {want}"
+                    )
         offers = row.get("offers") or {}
         currency = offers.get("priceCurrency")
         if currency and currency != "RUB":
@@ -280,7 +289,7 @@ def check_jsonld(rel: str, html: str, company: dict, by_sku: dict[str, dict]) ->
 
 
 # Naive "60 days" → "90 days" replace also hits "360 days" → "390 days".
-SHELF_390 = re.compile(r"(?<!\d)390\s*(?:суток|сут\.?|days?)\b", re.I)
+SHELF_390 = re.compile(rf"(?<!\d)390\s*{SHELF_UNIT}\b", re.I)
 
 
 def check_corrupt_shelf(rel: str, text: str) -> list[str]:
@@ -560,28 +569,48 @@ STALE_CURRENT_EXPORT = [
 # Ban wording that presents them as unavailable. Gulf "не текущая отгрузка"
 # is allowed when UZ/AZ are not in the same sentence.
 UNAVAILABLE_EXPORT = [
-    (re.compile(r"Узбекистан[^.\n]{0,140}не текущ"),
+    (re.compile(r"Узбекистан[^.\n]{0,140}не текущ", re.I),
      "Uzbekistan framed as unavailable (use «можем поставлять»)"),
-    (re.compile(r"Азербайджан[^.\n]{0,140}не текущ"),
+    (re.compile(r"Азербайджан[^.\n]{0,140}не текущ", re.I),
      "Azerbaijan framed as unavailable (use «можем поставлять»)"),
-    (re.compile(r"не текущ\w*[^.\n]{0,140}Узбекистан"),
+    (re.compile(r"не текущ\w*[^.\n]{0,140}Узбекистан", re.I),
      "Uzbekistan framed as unavailable (use «можем поставлять»)"),
-    (re.compile(r"не текущ\w*[^.\n]{0,140}Азербайджан"),
+    (re.compile(r"не текущ\w*[^.\n]{0,140}Азербайджан", re.I),
      "Azerbaijan framed as unavailable (use «можем поставлять»)"),
-    (re.compile(r"Uzbekistan[^.\n]{0,140}not (?:a )?current"),
+    (re.compile(r"Uzbekistan[^.\n]{0,140}not (?:a )?current", re.I),
      "Uzbekistan framed as unavailable (use «available for supply»)"),
-    (re.compile(r"Azerbaijan[^.\n]{0,140}not (?:a )?current"),
+    (re.compile(r"Azerbaijan[^.\n]{0,140}not (?:a )?current", re.I),
      "Azerbaijan framed as unavailable (use «available for supply»)"),
-    (re.compile(r"not (?:a )?current[^.\n]{0,140}Uzbekistan"),
+    (re.compile(r"not (?:a )?current[^.\n]{0,140}Uzbekistan", re.I),
      "Uzbekistan framed as unavailable (use «available for supply»)"),
-    (re.compile(r"not (?:a )?current[^.\n]{0,140}Azerbaijan"),
+    (re.compile(r"not (?:a )?current[^.\n]{0,140}Azerbaijan", re.I),
      "Azerbaijan framed as unavailable (use «available for supply»)"),
-    (re.compile(r"Uzbekistan[^.\n]{0,80}not shipments"),
+    (re.compile(r"Uzbekistan[^.\n]{0,80}not shipments", re.I),
      "Uzbekistan framed as unavailable (use «available for supply»)"),
-    (re.compile(r"не можем постав"),
-     "export copy says we cannot supply"),
-    (re.compile(r"cannot supply", re.I),
-     "export copy says we cannot supply"),
+    (re.compile(
+        r"(?:Узбекистан|Азербайджан|Армени\w*|Таджикистан|Грузи\w*|Цербер|Cerberus)"
+        r"[^.\n]{0,140}не можем постав",
+        re.I,
+    ),
+     "UZ/AZ/Cerberus framed as cannot-supply"),
+    (re.compile(
+        r"не можем постав[^.\n]{0,140}"
+        r"(?:Узбекистан|Азербайджан|Армени\w*|Таджикистан|Грузи\w*|Цербер|Cerberus)",
+        re.I,
+    ),
+     "UZ/AZ/Cerberus framed as cannot-supply"),
+    (re.compile(
+        r"(?:Uzbekistan|Azerbaijan|Armenia|Tajikistan|Georgia|Cerberus)"
+        r"[^.\n]{0,140}cannot supply",
+        re.I,
+    ),
+     "UZ/AZ/Cerberus framed as cannot-supply"),
+    (re.compile(
+        r"cannot supply[^.\n]{0,140}"
+        r"(?:Uzbekistan|Azerbaijan|Armenia|Tajikistan|Georgia|Cerberus)",
+        re.I,
+    ),
+     "UZ/AZ/Cerberus framed as cannot-supply"),
 ]
 LOCALE_SKIP = re.compile(r"^(hy|tg|ka|kk|ky|uz|az|zh|ar|he)/")
 FACT_SKIP_NAMES = {

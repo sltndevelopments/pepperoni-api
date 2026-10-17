@@ -32,7 +32,9 @@ python3 scripts/rebuild_sitemap.py
 - EN private label: `/en/private-label`
 - Halal pepperoni commercial hub: `/pepperoni` and `/en/pepperoni`
 - Catalog: `/products` and `/en/products`
-- Chilled sausages wholesale: `/sosiski-halyal-optom` (indexable; `/export/bahrain` is noindex to stay at 250)
+- Chilled sausages wholesale: `/sosiski-halyal-optom` (indexable)
+- Halal chicken explainer: `/blog/kuritsa-halyal-chem-otlichaetsya` (indexable; `/blog/postavki-myasa-restorany-horeca` 301 → `/dlya-horeca`)
+- Allowlist ceiling: `/export/bahrain` and `/export/kuwait` are noindex (no impressions) so keep stays at 250
 - Company identity: `/about` and `/en/about`
 - Certificate verification: `/halal` and `/en/halal` (`/certificates` → 301 `/halal`)
 
