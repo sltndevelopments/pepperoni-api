@@ -205,7 +205,24 @@ def main() -> int:
         check("googletagmanager.com" not in head and "mc.yandex.ru" not in head,
               f"{rel} does not preconnect third-party analytics")
         check("application/ld+json" not in head, f"{rel} keeps JSON-LD out of <head>")
+        body = html.split("</head>", 1)[1] if "</head>" in html else ""
+        body_no_js = re.sub(
+            r"<script\b(?![^>]*application/ld\+json)[^>]*>.*?</script>",
+            "",
+            body,
+            flags=re.I | re.S,
+        )
+        check("application/ld+json" in body_no_js, f"{rel} keeps JSON-LD as static body HTML")
+        check('"@type":"Organization"' in body_no_js.replace(" ", ""),
+              f"{rel} static HTML has Organization JSON-LD")
+        check('"@type":"BreadcrumbList"' in body_no_js.replace(" ", ""),
+              f"{rel} static HTML has BreadcrumbList JSON-LD")
         check("loadAnalytics" in html, f"{rel} delays GTM/Metrika until after load")
+        check("setTimeout(loadAnalytics,1500)" in html.replace(" ", ""),
+              f"{rel} Metrika has a 1.5s timeout so bounces still count")
+        check("addEventListener('load',armAnalytics)" in html
+              or 'addEventListener("load",armAnalytics)' in html,
+              f"{rel} arms analytics on window load")
         check(
             re.search(r'<script[^>]+src=["\']/assets/lead-form\.js["\'][^>]*\bdefer', html, re.I),
             f"{rel} lead-form.js is defer",
@@ -216,6 +233,15 @@ def main() -> int:
         )
         extra = [tag for tag in blocking_css if 'media="print"' not in tag]
         check(not extra, f"{rel} has no render-blocking stylesheet")
+
+    chrome_src = (ROOT / "scripts" / "landing_chrome.py").read_text(encoding="utf-8")
+    cat_src = (ROOT / "scripts" / "gen_category_pages.py").read_text(encoding="utf-8")
+    check("setTimeout(loadAnalytics,1500)" in chrome_src.replace(" ", ""),
+          "landing_chrome Metrika timeout is bounce-safe")
+    check("application/ld+json" not in chrome_src,
+          "landing_chrome does not inject JSON-LD from JS")
+    check('"ld_tail": ld_html' in cat_src and "insertAdjacent" not in cat_src,
+          "category generator emits JSON-LD as static ld_tail markup")
 
     if fail:
         print(f"test_google_11_30: {fail} FAIL")

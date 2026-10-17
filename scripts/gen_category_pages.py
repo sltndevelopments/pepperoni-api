@@ -846,7 +846,11 @@ def _ld_scripts(*payloads: dict) -> str:
 
 
 def _hub_chrome(slug: str, page_css: str, ld_html: str) -> dict[str, str]:
-    """LCP hubs: critical hero CSS in <head>, full sheet + JSON-LD + GTM later."""
+    """LCP hubs: critical hero CSS in <head>; sheet/GTM later.
+
+    JSON-LD stays static server HTML (`ld_tail` at the end of <body>).
+    Yandex does not reliably run JS — do not inject schema after load.
+    """
     lcp = is_lcp_render_slug(slug)
     sheet = stylesheet_link(slug if lcp else "")
     fonts = font_lcp_hints(slug)

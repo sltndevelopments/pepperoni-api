@@ -30,7 +30,11 @@ rule so a later stylesheet cannot fade the H1 in.
 
 - Inline `#kd-hero-critical` (hero/H1/topbar min-height only).
 - Load `kd-landing.css` as `media="print"` + `onload="this.media='all'"`.
-- Move page CSS, JSON-LD, GTM, Metrika to after the hero / `load`.
+- Move page CSS, GTM, Metrika to after the hero / `load`.
+- Keep JSON-LD as static `<script type="application/ld+json">` at the end
+  of `<body>` (not idle/JS injection — Yandex does not reliably execute JS).
+- Arm GTM/Metrika on `load` plus a 1.5s `setTimeout` fallback so bounces
+  without idle/interaction still count (same contract as `/`).
 - Keep `<script src="/assets/lead-form.js" defer>` — tracking still fires,
   just not on the first paint path.
 

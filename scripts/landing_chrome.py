@@ -47,7 +47,9 @@ HERO_CRITICAL_CSS = (
     "margin:6px 4px 20px 0}"
 )
 
-# Same idle-after-load gate as gen-index.py: GTM/Metrika must not sit in <head>.
+# Same contract as gen-index.py `/`: GTM/Metrika stay out of <head>, arm after
+# `load`, and still fire on a bounce (idle *or* a 1.5s timeout, not only on
+# interaction). JSON-LD is never part of this snippet — it stays static HTML.
 DELAYED_ANALYTICS = """<script>
 function loadAnalytics(){
   if(window.__analyticsLoaded)return;window.__analyticsLoaded=true;
@@ -58,6 +60,7 @@ function loadAnalytics(){
 function armAnalytics(){
   var idle=window.requestIdleCallback||function(cb){return setTimeout(cb,1);};
   idle(loadAnalytics,{timeout:1500});
+  setTimeout(loadAnalytics,1500);
   ['scroll','keydown','touchstart','click','pointerdown'].forEach(function(ev){window.addEventListener(ev,loadAnalytics,{passive:true,once:true});});
 }
 if(document.readyState==='complete')armAnalytics();
@@ -101,7 +104,7 @@ def is_lcp_render_slug(slug: str) -> bool:
 
 
 def delayed_analytics() -> str:
-    """GTM + Metrika after `load`/idle. Lead-form.js stays a separate defer tag."""
+    """GTM + Metrika after `load`, with a 1.5s timeout so bounces still count."""
     return DELAYED_ANALYTICS
 
 
