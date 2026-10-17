@@ -30,10 +30,10 @@ infra/
 ## Install on the VPS
 
 ```bash
-# 1. Sync the latest repo to /opt/pepperoni-api on the VPS (already
+# 1. Sync the latest repo to /var/www/pepperoni/repo on the VPS (already)
 #    done by scripts/sync-vps.sh or your CI workflow).
 # 2. Install nginx snippet, logrotate, parser, cron:
-sudo bash /opt/pepperoni-api/infra/scripts/install-ai-bots-logging.sh
+sudo bash /var/www/pepperoni/repo/infra/scripts/install-ai-bots-logging.sh
 
 # 3. Edit your api.pepperoni.tatar server block and add inside server{}:
 #       include snippets/ai-bots-logging.conf;
@@ -57,7 +57,7 @@ You should see a JSON line like:
 ## Manual digest (anytime)
 
 ```bash
-python3 /opt/pepperoni-api/infra/scripts/parse-ai-bots.py --today
+python3 /var/www/pepperoni/repo/infra/scripts/parse-ai-bots.py --today
 cat /var/log/nginx/ai-bots-digest-latest.md
 ```
 
@@ -67,14 +67,14 @@ The cron job currently writes a file; if you want it mailed daily, edit
 `/etc/cron.d/pepperoni-ai-bots`:
 
 ```
-5 6 * * * root /usr/bin/python3 /opt/pepperoni-api/infra/scripts/parse-ai-bots.py | \
+5 6 * * * root /usr/bin/python3 /var/www/pepperoni/repo/infra/scripts/parse-ai-bots.py | \
   xargs -I{} cat {} | mail -s "AI-bot digest $(date +%F)" admin@kazandelikates.tatar
 ```
 
 Or pipe to a Telegram bot:
 
 ```
-5 6 * * * root /usr/bin/python3 /opt/pepperoni-api/infra/scripts/parse-ai-bots.py | \
+5 6 * * * root /usr/bin/python3 /var/www/pepperoni/repo/infra/scripts/parse-ai-bots.py | \
   xargs cat | curl -s -X POST https://api.telegram.org/bot$TOKEN/sendMessage \
   -d chat_id=$CHAT_ID --data-urlencode text@-
 ```
