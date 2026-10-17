@@ -49,7 +49,7 @@ SITES = [
 ]
 
 
-def get_access_token(service_account_info: dict) -> str:
+def get_access_token(service_account_info: dict, scope: str | None = None) -> str:
     """Get OAuth2 token with webmasters scope for Search Console API."""
     import base64
 
@@ -60,7 +60,7 @@ def get_access_token(service_account_info: dict) -> str:
     now = int(time.time())
     payload = base64.urlsafe_b64encode(json.dumps({
         "iss": service_account_info["client_email"],
-        "scope": "https://www.googleapis.com/auth/webmasters",
+        "scope": scope or "https://www.googleapis.com/auth/webmasters",
         "aud": "https://oauth2.googleapis.com/token",
         "iat": now,
         "exp": now + 3600,

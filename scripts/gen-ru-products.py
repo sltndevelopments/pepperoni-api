@@ -531,7 +531,7 @@ def main():
 {{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{{"@type":"ListItem","position":1,"name":"Главная","item":"https://pepperoni.tatar/"}},{{"@type":"ListItem","position":2,"name":"Каталог","item":"https://pepperoni.tatar/"}},{{"@type":"ListItem","position":3,"name":"{html_esc(name)}","item":"https://pepperoni.tatar/products/{slug}"}}]}}
 </script>
 <script type="application/ld+json">
-{{"@context":"https://schema.org","@type":"Product","name":"{html_esc(name)}","sku":"{p['sku']}",{gtin_field}"mpn":"{article}","description":"{html_esc(seo_desc)}","image":{jsonld_images},"brand":{{"@type":"Brand","name":"Казанские Деликатесы"}},"offers":{{"@type":"Offer","priceCurrency":"RUB","price":"{price_rub}","availability":"{p.get('offers', {}).get('availability') or 'https://schema.org/InStock'}"}},"manufacturer":{json.dumps({k: ORGANIZATION[k] for k in ("@type", "@id", "name", "legalName", "url", "email", "telephone", "address", "sameAs")}, ensure_ascii=False, separators=(",", ":"))}}}
+{{"@context":"https://schema.org","@type":"Product","name":"{html_esc(name)}","sku":"{p['sku']}",{gtin_field}"mpn":"{article}","description":"{html_esc(seo_desc)}","image":{jsonld_images},"brand":{{"@type":"Brand","name":"Казанские Деликатесы"}},"offers":{{"@type":"Offer","url":"https://pepperoni.tatar/products/{slug}","itemCondition":"https://schema.org/NewCondition","priceCurrency":"RUB","price":"{price_rub}","availability":"{p.get('offers', {}).get('availability') or 'https://schema.org/InStock'}"}},"manufacturer":{json.dumps({k: ORGANIZATION[k] for k in ("@type", "@id", "name", "legalName", "url", "email", "telephone", "address", "sameAs")}, ensure_ascii=False, separators=(",", ":"))}}}
 </script>
 {faq_jsonld}
 <style>

@@ -1,0 +1,38 @@
+name: GSC URL Inspection
+
+on:
+  workflow_dispatch:
+    inputs:
+      urls:
+        description: "Optional newline-separated URL list. Empty = data/inspect_urls.txt or sitemap files changed in the last day."
+        required: false
+        default: ""
+
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install cryptography
+
+      - name: Inspect URLs
+        env:
+          GSC_SERVICE_ACCOUNT_KEY: ${{ secrets.GSC_SERVICE_ACCOUNT_KEY }}
+          GSC_INSPECT_URLS: ${{ inputs.urls }}
+        run: python3 scripts/gsc-inspect.py
+
+      - name: Upload report
+        uses: actions/upload-artifact@v4
+        with:
+          name: gsc-inspect
+          path: reports/gsc-inspect-*.csv
+          retention-days: 14
+          if-no-files-found: warn

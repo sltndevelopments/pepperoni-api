@@ -14,11 +14,13 @@ sys.path.insert(0, str(SCRIPTS))
 
 import content_plan_pages as plan  # noqa: E402
 import gen_category_pages as cat  # noqa: E402
+import gen_pepperoni_landing as pep  # noqa: E402
 
 LOCK_PAGES = (
     "pepperoni-dlya-pizzerii.html",
     "en/pepperoni-dlya-pizzerii.html",
     "kazylyk.html",
+    "en/pepperoni.html",
 )
 
 fail = 0
@@ -124,6 +126,45 @@ def main() -> int:
     compare_fields("kazylyk.html", kazy, (PUBLIC / "kazylyk.html").read_text(encoding="utf-8"))
     check(h1_of(kazy) == "Казылык оптом — татарская колбаса из конины",
           "kazylyk generator H1 keeps the horse-sausage query")
+
+    i18n = pep.load_i18n()
+    family = pep.load_products()
+    en_pep = pep.render("en", i18n, family)
+    committed = (PUBLIC / "en/pepperoni.html").read_text(encoding="utf-8")
+    compare_fields("en/pepperoni.html", en_pep, committed)
+    title = title_text(en_pep)
+    check(title.startswith("Pepperoni Halal Wholesale"),
+          "EN pepperoni title leads with pepperoni halal")
+    check(title.split(" | ", 1)[0] == "Pepperoni Halal Wholesale — Halal Chicken Pepperoni from Kazan",
+          "EN pepperoni title ≤70 chars before the brand suffix")
+    check(len(title.split(" | ", 1)[0]) <= 70, "EN pepperoni title prefix ≤70")
+    check(h1_of(en_pep) == "Halal pepperoni wholesale — cooked-smoked chicken from Kazan",
+          "EN pepperoni H1 stays commercial")
+    check(og_title(en_pep) == title, "EN pepperoni og:title equals title")
+    details = re.findall(r"<details\b[^>]*>.*?</details>", en_pep, re.I | re.S)
+    faq_qas = []
+    for block in details:
+        q = re.search(r"<summary\b[^>]*>(.*?)</summary>", block, re.I | re.S)
+        a = re.search(r"<p>(.*?)</p>", block, re.I | re.S)
+        question = re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", q.group(1) if q else "")).strip()
+        answer = re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", a.group(1) if a else "")).strip()
+        faq_qas.append((question, answer))
+    check(any(q == "Is this pepperoni halal?" for q, _a in faq_qas),
+          "EN pepperoni FAQ question is «Is this pepperoni halal?»")
+    first = next((a for q, a in faq_qas if q == "Is this pepperoni halal?"), "")
+    check(first.startswith("Yes — the pepperoni is halal: chicken only, certified by DUM RT (certificate No. 0008)."),
+          "EN pepperoni FAQ answer starts with the DUM RT 0008 sentence")
+    check("/en/blog/what-is-halal-pepperoni" in en_pep
+          and "our guide" in en_pep,
+          "EN pepperoni FAQ links the what-is-halal-pepperoni guide")
+    desc = re.search(r'<meta[^>]+name=["\']description["\'][^>]+content=["\']([^"\']+)', en_pep, re.I)
+    check(desc and desc.group(1).startswith("Pepperoni halal-certified by DUM RT (No. 0008):"),
+          "EN pepperoni meta starts with DUM RT No. 0008")
+    check("Minimum order: 1 pallet, EXW Kazan" in (desc.group(1) if desc else ""),
+          "EN pepperoni meta keeps the 1 pallet MOQ")
+    art = (PUBLIC / "en/blog/what-is-halal-pepperoni.html").read_text(encoding="utf-8")
+    check(re.search(r'<a[^>]+href=["\']/en/pepperoni["\'][^>]*>halal pepperoni wholesale</a>', art, re.I),
+          "what-is-halal-pepperoni already links /en/pepperoni with the wholesale anchor")
 
     if fail:
         print(f"test_gsc_generator_lock: {fail} FAIL")

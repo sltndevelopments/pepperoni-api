@@ -544,7 +544,7 @@ def main():
 {{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{{"@type":"ListItem","position":1,"name":"Home","item":"https://pepperoni.tatar/en/"}},{{"@type":"ListItem","position":2,"name":"Catalog","item":"https://pepperoni.tatar/en/"}},{{"@type":"ListItem","position":3,"name":"{name_esc}","item":"https://pepperoni.tatar/en/products/{slug}"}}]}}
 </script>
 <script type="application/ld+json">
-{{"@context":"https://schema.org","@type":"Product","name":"{name_esc}","sku":"{sku}",{gtin_field}"mpn":"{article}","description":"{seo_desc_esc}","image":{jsonld_images},"brand":{{"@type":"Brand","name":"Kazan Delicacies"}},"offers":{{"@type":"Offer","priceCurrency":"RUB","price":"{price_rub}","availability":"{p.get('offers', {}).get('availability') or 'https://schema.org/InStock'}"}},"manufacturer":{json.dumps({k: ORGANIZATION[k] for k in ("@type", "@id", "name", "legalName", "url", "email", "telephone", "address", "sameAs")}, ensure_ascii=False, separators=(",", ":"))}}}
+{{"@context":"https://schema.org","@type":"Product","name":"{name_esc}","sku":"{sku}",{gtin_field}"mpn":"{article}","description":"{seo_desc_esc}","image":{jsonld_images},"brand":{{"@type":"Brand","name":"Kazan Delicacies"}},"offers":{{"@type":"Offer","url":"https://pepperoni.tatar/en/products/{slug}","itemCondition":"https://schema.org/NewCondition","priceCurrency":"RUB","price":"{price_rub}","availability":"{p.get('offers', {}).get('availability') or 'https://schema.org/InStock'}"}},"manufacturer":{json.dumps({k: ORGANIZATION[k] for k in ("@type", "@id", "name", "legalName", "url", "email", "telephone", "address", "sameAs")}, ensure_ascii=False, separators=(",", ":"))}}}
 </script>
 {faq_jsonld}
 <style>
