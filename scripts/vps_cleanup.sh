@@ -5,14 +5,19 @@
 set -euo pipefail
 umask 077
 
+preflight_fail() {
+  echo "vps-cleanup: $1"
+  exit 1
+}
+
 MODE="${MODE:-${1:-dry-run}}"
 if [[ "$MODE" != "dry-run" && "$MODE" != "apply" ]]; then
-  echo "vps-cleanup: mode must be dry-run or apply" >&2
-  exit 1
+  preflight_fail "bad mode"
 fi
 
 REPO="${REPO:-/var/www/pepperoni/repo}"
-LOCK_FILE="${LOCK_FILE:-/var/www/pepperoni/repo/data/sync.lock}"
+DATA_DIR="${DATA_DIR:-/var/www/pepperoni/data}"
+LOCK_FILE="${LOCK_FILE:-$DATA_DIR/sync.lock}"
 BACKUP_DIR="${BACKUP_DIR:-/var/backups/pepperoni}"
 CRON_D="${CRON_D:-/etc/cron.d}"
 ETC_PEPPERONI="${ETC_PEPPERONI:-/etc/pepperoni}"
@@ -32,14 +37,29 @@ NEW_MCP_PATH="/etc/pepperoni/rinatsultan-mcp.env"
 OLD_REPO_PREFIX="/opt/pepperoni-api/"
 NEW_REPO_PREFIX="/var/www/pepperoni/repo/"
 
+if ! command -v flock >/dev/null 2>&1; then
+  preflight_fail "flock missing"
+fi
+if [[ ! -d "$REPO" ]]; then
+  preflight_fail "repo missing"
+fi
+if [[ "$(id -u)" -ne 0 ]]; then
+  if [[ "$CRON_D" == /etc/* || "$ETC_PEPPERONI" == /etc/* || "$SYSTEMD_DIR" == /etc/* || "$BACKUP_DIR" == /var/backups/* ]]; then
+    preflight_fail "not root"
+  fi
+fi
+if [[ ! -d "$CRON_D" ]]; then
+  preflight_fail "cron.d missing"
+fi
+if [[ ! -d "$(dirname "$BACKUP_DIR")" ]]; then
+  preflight_fail "backups missing"
+fi
 if [[ ! -e "$LOCK_FILE" ]]; then
-  echo "lock missing" >&2
-  exit 1
+  preflight_fail "lock missing"
 fi
 exec 9<"$LOCK_FILE"
 if ! flock -w 900 9; then
-  echo "vps-cleanup: lock wait failed" >&2
-  exit 1
+  preflight_fail "lock wait failed"
 fi
 
 item_n=(0 0 0 0 0 0 0 0)
@@ -425,7 +445,7 @@ unique_list backup_paths
 print_counts
 planned="${#backup_paths[@]}"
 cron_extra="$(crontab_dump_count)" || {
-  echo "backup failed, no changes" >&2
+  echo "backup failed, no changes"
   exit 1
 }
 planned=$(( planned + cron_extra ))
@@ -441,7 +461,7 @@ do_backup
 backup_rc=$?
 set -e
 if [[ "$backup_rc" -ne 0 ]]; then
-  echo "backup failed, no changes" >&2
+  echo "backup failed, no changes"
   exit 1
 fi
 
