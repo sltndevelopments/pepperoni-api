@@ -13,6 +13,7 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
+from landing_chrome import stylesheet_link, topbar_html  # noqa: E402
 from metrika_snippet import ensure_metrika_html  # noqa: E402
 from organization_ld import ORGANIZATION, SCRIPT  # noqa: E402
 from site_facts import (  # noqa: E402
@@ -202,9 +203,11 @@ def shell(lang: str, slug: str, title: str, desc: str, h1: str, body: str,
 <link rel="alternate" hreflang="x-default" href="{BASE}/{slug}">
 {org_script()}
 <script type="application/ld+json">{json.dumps(ld, ensure_ascii=False, separators=(",", ":"))}</script>
+{stylesheet_link()}
 <style>{CSS}</style>
 </head>
-<body>
+<body class="kd-landing">
+{topbar_html(lang, slug)}
 <div class="container">
 {nav}
 <h1>{h1}</h1>
