@@ -58,7 +58,8 @@ def _href(lang: str, slug: str) -> str:
     return f"/{slug}" if lang == "ru" else f"/en/{slug}"
 
 
-def topbar_html(lang: str, slug: str, *, cta_href: str | None = None) -> str:
+def topbar_html(lang: str, slug: str, *, cta_href: str | None = None,
+                bilingual: bool = True) -> str:
     home = _home(lang)
     here = _href(lang, slug)
     alt_lang = "en" if lang == "ru" else "ru"
@@ -95,17 +96,22 @@ def topbar_html(lang: str, slug: str, *, cta_href: str | None = None) -> str:
         + f">{escape(label)}</a>"
         for href, label in links
     )
+    langs = ""
+    if bilingual:
+        langs = (
+            f'  <details class="kd-langs"><summary aria-label="Language">'
+            f'<span aria-hidden="true">🌐</span> {lang_label}</summary>\n'
+            f'    <div class="kd-langs__menu"><a href="{escape(here)}" aria-current="page">'
+            f'{lang_label}</a><a href="{escape(alt_href)}">{alt_label}</a></div>\n'
+            f'  </details>\n'
+        )
     inner = (
         f'<header class="kd-topbar"><div class="kd-topbar__in">\n'
         f'  <a class="kd-brand" href="{home}">Kazan <span>Delicacies</span></a>\n'
         f'  <nav class="kd-topnav" aria-label="{nav_label}">{nav}</nav>\n'
         f'  <div class="kd-topbar__spacer"></div>\n'
         f'  <a class="kd-topphone" href="tel:+79872170202">{phone_label}</a>\n'
-        f'  <details class="kd-langs"><summary aria-label="Language">'
-        f'<span aria-hidden="true">🌐</span> {lang_label}</summary>\n'
-        f'    <div class="kd-langs__menu"><a href="{escape(here)}" aria-current="page">'
-        f'{lang_label}</a><a href="{escape(alt_href)}">{alt_label}</a></div>\n'
-        f'  </details>\n'
+        f'{langs}'
         f'  <a class="kd-btn kd-btn--primary" href="{escape(cta_href)}">{cta}</a>\n'
         f'</div></header>'
     )
