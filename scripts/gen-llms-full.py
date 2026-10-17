@@ -83,7 +83,8 @@ def llms_map_ru() -> str:
 > Производитель халяльных колбасных изделий и татарской выпечки в Казани (ООО «Казанские Деликатесы»). Каталог pepperoni.tatar — все позиции, не одна линейка пепперони. Оптовые поставки для сетей, HoReCa, АЗС, дистрибьюторов; контрактное производство (СТМ). {cert_line_ru()}. Каталог: {n_sku} SKU в {n_sections} разделах ({", ".join(sections)}), обновлён {last_synced}.
 
 Ключевые условия (подтверждены владельцем):
-- Цены EXW Казань, с НДС и без НДС; оптовый расчёт — за паллету. Минимальный заказ — одна паллета (сборная из разных позиций возможна), объём кратно паллете.
+- Цены EXW Казань, с НДС и без НДС; оптовый расчёт — за паллету. Минимальный заказ — 1 паллета.
+- Текущие экспортные поставки: Казахстан, Беларусь, Кыргызстан. Узбекистан — аттестация «Цербер», не текущая отгрузка.
 - Контрактное производство (СТМ): от 5 тонн. Этапы и сроки — по договору. Мощность производства — 12 тонн в смену.
 - Документы к отгрузке: халяль-сертификат, декларация соответствия, ВСД («Меркурий»), «Честный знак», ЭТрН.
 - Доставка, сроки, образцы — согласуются индивидуально. Продукция соответствует стандарту «Халяль». Алкоголь в рецептуре не используется.
@@ -152,7 +153,8 @@ def llms_map_en() -> str:
 > Manufacturer of halal sausage products and Tatar bakery in Kazan, Russia (Kazan Delicacies LLC). The pepperoni.tatar catalog is the full range, not a single pepperoni line. Wholesale supply for retail chains, HoReCa, fuel stations and distributors; private-label / contract manufacturing. {cert_line_en()}. Catalog: {n_sku} SKUs in {n_sections} sections, updated {last_synced}.
 
 Key terms (owner-approved):
-- Prices EXW Kazan, with and without VAT; wholesale volumes are calculated per pallet. Minimum order — one pallet (mixed pallets possible), volumes in pallet multiples.
+- Prices EXW Kazan, with and without VAT; wholesale volumes are calculated per pallet. Minimum order: 1 pallet.
+- Current export shipments: Kazakhstan, Belarus, Kyrgyzstan. Uzbekistan is Cerberus attestation, not a current shipment.
 - Private label (contract manufacturing): from 5 tonnes. Stages and lead times per contract. Production capacity — 12 tonnes per shift.
 - Shipping documents: halal certificate, declaration of conformity, veterinary certificate (Mercury), Chestny Znak marking, electronic waybill.
 - Delivery, lead times and samples are agreed individually. Every product is certified to the Halal standard. No alcohol is used.

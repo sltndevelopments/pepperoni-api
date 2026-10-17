@@ -4,7 +4,8 @@
 Canonical sources:
   * public/products.json — SKUs, names, weights, RUB prices, shelf life (Sheet)
   * data/company_facts.json — legal name, INN/OGRN, address, phones, email,
-    founding year, halal certs 0008 / 614A/2024 / 884A/2025, capacity, MOQ, EXW
+    founding year, halal certs 0008 / 614A/2024 / 884A/2025 / 976A/2026 / 1002/2026,
+    capacity, MOQ, EXW, current export countries
 
 Surfaces scanned: RU+EN HTML (JSON-LD Organization / Product / Offer),
 llms.txt / llms-full.txt, products.json (including seoDescription),
@@ -177,7 +178,25 @@ def issues_company(company: dict, site: dict) -> list[str]:
         "0008": (site.get("certificates") or {}).get("halal_0008") or {},
         "614A/2024": (site.get("certificates") or {}).get("halal_614a") or {},
         "884A/2025": (site.get("certificates") or {}).get("halal_bakery") or {},
+        "976A/2026": (site.get("certificates") or {}).get("halal_976a") or {},
+        "1002/2026": (site.get("certificates") or {}).get("halal_1002") or {},
     }
+    if company.get("moq") != "1 паллета":
+        issues.append(f"company_facts.moq {company.get('moq')!r} != '1 паллета'")
+    if company.get("moq_phrase_ru") != "Минимальный заказ — 1 паллета":
+        issues.append("company_facts.moq_phrase_ru is not the canonical RU MOQ")
+    if company.get("moq_phrase_en") != "Minimum order: 1 pallet":
+        issues.append("company_facts.moq_phrase_en is not the canonical EN MOQ")
+    want_export = ["Казахстан", "Беларусь", "Кыргызстан"]
+    if company.get("export_current_ru") != want_export:
+        issues.append(f"company_facts.export_current_ru {company.get('export_current_ru')!r}")
+    site_export = (site.get("export") or {}).get("current_ru")
+    if site_export and site_export != want_export:
+        issues.append(f"site_facts.export.current_ru {site_export!r}")
+    numbers = {c["number"] for c in company["halal_certificates"]}
+    for need in ("0008", "614A/2024", "884A/2025", "976A/2026", "1002/2026"):
+        if need not in numbers:
+            issues.append(f"company_facts missing halal cert {need}")
     for number, row in mapping.items():
         if not row:
             continue
@@ -502,6 +521,74 @@ def check_cards_and_lists(by_sku: dict[str, dict]) -> list[str]:
     return issues
 
 
+MOQ_BAN = [
+    (re.compile(r"сборная возможна", re.I), "legacy MOQ 'сборная возможна'"),
+    (re.compile(r"mixed pallets? possible", re.I), "legacy MOQ 'mixed pallet possible'"),
+    (re.compile(r"minOrder_boxes"), "feed publishes Sheet quantum as minOrder_boxes"),
+    (re.compile(r"Мин\.\s*заказ,\s*коробов"), "YML publishes Sheet quantum as Мин. заказ"),
+    (re.compile(r"MOQ\s*[:\-]?\s*8\b", re.I), "MOQ variant '8'"),
+    (re.compile(r"минимальн\w*\s+заказ[^.\n]{0,40}(?<!\d)8(?!\d)", re.I), "MOQ variant '8'"),
+]
+STALE_CURRENT_EXPORT = [
+    (re.compile(r"Казахстан,\s*Беларусь,\s*Узбекистан"),
+     "stale current-export list (Uzbekistan is Cerberus, not a current shipment)"),
+    (re.compile(r"Kazakhstan,\s*Belarus,\s*Uzbekistan"),
+     "stale current-export list (Uzbekistan is Cerberus, not a current shipment)"),
+]
+LOCALE_SKIP = re.compile(r"^(hy|tg|ka|kk|ky|uz|az|zh|ar|he)/")
+FACT_SKIP_NAMES = {
+    "products.json", "products-feed.json", "products-feed.xml", "yml.xml",
+    "daily_ledger.json",
+}
+
+
+def check_moq_and_export(company: dict) -> list[str]:
+    issues = []
+    phrase_ru = company.get("moq_phrase_ru") or "Минимальный заказ — 1 паллета"
+    phrase_en = company.get("moq_phrase_en") or "Minimum order: 1 pallet"
+    current = company.get("export_current_ru") or ["Казахстан", "Беларусь", "Кыргызстан"]
+    current_en = company.get("export_current_en") or ["Kazakhstan", "Belarus", "Kyrgyzstan"]
+    must = {
+        "brand.txt": (phrase_en, *current),
+        "llms.txt": (phrase_ru, *current, "976A/2026", "1002/2026"),
+        "llms-full.txt": (phrase_ru, *current, "976A/2026", "1002/2026"),
+        "en/llms.txt": (phrase_en, *current_en, "976A/2026", "1002/2026"),
+        "en/llms-full.txt": (phrase_en, *current_en, "976A/2026", "1002/2026"),
+        "export.html": tuple(current),
+        "en/export.html": tuple(current_en),
+        "halal.html": ("976A/2026", "1002/2026"),
+        "en/halal.html": ("976A/2026", "1002/2026"),
+    }
+    for rel, needles in must.items():
+        path = PUBLIC / rel if not rel.startswith("en/") else PUBLIC / rel
+        if rel == "brand.txt":
+            path = PUBLIC / "brand.txt"
+        if not path.is_file():
+            issues.append(f"{rel} missing")
+            continue
+        text = path.read_text(encoding="utf-8")
+        for needle in needles:
+            if needle not in text:
+                issues.append(f"{rel} missing {needle!r}")
+    return issues
+
+
+def check_moq_export_variants(rel: str, text: str) -> list[str]:
+    if LOCALE_SKIP.match(rel):
+        return []
+    name = Path(rel).name
+    if name in FACT_SKIP_NAMES:
+        return []
+    issues = []
+    for rx, label in MOQ_BAN:
+        if rx.search(text):
+            issues.append(f"{rel} {label}")
+    for rx, label in STALE_CURRENT_EXPORT:
+        if rx.search(text):
+            issues.append(f"{rel} {label}")
+    return issues
+
+
 def check_halal(company: dict) -> list[str]:
     issues = []
     path = PUBLIC / "halal.html"
@@ -532,6 +619,7 @@ def main() -> int:
     issues.extend(check_llms(by_sku))
     issues.extend(check_api_mcp(company))
     issues.extend(check_halal(company))
+    issues.extend(check_moq_and_export(company))
 
     html_files = [p for p in walk_public_files() if p.suffix == ".html"]
     # Offer currency/price: RU root + /en only (canonical locales). Other
@@ -546,11 +634,13 @@ def main() -> int:
         issues.extend(check_corrupt_shelf(rel, text))
         issues.extend(check_kd012(rel, text))
         issues.extend(check_company_mentions(rel, text, company))
+        issues.extend(check_moq_export_variants(rel, text))
 
     for rel in ("llms-full.txt", "en/llms-full.txt", "llms.txt", "en/llms.txt"):
         path = PUBLIC / rel
         if path.is_file():
             issues.extend(check_company_mentions(rel, path.read_text(encoding="utf-8"), company))
+            issues.extend(check_moq_export_variants(rel, path.read_text(encoding="utf-8")))
 
     # Dedup while keeping order
     seen = set()

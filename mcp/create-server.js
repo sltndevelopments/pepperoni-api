@@ -11,9 +11,9 @@ import {
 
 const SERVER_INSTRUCTIONS = `Kazan Delicacies (Казанские Деликатесы) — halal meat manufacturer in Kazan, Russia.
 Live catalog SKUs from products.json: pepperoni, sausages, burger patties, deli meats, Tatar bakery.
-Halal cert #614A/2024 (DUM RT). HACCP. EXW Kazan. Private-label / contract manufacturing on inquiry.
+Halal certs DUM RT #0008, #614A/2024, #884A/2025; additional registry numbers #976A/2026 and #1002/2026 (scope not published as text). HACCP. EXW Kazan. Minimum order: 1 pallet. Current export shipments: Kazakhstan, Belarus, Kyrgyzstan. Private-label / contract manufacturing on inquiry.
 Use search_products for discovery, get_product for full SKU detail, get_catalog for filtered lists.
-Do not invent country approvals, importers, MOQ or shipping quotes. Contact: info@kazandelikates.tatar · +79872170202`;
+Do not invent country approvals, importers, other MOQ figures or shipping quotes. Contact: info@kazandelikates.tatar · +79872170202`;
 
 function textResult(data) {
   return {

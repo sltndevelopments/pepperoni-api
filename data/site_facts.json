@@ -55,6 +55,26 @@
       "status": "valid",
       "_source": "live https://pepperoni.tatar/halal 2026-10-15; owner confirmed all DUM RT halal certificates valid, including 884A; https://halalrt.ru/c/4hDESSiMNsDK3Jt/"
     },
+    "halal_976a": {
+      "issuer_ru": "Комитет «Халяль» ДУМ РТ",
+      "number": "976A/2026",
+      "scope_ru": "состав продукции текстом не опубликован на карточке реестра",
+      "scope_en": "product scope is not published as text on the public registry card",
+      "valid_from": "2026-06-04",
+      "valid_until": "2027-06-03",
+      "status": "valid",
+      "_source": "public/brand.txt; https://halalrt.ru/c/7eK53w8SXP8M7zC; owner 2026-10-17: all DUM RT certificates valid"
+    },
+    "halal_1002": {
+      "issuer_ru": "Комитет «Халяль» ДУМ РТ",
+      "number": "1002/2026",
+      "scope_ru": "состав продукции текстом не опубликован на карточке реестра",
+      "scope_en": "product scope is not published as text on the public registry card",
+      "valid_from": "2026-07-30",
+      "valid_until": "2027-02-16",
+      "status": "valid",
+      "_source": "public/brand.txt; https://halalrt.ru/c/67CpLps2FMkeJ6d; owner 2026-10-17: all DUM RT certificates valid"
+    },
     "iso_22000": {
       "number": "ISO 22000:2018",
       "registry": "FSMS-2351/A",
@@ -90,6 +110,16 @@
         "kind": "bakery",
         "verify_url": "https://halalrt.ru/c/4hDESSiMNsDK3Jt/"
       },
+      "halal_976a": {
+        "sections": [],
+        "kind": "registry",
+        "verify_url": "https://halalrt.ru/c/7eK53w8SXP8M7zC"
+      },
+      "halal_1002": {
+        "sections": [],
+        "kind": "registry",
+        "verify_url": "https://halalrt.ru/c/67CpLps2FMkeJ6d"
+      },
       "iso_22000": {
         "sections": ["Заморозка", "Охлаждённая продукция", "Выпечка"],
         "kind": "facility",
@@ -107,9 +137,24 @@
   "export": {
     "current_ru": ["Казахстан", "Беларусь", "Кыргызстан"],
     "current_en": ["Kazakhstan", "Belarus", "Kyrgyzstan"],
+    "current_iso": ["KZ", "BY", "KG"],
+    "cerberus_attested_ru": ["Казахстан", "Кыргызстан", "Беларусь", "Армения", "Таджикистан", "Грузия", "Азербайджан", "Узбекистан"],
     "cerberus_attested_en": ["Kazakhstan", "Kyrgyzstan", "Belarus", "Armenia", "Tajikistan", "Georgia", "Azerbaijan", "Uzbekistan"],
+    "cerberus_attested_iso": ["KZ", "KG", "BY", "AM", "TJ", "GE", "AZ", "UZ"],
+    "gulf_ru": ["Саудовская Аравия", "ОАЭ", "Катар", "Оман", "Кувейт", "Бахрейн"],
+    "gulf_en": ["Saudi Arabia", "UAE", "Qatar", "Oman", "Kuwait", "Bahrain"],
+    "gulf_iso": ["SA", "AE", "QA", "OM", "KW", "BH"],
     "gulf": "preparation (Rosselkhoznadzor permit pending)",
-    "_source": "/en/export page (Sep 2026, most specific: separates current shipments from Cerberus attestation)"
+    "_source": "live https://pepperoni.tatar/export 2026-10-17 (current shipments vs Cerberus attestation vs Gulf preparation)"
   },
-  "terms": {"basis": "EXW Казань", "moq": "1 паллета (сборная возможна)", "private_label_min": "5 т", "capacity": "12 т/смена", "_source": "evidence_registry wholesale_pallet_basis, private_label_min_run_5t, capacity_12t_per_shift"}
+  "terms": {
+    "basis": "EXW Казань",
+    "moq": "1 паллета",
+    "moq_en": "1 pallet",
+    "moq_phrase_ru": "Минимальный заказ — 1 паллета",
+    "moq_phrase_en": "Minimum order: 1 pallet",
+    "private_label_min": "5 т",
+    "capacity": "12 т/смена",
+    "_source": "owner 2026-10-17: canonical wholesale MOQ wording; evidence_registry wholesale_pallet_basis, private_label_min_run_5t, capacity_12t_per_shift"
+  }
 }

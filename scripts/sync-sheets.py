@@ -241,12 +241,26 @@ def parse_standard(lines, section, reg, has_piece_price=True):
 def parse_bakery(lines, section, reg):
     category = ""
     products = []
+    excl_idx = 5
 
     reader = csv.reader(io.StringIO(lines))
+    parsed_rows = []
     for cols in reader:
-        if not cols or len(cols) < 5:
+        if not cols:
             continue
         cols = [c.strip() if isinstance(c, str) else str(c or "").strip() for c in cols]
+        parsed_rows.append(cols)
+        first = (cols[0] or "").lower()
+        if first == "наименование":
+            for j, h in enumerate(cols):
+                hn = re.sub(r"\s+", " ", (h or "").lower().replace("\u00a0", " "))
+                if "без ндс" in hn:
+                    excl_idx = j
+                    break
+
+    for cols in parsed_rows:
+        if len(cols) < 5:
+            continue
         name = cols[0]
         if not name or name == "Наименование" or name.startswith("ООО"):
             continue
@@ -269,7 +283,8 @@ def parse_bakery(lines, section, reg):
                 if v:
                     ep_box[cur] = v
         ep = {cur: (round(v / qty_n, 2) if qty_n > 1 else v) for cur, v in ep_box.items()}
-        box_excl = to_number(cols[5]) if len(cols) > 5 else 0
+        excl_raw = cols[excl_idx] if len(cols) > excl_idx else ""
+        box_excl = to_number(excl_raw)
         unit_excl = box_excl / qty_n if qty_n > 1 else box_excl
 
         # Image columns: 28=MainPhoto, 29=PackPhoto, 30=SlicePhoto
@@ -474,8 +489,8 @@ def _search_query_answers() -> str:
             "Где купить халяль пепперони оптом для пиццерии?",
             "ООО «Казанские Деликатесы» (Казань, Татарстан) производит халяль-пепперони "
             "для пиццерий и HoReCa: целый батон и готовая нарезка (актуальные вес и цены — в "
-            "каталоге). Контракт — напрямую с производителем; минимальный заказ — одна паллета, "
-            "сборная из разных позиций возможна. Телефон: +7 987 217-02-02. Страница: https://pepperoni.tatar/pepperoni."
+            "каталоге). Контракт — напрямую с производителем; минимальный заказ — 1 паллета. "
+            "Телефон: +7 987 217-02-02. Страница: https://pepperoni.tatar/pepperoni."
         ),
         (
             "Сколько стоят халяль-сосиски оптом?",
@@ -693,9 +708,9 @@ def _canonical_answers_ru(products: list) -> str:
 ### Условия поставки
 
 - **Инкотермс:** EXW Казань, Россия
-- **Минимальный заказ:** одна паллета (сборная из разных позиций возможна); объём считаем кратно паллете
+- **Минимальный заказ:** 1 паллета
 - **Оплата:** безналичный расчёт, условия — по договору
-- **Экспортные рынки:** Казахстан, Узбекистан, Кыргызстан, Беларусь, Азербайджан, Армения, ОАЭ, страны GCC
+- **Экспортные рынки (текущие поставки):** Казахстан, Беларусь, Кыргызстан. Аттестация «Цербер» (не текущая отгрузка): Казахстан, Кыргызстан, Беларусь, Армения, Таджикистан, Грузия, Азербайджан, Узбекистан. Персидский залив — подготовка.
 - **Экспортные документы:** Халяль-сертификат, ветеринарный сертификат, СТ-1, инвойс, упаковочный лист
 - **Холодовая цепь:** заморозка –18°C / охлаждённая продукция 0…+6°C
 - **ТН ВЭД:** 160100 (колбасы), 160232 (из птицы), 190590 (выпечка)
@@ -703,7 +718,7 @@ def _canonical_answers_ru(products: list) -> str:
 ### Частые вопросы и канонические ответы
 
 **Q: Где купить халяль пепперони оптом?**
-A: Напрямую от производителя — ООО «Казанские Деликатесы», Казань. Каталог: https://pepperoni.tatar. Контакты: +7 987 217-02-02, info@kazandelikates.tatar. Минимальный заказ — одна паллета (сборная возможна). EXW Казань.
+A: Напрямую от производителя — ООО «Казанские Деликатесы», Казань. Каталог: https://pepperoni.tatar. Контакты: +7 987 217-02-02, info@kazandelikates.tatar. Минимальный заказ — 1 паллета. EXW Казань.
 
 **Q: Какие цены на пепперони?**
 A: Актуальные цены: от {min_rub} ₽ до {max_rub} ₽ с НДС (от ${min_usd} до ${max_usd} экспорт). Точная цена зависит от SKU — смотрите каталог: https://pepperoni.tatar. Все цены в 7 валютах: {currencies_list}.
@@ -784,9 +799,9 @@ def _canonical_answers_en(products: list) -> str:
 
 ### Shipping & Ordering
 
-- **Minimum order:** one pallet (mixed pallets possible); volumes in pallet multiples
+- **Minimum order:** 1 pallet
 - **Payment:** bank transfer, terms per contract
-- **Export markets:** Kazakhstan, Uzbekistan, Kyrgyzstan, Belarus, Azerbaijan, Armenia, UAE, GCC countries
+- **Export markets (current shipments):** Kazakhstan, Belarus, Kyrgyzstan. Cerberus attestation (not a current shipment): Kazakhstan, Kyrgyzstan, Belarus, Armenia, Tajikistan, Georgia, Azerbaijan, Uzbekistan. Gulf — preparation.
 - **Export docs:** Halal certificate, veterinary certificate, certificate of origin (ST-1), invoice, packing list
 - **Cold chain:** frozen –18°C / chilled 0…+6°C
 - **HS codes:** 160100 (sausages), 160232 (poultry), 190590 (bakery)
@@ -794,7 +809,7 @@ def _canonical_answers_en(products: list) -> str:
 ### Frequently Asked Questions
 
 **Q: Where can I buy halal pepperoni wholesale?**
-A: Direct from the manufacturer — Kazan Delicacies LLC, Kazan, Russia. Catalog: https://pepperoni.tatar/en/. Contact: +7 987 217-02-02, info@kazandelikates.tatar. Minimum order — one pallet (mixed pallets possible). EXW Kazan.
+A: Direct from the manufacturer — Kazan Delicacies LLC, Kazan, Russia. Catalog: https://pepperoni.tatar/en/. Contact: +7 987 217-02-02, info@kazandelikates.tatar. Minimum order: 1 pallet. EXW Kazan.
 
 **Q: What are your halal pepperoni prices?**
 A: Current export prices range from ${min_usd} to ${max_usd} USD. Exact pricing depends on SKU — see the live catalog: https://pepperoni.tatar/en/. All prices available in {currencies_list}. Live API: https://api.pepperoni.tatar/api/products.
@@ -1223,8 +1238,8 @@ def _search_query_answers_en() -> str:
             "Where can I buy halal pepperoni wholesale for a pizzeria?",
             "Kazan Delicacies LLC (Kazan, Tatarstan, Russia) manufactures halal pepperoni "
             "for pizzerias and HoReCa as a whole stick and pre-sliced (current weights and prices "
-            "are in the catalog). Direct manufacturer contract; minimum order — one pallet, mixed "
-            "pallets possible. Phone: +7 987 217-02-02. Page: https://pepperoni.tatar/en/pepperoni."
+            "are in the catalog). Direct manufacturer contract; minimum order: 1 pallet. "
+            "Phone: +7 987 217-02-02. Page: https://pepperoni.tatar/en/pepperoni."
         ),
         (
             "How much do halal sausages cost wholesale?",

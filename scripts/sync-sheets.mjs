@@ -172,6 +172,7 @@ const HEADER_ALIASES = {
   slicePhoto: ['фото среза'],
   params: ['параметры товара'],
   quantum: ['квант'],
+  priceBoxExclVAT: ['без ндс'],
 };
 
 function findHeaderRowIndex(lines) {
@@ -400,7 +401,8 @@ function parseBakery(lines, section, reg) {
     for (const [cur, v] of Object.entries(epBox)) {
       ep[cur] = qtyPerBoxN > 1 ? Math.round((v / qtyPerBoxN) * 100) / 100 : v;
     }
-    const pricePerBoxExclVAT = toNumber(cols[5]);
+    const exclRaw = cellBy(cols, colIndex, 'priceBoxExclVAT') || cols[5] || '';
+    const pricePerBoxExclVAT = toNumber(exclRaw);
     const pricePerUnitExclVAT = qtyPerBoxN > 1 ? pricePerBoxExclVAT / qtyPerBoxN : pricePerBoxExclVAT;
 
     const mainPhoto = driveToDirectUrl(
@@ -751,7 +753,7 @@ ${p.hsCode ? `<param name="ТН ВЭД">${escapeXml(p.hsCode)}</param>` : ''}
 ${p.diameter ? `<param name="Диаметр, мм">${escapeXml(String(p.diameter))}</param>` : ''}
 ${p.casing ? `<param name="Оболочка">${escapeXml(p.casing)}</param>` : ''}
 ${p.packageType ? `<param name="Упаковка">${escapeXml(p.packageType)}</param>` : ''}
-${p.minOrder ? `<param name="Мин. заказ, коробов">${escapeXml(String(p.minOrder))}</param>` : ''}
+${p.minOrder ? `<param name="Квант, коробов">${escapeXml(String(p.minOrder))}</param>` : ''}
 <param name="Страна производства">Россия</param>
 <param name="Халяль">Да</param>
 </offer>
@@ -860,7 +862,7 @@ function generateProductPages(allProducts) {
     if (p.shelfLife) specsRows.push(`<tr><td style="padding:8px 12px;border:1px solid #e0e0e0;color:#666">Срок годности</td><td style="padding:8px 12px;border:1px solid #e0e0e0">${p.shelfLife}</td></tr>`);
     if (p.storage) specsRows.push(`<tr><td style="padding:8px 12px;border:1px solid #e0e0e0;color:#666">Условия хранения</td><td style="padding:8px 12px;border:1px solid #e0e0e0">${p.storage}</td></tr>`);
     if (p.boxWeightGross) specsRows.push(`<tr><td style="padding:8px 12px;border:1px solid #e0e0e0;color:#666">Вес коробки брутто</td><td style="padding:8px 12px;border:1px solid #e0e0e0">${p.boxWeightGross}</td></tr>`);
-    if (p.minOrder) specsRows.push(`<tr><td style="padding:8px 12px;border:1px solid #e0e0e0;color:#666">Мин. заказ</td><td style="padding:8px 12px;border:1px solid #e0e0e0">${p.minOrder}</td></tr>`);
+    specsRows.push(`<tr><td style="padding:8px 12px;border:1px solid #e0e0e0;color:#666">Минимальный заказ</td><td style="padding:8px 12px;border:1px solid #e0e0e0">1 паллета</td></tr>`);
     if (p.nutrition) specsRows.push(`<tr><td style="padding:8px 12px;border:1px solid #e0e0e0;color:#666">КБЖУ</td><td style="padding:8px 12px;border:1px solid #e0e0e0">${p.nutrition}</td></tr>`);
     const specsTable = specsRows.length ? `<div style="margin-top:24px"><h3 style="font-size:1rem;color:#1b7a3d;margin-bottom:12px;font-weight:600">Технические характеристики</h3><table style="width:100%;border-collapse:collapse;font-size:.9rem;border:1px solid #e0e0e0;border-radius:6px;overflow:hidden"><tbody>${specsRows.join('')}</tbody></table></div>` : '';
 
