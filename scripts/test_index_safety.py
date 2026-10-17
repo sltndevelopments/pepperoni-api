@@ -2,6 +2,7 @@
 """Guards for allowlist safety and the Metrika snippet. No network."""
 from __future__ import annotations
 
+import re
 import sys
 import unittest
 from pathlib import Path
@@ -47,10 +48,65 @@ class SafetyTests(unittest.TestCase):
         self.assertTrue(any("/export/kazakhstan" in h for h in hits))
         self.assertFalse(any("old-page" in h for h in hits))
         self.assertFalse(any("/pepperoni" in h and "geo" in h for h in hits))
+        slash_only = "location = /halal/ { return 301 https://pepperoni.tatar/halal; }\n"
+        self.assertEqual(
+            index_safety.nginx_keep_conflicts(slash_only, {"/halal"}),
+            [],
+        )
 
     def test_installed_snippets_do_not_hit_keep(self):
         hits = index_safety.check_nginx_install()
         self.assertEqual([], hits, hits)
+
+    def test_redirect_snippets_are_classified(self):
+        files = {p.name for p in (ROOT / "deploy" / "nginx").glob("*-redirects.conf")}
+        managed = {
+            name for name in index_safety.NGINX_INSTALL if name.endswith("-redirects.conf")
+        }
+        manual = set(index_safety.NGINX_MANUAL_REDIRECTS)
+        overlap = sorted(managed & manual)
+        missing = sorted(files - managed - manual)
+        extra = sorted((managed | manual) - files)
+        self.assertEqual([], overlap, overlap)
+        self.assertEqual([], missing, missing)
+        self.assertEqual([], extra, extra)
+        self.assertIn("pepperoni-halyal-redirects.conf", managed)
+        self.assertNotIn(
+            "pepperoni-halyal-redirects.conf", index_safety.nginx_include_names()
+        )
+        self.assertEqual(
+            index_safety.NGINX_INCLUDE_MARKER, "pepperoni-halyal-redirects.conf"
+        )
+
+    def test_apply_script_uses_shared_list_and_rolls_back(self):
+        text = (ROOT / "scripts" / "apply_nginx_trust_reset.sh").read_text(encoding="utf-8")
+        self.assertIn("from index_safety import NGINX_INSTALL", text)
+        self.assertIn("patch_site_includes", text)
+        self.assertIn("nginx -t", text)
+        self.assertIn("systemctl reload nginx", text)
+        self.assertLess(text.index("nginx -t"), text.index("systemctl reload nginx"))
+        self.assertIn("rolled back", text)
+        self.assertIn("rollback", text)
+
+    def test_patch_site_includes_keeps_single_halyal_include(self):
+        src = "\n".join([
+            "server {",
+            "    include /etc/nginx/snippets/pepperoni-halyal-redirects.conf;",
+            "    include /etc/nginx/snippets/jerky-redirects.conf;",
+            "    include /etc/nginx/snippets/test1-noindex.conf;",
+            "}",
+            "",
+        ])
+        out = index_safety.patch_site_includes(src)
+        includes = re.findall(r"include /etc/nginx/snippets/([^;]+);", out)
+        self.assertEqual(includes.count("pepperoni-halyal-redirects.conf"), 1)
+        self.assertEqual(len(includes), len(set(includes)), includes)
+        self.assertIn("cases-noindex.conf", includes)
+        self.assertNotIn("test1-noindex.conf", includes)
+        self.assertEqual(includes[0], "pepperoni-halyal-redirects.conf")
+        self.assertEqual(
+            includes[1:], list(index_safety.nginx_include_names())
+        )
 
     def test_metrika_insert_once(self):
         html = "<html><head></head><body><h1>x</h1></body></html>"

@@ -23,8 +23,11 @@ MANIFEST = ROOT / "data" / "index_manifest.json"
 ALERT_LOG = ROOT / "data" / "logs" / "index_safety_alerts.jsonl"
 CONFIRM_FLAG = "--confirm-destructive"
 
-# Snippets installed on every deploy by scripts/apply_nginx_trust_reset.sh.
+# Snippets copied to /etc/nginx/snippets on every deploy by
+# scripts/apply_nginx_trust_reset.sh. The live vhost already includes
+# NGINX_INCLUDE_MARKER once; the installer must not emit a second include.
 NGINX_INSTALL = (
+    "pepperoni-halyal-redirects.conf",
     "jerky-redirects.conf",
     "karmin-e120-redirects.conf",
     "certificates-halal-redirects.conf",
@@ -36,7 +39,45 @@ NGINX_INSTALL = (
     "trust-reset-redirects.conf",
     "trust-reset-gone.conf",
     "export-country-redirects.conf",
+    "cases-noindex.conf",
 )
+NGINX_INCLUDE_MARKER = "pepperoni-halyal-redirects.conf"
+NGINX_STRIP_EXTRA = ("test1-noindex.conf",)
+
+# *-redirects.conf files that apply_nginx_trust_reset.sh must not copy.
+# Empty: every deploy/nginx/*-redirects.conf is deploy-managed. Add a name
+# here (and omit it from NGINX_INSTALL) when a snippet stays laptop-only.
+NGINX_MANUAL_REDIRECTS: frozenset[str] = frozenset()
+
+
+def nginx_include_names() -> tuple[str, ...]:
+    """Includes the installer inserts after the marker. Marker stays unique."""
+    return tuple(name for name in NGINX_INSTALL if name != NGINX_INCLUDE_MARKER)
+
+
+def patch_site_includes(text: str) -> str:
+    """Rewrite a vhost so managed includes sit once, after the marker include."""
+    names = list(nginx_include_names())
+    remove = {*names, *NGINX_STRIP_EXTRA}
+    lines = [
+        line
+        for line in text.splitlines()
+        if not any(f"/etc/nginx/snippets/{name}" in line for name in remove)
+    ]
+    marker_hits = [
+        i
+        for i, line in enumerate(lines)
+        if f"/etc/nginx/snippets/{NGINX_INCLUDE_MARKER}" in line
+    ]
+    if len(marker_hits) != 1:
+        raise SystemExit(
+            f"expected one {NGINX_INCLUDE_MARKER} include, got {len(marker_hits)}"
+        )
+    marker = marker_hits[0]
+    indent = lines[marker][: len(lines[marker]) - len(lines[marker].lstrip())]
+    block = [f"{indent}include /etc/nginx/snippets/{name};" for name in names]
+    lines[marker + 1 : marker + 1] = block
+    return "\n".join(lines) + "\n"
 
 _EXACT_LOC = re.compile(
     r"location\s+=\s+(\S+)\s*\{[^}]*\breturn\s+(301|410)\b",
@@ -201,13 +242,24 @@ def _norm_url(location: str) -> str:
 
 
 def nginx_keep_conflicts(text: str, keep_urls: set[str]) -> list[str]:
-    """Return human-readable hits where a snippet 301/410s a keep URL."""
+    """Return human-readable hits where a snippet 301/410s a keep URL.
+
+    A trailing-slash location of a keep URL (``/cases/`` when ``/cases`` is
+    keep) is slash-canonicalization, not retirement, and is not a hit.
+    ``/cases.html`` and the bare keep URL still are.
+    """
     conflicts: list[str] = []
     for match in _EXACT_LOC.finditer(text):
-        url = _norm_url(match.group(1))
+        raw = match.group(1).strip().strip("'\"")
+        if not raw.startswith("/"):
+            raw = "/" + raw
+        url = _norm_url(raw)
         code = match.group(2)
-        if url in keep_urls:
-            conflicts.append(f"{code} {url}")
+        if url not in keep_urls:
+            continue
+        if raw != url and raw != f"{url}.html":
+            continue
+        conflicts.append(f"{code} {url}")
     for match in _PREFIX_LOC.finditer(text):
         prefix = _norm_url(match.group(1))
         body = match.group(2)

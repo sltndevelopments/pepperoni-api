@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
-# Install / update pepperoni-halyal 301 snippet on Selectel VPS and reload nginx.
-# Run from laptop: bash scripts/install_halyal_redirects_vps.sh
+# Laptop fallback for the pepperoni-halyal 301 snippet.
+# Deploy now copies this file via apply_nginx_trust_reset.sh (NGINX_INSTALL).
+# Run from laptop only when you cannot wait for deploy:
+#   bash scripts/install_halyal_redirects_vps.sh
 set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 SRC="$ROOT/deploy/nginx/pepperoni-halyal-redirects.conf"
