@@ -46,6 +46,14 @@ def main() -> int:
     sitemap = (ROOT / "public" / "sitemap.xml").read_text(encoding="utf-8")
     robots = (ROOT / "public" / "robots.txt").read_text(encoding="utf-8")
     check("Disallow: /cases/" in robots, "robots.txt disallows /cases/")
+    ua_blocks = re.split(r"(?=^User-agent:)", robots, flags=re.M)
+    named = [b for b in ua_blocks if re.match(r"User-agent:\s+\S+", b)]
+    missing_ua = []
+    for block in named:
+        name = re.match(r"User-agent:\s+(\S+)", block).group(1)
+        if "Disallow: /cases/" not in block:
+            missing_ua.append(name)
+    check(not missing_ua, f"every User-agent group disallows /cases/ (missing: {missing_ua})")
 
     for slug in SLUGS:
         rel = f"cases/{slug}.html"

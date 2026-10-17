@@ -170,6 +170,15 @@ def main() -> int:
     check(not bare_en, f"EN KD-018 prices have a unit ({unit_en}); bare: {bare_en}")
     check("245.00 RUB/pack" in html_of("en/sosiska-v-teste.html"),
           "EN /sosiska-v-teste KD-018 price is RUB/pack")
+    saus_en = html_of("en/sosiska-v-teste.html")
+    saus_ru = html_of("sosiska-v-teste.html")
+    check("Pack rows use per-pack price" in saus_en,
+          "EN /sosiska-v-teste note covers the KD-018 pack row")
+    check("Bakery rows use per-piece price." not in saus_en
+          or "Pack rows use per-pack price" in saus_en,
+          "EN /sosiska-v-teste does not claim every row is per-piece")
+    check("цена за упаковку" in saus_ru,
+          "RU /sosiska-v-teste note covers the KD-018 pack row")
 
     # (b) EXW / availability / 884A on the four landings each have a source field.
     basis_ru = str(FACTS["terms"]["basis"])
