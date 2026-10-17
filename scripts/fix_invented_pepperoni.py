@@ -26,6 +26,13 @@ import shutil
 from collections import defaultdict
 from datetime import date
 from pathlib import Path
+from catalog_prices import rub_int_if_whole  # noqa: E402
+
+def _p(sku: str) -> str:
+    return f"{rub_int_if_whole(sku)} ₽"
+
+def _fill_prices(s: str) -> str:
+    return s.replace('PRICE_KD013', _p('KD-013')).replace('PRICE_KD014', _p('KD-014'))
 
 ROOT = Path(__file__).resolve().parent.parent
 PUBLIC = ROOT / "public"
@@ -70,23 +77,23 @@ OEM_FAQ_EN = (
 )
 
 # Price-grid HTML used on commercial pages (RUB from live catalog).
-LIVE_ASSORTMENT_RU = """    <div class="prices-grid">
-      <div class="price-card"><div class="name">Вар-коп куриный KD-013</div><div class="weight">Нарезка 0,5 кг</div><div class="price">274 ₽</div></div>
-      <div class="price-card"><div class="name">Вар-коп куриный KD-014</div><div class="weight">Батон 0,8 кг</div><div class="price">457 ₽</div></div>
-    </div>"""
+LIVE_ASSORTMENT_RU = _fill_prices("""    <div class="prices-grid">
+      <div class="price-card"><div class="name">Вар-коп куриный KD-013</div><div class="weight">Нарезка 0,5 кг</div><div class="price">PRICE_KD013</div></div>
+      <div class="price-card"><div class="name">Вар-коп куриный KD-014</div><div class="weight">Батон 0,8 кг</div><div class="price">PRICE_KD014</div></div>
+    </div>""")
 
-PIZZERIA_ASSORTMENT = """    <div class="prices-grid">
+PIZZERIA_ASSORTMENT = _fill_prices("""    <div class="prices-grid">
       <div class="price-card">
         <div class="name">Вар-коп куриный KD-013</div>
         <div class="weight">0.5 кг, нарезка</div>
-        <div class="price">274 ₽</div>
+        <div class="price">PRICE_KD013</div>
       </div>
       <div class="price-card">
         <div class="name">Вар-коп куриный KD-014</div>
         <div class="weight">0,8 кг, целый батон</div>
-        <div class="price">457 ₽</div>
+        <div class="price">PRICE_KD014</div>
       </div>
-    </div>"""
+    </div>""")
 
 
 def load_products() -> list[dict]:

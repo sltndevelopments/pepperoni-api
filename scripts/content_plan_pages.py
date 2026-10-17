@@ -738,7 +738,7 @@ def write_pizzeria() -> None:
                 "<p class=\"lead\">Эта страница — про применение на кухне пиццерии. "
                 "Продукт и форматы — на <a href=\"/pepperoni\">/pepperoni</a>. "
                 "В каталоге две позиции: нарезка KD-013 (0,5 кг) и батон KD-014 (0,8 кг), "
-                "оба варёно-копчёные куриные, 360 суток при −18 °C. KD-012 (конина) снят.</p>"
+                "оба варёно-копчёные куриные, 360 суток при −18 °C.</p>"
             )
             oven = (
                 "<h2>Тест в печи</h2>"
@@ -777,7 +777,7 @@ def write_pizzeria() -> None:
                 "<p class=\"lead\">This page is the pizzeria application. "
                 "Product and formats live on <a href=\"/en/pepperoni\">/en/pepperoni</a>. "
                 "Catalog: KD-013 sliced 0.5 kg and KD-014 whole stick 0.8 kg, both chicken "
-                "cooked-smoked, 360 days at −18 °C. KD-012 (horse) is retired.</p>"
+                "cooked-smoked, 360 days at −18 °C.</p>"
             )
             oven = (
                 "<h2>Oven test</h2>"

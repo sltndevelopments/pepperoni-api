@@ -390,7 +390,7 @@ def derive_additional_images(p: dict) -> list:
 
 
 def derive_price(p: dict) -> str:
-    """RUB price WITH VAT. Format: '290.00 RUB'."""
+    """RUB price WITH VAT from products.json offers.price / pricePerUnit."""
     offers = p.get("offers") or {}
     pr = offers.get("price") or offers.get("pricePerUnit") or offers.get("pricePerBox")
     if not pr:

@@ -8,6 +8,7 @@ from pathlib import Path
 import sys
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
+from catalog_prices import rub_str  # noqa: E402
 from landing_chrome import stylesheet_link, topbar_html  # noqa: E402
 
 PUBLIC = Path(__file__).parent.parent / "public"
@@ -578,7 +579,7 @@ def build_page(loc: dict) -> str:
     "offers": {{
       "@type": "Offer",
       "priceCurrency": "RUB",
-      "price": "274.00",
+      "price": "{rub_str('KD-013')}",
       "availability": "https://schema.org/InStock",
       "url": "{url}"
     }}

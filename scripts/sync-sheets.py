@@ -721,7 +721,7 @@ A: Да. СТМ/Private Label — одно из ключевых направл�
 A: {cert_line_ru()}. Публичная проверка ISO 22000 через IAF CertSearch: https://www.iafcertsearch.org/certification/Y10VN21OAQGYY0PBRaTGYfPx. Страница сертификатов: https://pepperoni.tatar/halal.
 
 **Q: Какой срок годности и хранение?**
-A: Замороженная продукция (–18°C): 180–360 суток. Охлаждённая (0…+6°C): до 30 суток. Выпечка: 60–360 суток в зависимости от вида. Чак-чак: 60 суток при +18°C.
+A: Замороженная продукция (–18°C): 180–360 суток. Охлаждённая (0…+6°C): до 30 суток. Выпечка: срок по карточке SKU (chak-chak KD-053/054 — 90 суток при температуре до +18°C).
 
 **Q: Как получить актуальный прайс-лист?**
 A: HTML-прайс: https://pepperoni.tatar/price (Excel /prices.xlsx, PDF /prices.pdf). Живой каталог: https://api.pepperoni.tatar/api/products. Как заказать: https://pepperoni.tatar/kak-zakazat. Для коммерческого предложения: info@kazandelikates.tatar.
@@ -812,7 +812,7 @@ A: Yes. Private Label (PL) / Store-Branded Manufacturing (SBM) is a core offerin
 A: {cert_line_en()}. Public ISO 22000 verification via IAF CertSearch: https://www.iafcertsearch.org/certification/Y10VN21OAQGYY0PBRaTGYfPx. Certificate page: https://pepperoni.tatar/en/halal.
 
 **Q: What is the shelf life and storage?**
-A: Frozen products (–18°C): 180–360 days. Chilled (0…+6°C): up to 30 days. Bakery: 60–360 days depending on type. Chak-chak: 60 days at up to +18°C.
+A: Frozen products (–18°C): 180–360 days. Chilled (0…+6°C): up to 30 days. Bakery: per SKU card (chak-chak KD-053/054 — 90 days at up to +18°C).
 
 **Q: How do I get an up-to-date price list?**
 A: HTML price list: https://pepperoni.tatar/en/price (Excel /prices.xlsx, PDF /prices.pdf). Live catalog: https://api.pepperoni.tatar/api/products. How to order: https://pepperoni.tatar/en/kak-zakazat. For a commercial quote: info@kazandelikates.tatar.

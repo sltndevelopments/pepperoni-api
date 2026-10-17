@@ -131,10 +131,14 @@ def main() -> int:
     check(en_offer is not None, "EN /pepperoni has KD-013 Product JSON-LD")
     check((en_offer or {}).get("priceCurrency") == "RUB",
           "EN KD-013 offer is RUB from products.json")
-    check(str((en_offer or {}).get("price")) in {rub, str(float(rub)), "274", "274.0", "274.00"},
+    variants = {rub, str(float(rub)), f"{float(rub):.2f}", f"{float(rub):.0f}"}
+    check(str((en_offer or {}).get("price")) in variants,
           f"EN KD-013 offer price is catalog {rub}")
-    check(re.search(r'property=["\']product:price:amount["\']\s+content=["\']274(?:\.0+)?["\']', en_pep),
-          "EN /pepperoni product:price:amount is 274")
+    amount = f"{float(rub):.0f}"
+    check(re.search(
+          rf'property=["\']product:price:amount["\']\s+content=["\']{re.escape(amount)}(?:\.0+)?["\']',
+          en_pep),
+          f"EN /pepperoni product:price:amount is catalog {amount}")
     check(re.search(r'property=["\']product:price:currency["\']\s+content=["\']RUB["\']', en_pep),
           "EN /pepperoni product:price:currency is RUB")
     check("one pallet minimum" not in en_pep.lower(),

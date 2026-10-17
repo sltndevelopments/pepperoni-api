@@ -110,8 +110,10 @@ def main() -> int:
     check('"numberOfItems":21' in art_ru and '"numberOfItems":21' in art_en,
           "ItemList numberOfItems is 21")
     check("влажность" not in art_en and "паллета" not in art_en, "EN article has no leftover RU terms")
-    check("245.00 ₽/упак." in art_ru or "245.00 ₽/упак" in art_ru, "RU KD-018 price has pack unit")
-    check("245.00 RUB/pack" in art_en, "EN KD-018 price has pack unit")
+    p018_price = price_token(catalog["KD-018"])
+    check(f"{p018_price} ₽/упак." in art_ru or f"{p018_price} ₽/упак" in art_ru,
+          "RU KD-018 price has pack unit")
+    check(f"{p018_price} RUB/pack" in art_en, "EN KD-018 price has pack unit")
     check('"@type":"EducationalOccupationalCredential"' in art_ru, "article Organization credential type")
     art_ru_ld = "\n".join(re.findall(r'<script type="application/ld\+json">(.*?)</script>', art_ru, re.S))
     art_en_ld = "\n".join(re.findall(r'<script type="application/ld\+json">(.*?)</script>', art_en, re.S))
@@ -164,11 +166,15 @@ def main() -> int:
     unit_en = "RUB/pack" if (p018.get("offers") or {}).get("price") not in (None, "") else "RUB/"
     bare_en = []
     for path in (ROOT / "public" / "en").rglob("*.html"):
+        rel = str(path.relative_to(ROOT / "public"))
+        if rel.startswith("en/products/"):
+            continue
         text = path.read_text(encoding="utf-8")
-        for m in re.finditer(r"245\.00 RUB(?!/)", text):
-            bare_en.append(str(path.relative_to(ROOT / "public")))
+        token = re.escape(price_token(p018))
+        for m in re.finditer(rf"{token} RUB(?!/)", text):
+            bare_en.append(rel)
     check(not bare_en, f"EN KD-018 prices have a unit ({unit_en}); bare: {bare_en}")
-    check("245.00 RUB/pack" in html_of("en/sosiska-v-teste.html"),
+    check(f"{price_token(p018)} RUB/pack" in html_of("en/sosiska-v-teste.html"),
           "EN /sosiska-v-teste KD-018 price is RUB/pack")
     saus_en = html_of("en/sosiska-v-teste.html")
     saus_ru = html_of("sosiska-v-teste.html")

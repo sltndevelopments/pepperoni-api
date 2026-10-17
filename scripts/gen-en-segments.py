@@ -19,6 +19,16 @@ from pathlib import Path
 import sys
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from site_facts import sku_count  # noqa: E402  (data/site_facts.json registry)
+from catalog_prices import rub_int_if_whole, weight_en  # noqa: E402
+
+def _p(sku: str) -> str:
+    return f"{rub_int_if_whole(sku)} ₽"
+
+def _pc(sku: str) -> str:
+    return f"{rub_int_if_whole(sku)} ₽/pc"
+
+def _w(sku: str) -> str:
+    return weight_en(sku)
 
 ROOT = Path(__file__).resolve().parent.parent
 PUBLIC = ROOT / "public"
@@ -61,8 +71,8 @@ SEGMENTS = [
         ],
         "items_heading": "Pepperoni SKUs for pizzerias",
         "items": [
-            ("Chicken cooked-smoked pepperoni KD-013, sliced", "0.5 kg", "274 ₽"),
-            ("Chicken cooked-smoked pepperoni KD-014, whole stick", "0.8 kg", "457 ₽"),
+            ("Chicken cooked-smoked pepperoni KD-013, sliced", "0.5 kg", _p("KD-013")),
+            ("Chicken cooked-smoked pepperoni KD-014, whole stick", "0.8 kg", _p("KD-014")),
         ],
         "items_note": "Current prices live at <a href=\"/en/\" style=\"color:#0066cc\">/en/</a>. Private-label and custom-format quotations on request.",
         "logistics_heading": "Logistics & terms for pizza chains",
@@ -134,9 +144,9 @@ SEGMENTS = [
             ("Classic halal sausages", "~80 g vac-pack", "—"),
             ("Cheese sausages", "~80 g vac-pack", "—"),
             ("Horse-meat sausages", "~80 g vac-pack", "—"),
-            ("Boiled-Smoked Pepperoni, sliced", "0.5 kg", "274 ₽"),
-            ("Burger patty", "100 g × 3 pcs", "276 ₽"),
-            ("Sausage roll", "~100 g/pc", "69 ₽/pc"),
+            ("Boiled-Smoked Pepperoni, sliced", "0.5 kg", _p("KD-013")),
+            ("Burger patty", "100 g × 3 pcs", _p("KD-009")),
+            ("Sausage roll", _w("KD-061"), _pc("KD-061")),
         ],
         "items_note": "Live prices in the <a href=\"/en/\" style=\"color:#0066cc\">catalog</a>. For private label (network-branded hot dog or sausage roll) we put together a separate proposal.",
         "logistics_heading": "Logistics & terms for fuel-station chains",
@@ -205,12 +215,12 @@ SEGMENTS = [
         ],
         "items_heading": "SKUs that work for bakery chains",
         "items": [
-            ("«K zavtraku» casingless sausage, 45 g", "0.4 kg pack", "135 ₽"),
+            ("«K zavtraku» casingless sausage, 45 g", "0.4 kg pack", _p("KD-017")),
             ("Beef mince", "1 kg", "by request"),
             ("Diced chicken thigh 1×1 cm", "1 kg", "by request"),
-            ("Echpochmak with beef & potato", "frozen, 100 g", "from 69 ₽/pc"),
-            ("Samsa with chicken", "frozen, 120 g", "from 62 ₽/pc"),
-            ("Peremyach, fried", "frozen, 100 g", "from 59 ₽/pc"),
+            ("Echpochmak with beef & potato", "frozen, 100 g", _pc("KD-050")),
+            ("Samsa with chicken", "frozen, 120 g", _pc("KD-049")),
+            ("Peremyach, fried", "frozen, 100 g", _pc("KD-048")),
         ],
         "items_note": "Current price list in the <a href=\"/en/\" style=\"color:#0066cc\">catalog</a>. For private-label fillings or pastries — bespoke quotation.",
         "logistics_heading": "Logistics & terms for bakery chains",
@@ -278,12 +288,12 @@ SEGMENTS = [
         ],
         "items_heading": "Top retail SKUs",
         "items": [
-            ("Boiled-Smoked Pepperoni, classic sliced", "0.5 kg", "274 ₽"),
-            ("Kazylyk «Premium» (gift box)", "200 g", "650 ₽"),
-            ("Kazylyk «Premium» sliced (gift box)", "100 g", "450 ₽"),
+            ("Boiled-Smoked Pepperoni, classic sliced", "0.5 kg", _p("KD-013")),
+            ("Kazylyk «Premium» (gift box)", "200 g", _p("KD-044")),
+            ("Kazylyk «Premium» sliced (gift box)", "100 g", _p("KD-045")),
             ("Chak-chak (craft gift box)", "300 g", "by request"),
-            ("Echpochmak with beef & potato", "frozen", "from 69 ₽/pc"),
-            ("Cheese sausages, vacuum", "0.4 kg", "from 293 ₽"),
+            ("Echpochmak with beef & potato", "frozen", _pc("KD-050")),
+            ("Cheese sausages, vacuum", _w("KD-021"), _p("KD-021")),
         ],
         "items_note": "All {SKU_N} SKUs in the <a href=\"/en/\" style=\"color:#0066cc\">catalog</a>. Private-label retail packs (your chain's brand) — quotation on request.",
         "logistics_heading": "Logistics & terms for retail chains",
@@ -351,12 +361,12 @@ SEGMENTS = [
         ],
         "items_heading": "Distribution-friendly SKUs",
         "items": [
-            ("Chicken cooked-smoked pepperoni KD-014, whole stick", "0.8 kg", "457 ₽"),
-            ("Chicken cooked-smoked pepperoni KD-013, sliced", "0.5 kg", "274 ₽"),
+            ("Chicken cooked-smoked pepperoni KD-014, whole stick", "0.8 kg", _p("KD-014")),
+            ("Chicken cooked-smoked pepperoni KD-013, sliced", "0.5 kg", _p("KD-013")),
             ("Turkey ham KD-028", "0.5 kg", "—"),
             ("Semi-smoked turkey sausage KD-033", "0.45 kg", "—"),
-            ("Kazylyk «Premium» (gift box)", "200 g", "650 ₽"),
-            ("Cheese sausages", "0.65 kg × 5", "455 ₽"),
+            ("Kazylyk «Premium» (gift box)", "200 g", _p("KD-044")),
+            ("Cheese sausages", "0.65 kg × 5", _p("KD-007")),
             ("Chak-chak (craft gift box)", "300 g", "by request"),
         ],
         "items_note": "Full live catalog: <a href=\"https://api.pepperoni.tatar/api/products\" style=\"color:#0066cc\">/api/products</a> (no auth). Daily price-list export to your CRM available.",
@@ -425,12 +435,12 @@ SEGMENTS = [
         ],
         "items_heading": "Top HoReCa SKUs",
         "items": [
-            ("Boiled-Smoked Pepperoni, sliced", "0.5 kg", "274 ₽"),
-            ("Lamb sausages «With lamb», 80 g × 6", "0.48 kg", "366 ₽"),
-            ("Cheese sausages, 130 g × 5", "0.65 kg", "455 ₽"),
-            ("Burger patty, fried", "100 g × 3", "276 ₽"),
+            ("Boiled-Smoked Pepperoni, sliced", "0.5 kg", _p("KD-013")),
+            ("Lamb sausages «With lamb», 80 g × 6", "0.48 kg", _p("KD-005")),
+            ("Cheese sausages, 130 g × 5", "0.65 kg", _p("KD-007")),
+            ("Burger patty, fried", "100 g × 3", _p("KD-009")),
             ("Chicken ham, sliced", "0.5 kg", "by request"),
-            ("Kazylyk «Premium», sliced", "100 g", "450 ₽"),
+            ("Kazylyk «Premium», sliced", "100 g", _p("KD-045")),
         ],
         "items_note": "Full HoReCa matrix in the <a href=\"/en/\" style=\"color:#0066cc\">catalog</a>. Portion-pack sizes and private-label HoReCa packs — bespoke quotation.",
         "logistics_heading": "Logistics & terms for HoReCa",
@@ -572,7 +582,6 @@ HEAD_TPL = """<!DOCTYPE html>
 <link rel="apple-touch-icon" sizes="180x180" href="/images/icon-180.png">
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="manifest" href="/manifest.json">
-<link rel="llms" href="/en/llms.txt" type="text/plain" title="LLM instructions (English)">
 <title>{title}</title>
 <meta name="description" content="{description}">
 <meta name="keywords" content="{keywords}">

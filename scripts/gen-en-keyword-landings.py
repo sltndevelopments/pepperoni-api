@@ -17,8 +17,14 @@ Outputs:
 """
 from __future__ import annotations
 import json
+import sys
 from pathlib import Path
 from urllib.parse import quote
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from catalog_prices import export_amount, rub_int_if_whole, rub_str, weight_en  # noqa: E402
+
+W_KD013 = weight_en("KD-013")
+W_KD014 = weight_en("KD-014")
 
 ROOT = Path(__file__).resolve().parent.parent
 PUBLIC = ROOT / "public"
@@ -52,8 +58,6 @@ PAGES = [
         "intent": "buyer wants sliced halal pepperoni ready to use on pizzas — wholesale volume, oven-stable",
         "primary_sku": "KD-013",
         "primary_name": "Cooked-smoked chicken pepperoni (sliced)",
-        "primary_price_rub": "274",
-        "primary_price_usd": "3.37",
         "primary_weight": "0.5 kg",
         "primary_pack": "Vacuum-packed",
         "primary_storage": "−18 °C, 360 days frozen; +4 °C after thaw per pack label",
@@ -98,9 +102,7 @@ PAGES = [
         "intent": "buyer wants recipe / meat type clarity and certificates",
         "primary_sku": "KD-014",
         "primary_name": "Cooked-smoked chicken pepperoni (whole stick)",
-        "primary_price_rub": "457",
-        "primary_price_usd": "5.62",
-        "primary_weight": "1.0 kg",
+        "primary_weight": W_KD014,
         "primary_pack": "Vacuum-packed whole stick",
         "primary_storage": "−18 °C, 360 days frozen",
         "primary_diameter": "50–55 mm",
@@ -111,7 +113,7 @@ PAGES = [
             ("Halal", "DUM RT certificate #614A/2024"),
             ("HACCP", "Yes, ISO 22000:2018"),
             ("Shelf life", "360 days frozen at −18 °C"),
-            ("Available formats", "Whole 1 kg stick · 0.5 kg sliced"),
+            ("Available formats", f"Whole {W_KD014} stick · {W_KD013} sliced"),
             ("Private label", "Custom meat blends on request — not stock SKUs"),
         ],
         "faqs": [
@@ -141,9 +143,7 @@ PAGES = [
         "intent": "pizzeria buyer evaluating all pepperoni options at once",
         "primary_sku": "KD-014",
         "primary_name": "Cooked-smoked chicken pepperoni (whole stick)",
-        "primary_price_rub": "457",
-        "primary_price_usd": "5.62",
-        "primary_weight": "1.0 kg",
+        "primary_weight": W_KD014,
         "primary_pack": "Vacuum-packed whole stick",
         "primary_storage": "−18 °C, 360 days frozen",
         "primary_diameter": "50–55 mm",
@@ -151,7 +151,7 @@ PAGES = [
         "specs": [
             ("Available SKUs", "KD-013 (chicken, sliced 0.5 kg) · KD-014 (chicken, whole 0.8 kg)"),
             ("Process", "Cooked-smoked only (no dry-cured in catalog)"),
-            ("Formats", "Whole 1 kg stick · 0.5 kg pre-sliced"),
+            ("Formats", f"Whole {W_KD014} stick · {W_KD013} pre-sliced"),
             ("Diameter", "50–55 mm"),
             ("Oven behaviour", "Thermally stable; does not cup/curl"),
             ("Halal", "Certificate #614A/2024, DUM RT"),
@@ -184,9 +184,7 @@ PAGES = [
         "intent": "B2B buyer evaluating us as a wholesale supplier — wants MOQ, payment, lead time, documents",
         "primary_sku": "KD-014",
         "primary_name": "Cooked-smoked chicken pepperoni (whole stick)",
-        "primary_price_rub": "457",
-        "primary_price_usd": "5.62",
-        "primary_weight": "1.0 kg",
+        "primary_weight": W_KD014,
         "primary_pack": "Vacuum-packed whole stick",
         "primary_storage": "−18 °C, 360 days frozen",
         "primary_diameter": "50–55 mm",
@@ -230,9 +228,7 @@ PAGES = [
         "intent": "user searching by origin (Russia / Kazan) and wants assurance of authenticity / halal credentials",
         "primary_sku": "KD-014",
         "primary_name": "Halal Pepperoni from Russia (KD-014)",
-        "primary_price_rub": "457",
-        "primary_price_usd": "5.62",
-        "primary_weight": "1.0 kg",
+        "primary_weight": W_KD014,
         "primary_pack": "Vacuum-packed whole stick",
         "primary_storage": "−18 °C, 360 days frozen",
         "primary_diameter": "50–55 mm",
@@ -276,9 +272,7 @@ PAGES = [
         "intent": "international buyer evaluating cross-border supply from a Russian halal manufacturer",
         "primary_sku": "KD-014",
         "primary_name": "Halal Pepperoni Export SKU (KD-014)",
-        "primary_price_rub": "457",
-        "primary_price_usd": "5.62",
-        "primary_weight": "1.0 kg",
+        "primary_weight": W_KD014,
         "primary_pack": "Vacuum-packed whole stick",
         "primary_storage": "−18 °C, 360 days frozen, cold-chain transit",
         "primary_diameter": "50–55 mm",
@@ -301,7 +295,7 @@ PAGES = [
             ("What's the lead time to Kazakhstan / Uzbekistan?", "5–7 days truck delivery to Almaty / Tashkent. Weekly cadence available — we already supply foodservice distributors in both markets."),
             ("Will you handle import customs?", "We ship EXW Kazan by default. For UAE / KSA we can arrange CPT or DAP via our cold-chain partners. For CIS, weekly truck departures from Kazan with all shipping documents handled by our logistics team."),
             ("Do you have Arabic / Kazakh / Uzbek labels?", "Yes — on request for export orders. Standard turnaround for label artwork approval: 2 weeks."),
-            ("Can I get a small sample first?", "Yes. Sample boxes (5 kg mix of pepperoni/sausages) are sent by DHL Express to your address for $200 + courier. Approval triggers a pilot pallet order at standard wholesale price."),
+            ("Can I get a small sample first?", "Yes. Sample boxes are agreed individually — see /en/kak-zakazat#samples. Approval triggers a pilot pallet order at standard wholesale price."),
         ],
         "related_links": [
             ("/en/halal-pepperoni-russia", "Halal pepperoni from Russia", "Origin & certificates"),
@@ -562,6 +556,10 @@ def build_breadcrumb_jsonld(slug, h1):
 
 def render(page, product_images):
     sku = page["primary_sku"]
+    page = dict(page)
+    page["primary_price_rub"] = rub_int_if_whole(sku)
+    usd = export_amount(sku, "USD")
+    page["primary_price_usd"] = f"{usd:.2f}" if usd else ""
     img_pick = product_images.get("sliced", {})
     if sku == "KD-014":
         img_pick = product_images.get("stick", {})

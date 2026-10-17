@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Stamp bakery piece/box prices in blog HTML from products.json.
 
-Hardcoded 68,77 ₽ / RUB 56 in blog FAQ and hubs go stale after a Sheets sync.
+Hardcoded bakery piece/box figures in blog FAQ and hubs go stale after a Sheets sync.
 This rewriter is the only place those numbers are updated.
 """
 from __future__ import annotations

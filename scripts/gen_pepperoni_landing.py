@@ -107,7 +107,7 @@ def money(amount: float, currency: str, lang: str) -> str:
     """Group thousands with a narrow no-break space; comma decimals outside EN.
 
     UZS is always whole (tens of thousands per pack) and round amounts drop the
-    ",00" tail, so 274 ₽ stays 274 ₽ while 249,09 ₽ keeps its kopecks.
+    ",00" tail, so a whole-ruble Sheet price stays without kopecks.
     """
     decimals = 0 if currency == "UZS" or float(amount).is_integer() else 2
     text = f"{amount:,.{decimals}f}".replace(",", "\u202f")

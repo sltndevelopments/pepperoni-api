@@ -5,6 +5,16 @@ Generate commercial landing pages for halal pepperoni.
 """
 
 from pathlib import Path
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from catalog_prices import rub_int_if_whole  # noqa: E402
+
+def _p(sku: str) -> str:
+    return f"{rub_int_if_whole(sku)} ₽"
+
+
+def _fill_prices(s: str) -> str:
+    return s.replace("PRICE_KD013", _p("KD-013")).replace("PRICE_KD014", _p("KD-014"))
 
 PUBLIC = Path(__file__).parent.parent / "public"
 
@@ -163,13 +173,13 @@ def page(slug, title, desc, keywords, h1, hero_sub, badges, body_html, breadcrum
 # ─────────────────────────────────────────────────────────
 # PAGE 1: Пепперони оптом
 # ─────────────────────────────────────────────────────────
-OPTOM_BODY = """    <p>«Казанские Деликатесы» — производитель халяль пепперони в Татарстане. Работаем <strong>напрямую с оптовыми покупателями</strong>: дистрибьюторами, торговыми сетями, агрегаторами HoReCa. Никаких посредников — цена производителя, стабильные отгрузки, полный пакет документов.</p>
+OPTOM_BODY = _fill_prices("""    <p>«Казанские Деликатесы» — производитель халяль пепперони в Татарстане. Работаем <strong>напрямую с оптовыми покупателями</strong>: дистрибьюторами, торговыми сетями, агрегаторами HoReCa. Никаких посредников — цена производителя, стабильные отгрузки, полный пакет документов.</p>
 
     <h2>Ассортимент для оптовых поставок</h2>
     <p style="font-size:.9rem;color:#555">Актуальные SKU из Google Sheets — <a href="/pepperoni">/pepperoni</a>.</p>
     <div class="prices-grid">
-      <div class="price-card"><div class="name">Вар-коп куриный KD-013</div><div class="weight">Нарезка 0,5 кг</div><div class="price">274 ₽</div></div>
-      <div class="price-card"><div class="name">Вар-коп куриный KD-014</div><div class="weight">Батон 0,8 кг</div><div class="price">457 ₽</div></div>
+      <div class="price-card"><div class="name">Вар-коп куриный KD-013</div><div class="weight">Нарезка 0,5 кг</div><div class="price">PRICE_KD013</div></div>
+      <div class="price-card"><div class="name">Вар-коп куриный KD-014</div><div class="weight">Батон 0,8 кг</div><div class="price">PRICE_KD014</div></div>
     </div>
     <p style="font-size:.85rem;color:#888">Цены указаны без НДС. Объёмные скидки — по запросу. Экспортные цены в USD, KZT, UZS, KGS, BYN, AZN — на странице <a href="/pepperoni">пепперони</a>.</p>
 
@@ -206,12 +216,12 @@ OPTOM_BODY = """    <p>«Казанские Деликатесы» — прои�
         <li><strong>Блок-форматы до 5 кг</strong> — под заказ, для крупных производств и dark kitchen</li>
         <li><strong>Private Label</strong> — ваша упаковка, ваш штрих-код, ваш бренд</li>
       </ul>
-    </div>"""
+    </div>""")
 
 # ─────────────────────────────────────────────────────────
 # PAGE 2: Пепперони для пиццерий
 # ─────────────────────────────────────────────────────────
-PIZZA_BODY = """    <p>Пепперони для профессиональной кухни: диаметр 50–55 мм, нарезка KD-013 (0,5 кг) и батон KD-014 (0,8 кг). Халяль пепперони от «Казанских Деликатесов».</p>
+PIZZA_BODY = _fill_prices("""    <p>Пепперони для профессиональной кухни: диаметр 50–55 мм, нарезка KD-013 (0,5 кг) и батон KD-014 (0,8 кг). Халяль пепперони от «Казанских Деликатесов».</p>
 
     <h2>Почему пиццерии выбирают наш пепперони</h2>
     <div class="grid-2">
@@ -228,8 +238,8 @@ PIZZA_BODY = """    <p>Пепперони для профессионально�
       <table>
         <thead><tr><th>Формат</th><th>Для кого</th><th>Цена</th></tr></thead>
         <tbody>
-          <tr><td>Нарезка 0,5 кг (вакуум)</td><td>Небольшие пиццерии, работающие готовой нарезкой</td><td class="spec-value">274 ₽</td></tr>
-          <tr><td>Батон 0,8 кг</td><td>Пиццерии со слайсером — нарезка под нужную толщину</td><td class="spec-value">457 ₽</td></tr>
+          <tr><td>Нарезка 0,5 кг (вакуум)</td><td>Небольшие пиццерии, работающие готовой нарезкой</td><td class="spec-value">PRICE_KD013</td></tr>
+          <tr><td>Батон 0,8 кг</td><td>Пиццерии со слайсером — нарезка под нужную толщину</td><td class="spec-value">PRICE_KD014</td></tr>
           <tr><td>Блок до 5 кг</td><td>Крупные производства, dark kitchen, сетевые проекты</td><td class="spec-value">по запросу</td></tr>
           <tr><td>Private Label</td><td>Сети пиццерий с собственным брендом</td><td class="spec-value">по запросу</td></tr>
         </tbody>
@@ -265,12 +275,12 @@ PIZZA_BODY = """    <p>Пепперони для профессионально�
       <li>Кастомизацию: острота, диаметр, толщина нарезки, состав</li>
       <li>Регулярные рейсы в Москву, СПб, другие города</li>
       <li>Интеграцию с iiko, 1С через API</li>
-    </ul>"""
+    </ul>""")
 
 # ─────────────────────────────────────────────────────────
 # PAGE 3: Пепперони для HoReCa
 # ─────────────────────────────────────────────────────────
-HORECA_BODY = """    <p>HoReCa — отели, рестораны, кейтеринг — предъявляют особые требования к поставщикам: стабильность, документация, гибкость. Мы работаем с HoReCa-операторами по всей России и поставляем <strong>халяль пепперони</strong> в форматах, удобных для профессиональных кухонь.</p>
+HORECA_BODY = _fill_prices("""    <p>HoReCa — отели, рестораны, кейтеринг — предъявляют особые требования к поставщикам: стабильность, документация, гибкость. Мы работаем с HoReCa-операторами по всей России и поставляем <strong>халяль пепперони</strong> в форматах, удобных для профессиональных кухонь.</p>
 
     <h2>HoReCa-форматы</h2>
     <div class="grid-2">
@@ -297,8 +307,8 @@ HORECA_BODY = """    <p>HoReCa — отели, рестораны, кейтер�
 
     <h2>Ассортимент для HoReCa</h2>
     <div class="prices-grid">
-      <div class="price-card"><div class="name">Вар-коп куриный KD-013</div><div class="weight">Нарезка 0,5 кг</div><div class="price">274 ₽</div></div>
-      <div class="price-card"><div class="name">Вар-коп куриный KD-014</div><div class="weight">Батон 0,8 кг</div><div class="price">457 ₽</div></div>
+      <div class="price-card"><div class="name">Вар-коп куриный KD-013</div><div class="weight">Нарезка 0,5 кг</div><div class="price">PRICE_KD013</div></div>
+      <div class="price-card"><div class="name">Вар-коп куриный KD-014</div><div class="weight">Батон 0,8 кг</div><div class="price">PRICE_KD014</div></div>
     </div>
 
     <h2>Логистика для HoReCa</h2>
@@ -312,12 +322,12 @@ HORECA_BODY = """    <p>HoReCa — отели, рестораны, кейтер�
           <tr><td>После разморозки</td><td class="spec-value">5 суток при +4°C (невскрытый)</td></tr>
         </tbody>
       </table>
-    </div>"""
+    </div>""")
 
 # ─────────────────────────────────────────────────────────
 # PAGE 4: Private Label / СТМ
 # ─────────────────────────────────────────────────────────
-PL_BODY = """    <p>Производим халяль пепперони <strong>под торговой маркой заказчика</strong>. СТМ (собственная торговая марка) — это ваш бренд, ваша упаковка, ваш штрих-код. Наше производство, контроль качества и сертификация.</p>
+PL_BODY = _fill_prices("""    <p>Производим халяль пепперони <strong>под торговой маркой заказчика</strong>. СТМ (собственная торговая марка) — это ваш бренд, ваша упаковка, ваш штрих-код. Наше производство, контроль качества и сертификация.</p>
 
     <h2>Кому подходит Private Label</h2>
     <div class="grid-2">
@@ -370,12 +380,12 @@ PL_BODY = """    <p>Производим халяль пепперони <strong
     <h2>Минимальные объёмы</h2>
     <div class="card">
       <p>Минимальный заказ на Private Label обсуждается индивидуально — зависит от рецептуры и формата упаковки. Свяжитесь с нами для расчёта.</p>
-    </div>"""
+    </div>""")
 
 # ─────────────────────────────────────────────────────────
 # PAGE 5: Пепперони в нарезке
 # ─────────────────────────────────────────────────────────
-NAREZKA_BODY = """    <p>Нарезка пепперони — самый удобный формат для пиццерий, HoReCa и розницы. Готовые слайсы правильной круглой формы, упакованные под вакуумом. Открыл — использовал. Никакого слайсера, никаких потерь.</p>
+NAREZKA_BODY = _fill_prices("""    <p>Нарезка пепперони — самый удобный формат для пиццерий, HoReCa и розницы. Готовые слайсы правильной круглой формы, упакованные под вакуумом. Открыл — использовал. Никакого слайсера, никаких потерь.</p>
 
     <h2>Характеристики нарезки</h2>
     <div class="card">
@@ -394,7 +404,7 @@ NAREZKA_BODY = """    <p>Нарезка пепперони — самый удо
 
     <h2>Виды нарезки в ассортименте</h2>
     <div class="prices-grid">
-      <div class="price-card"><div class="name">Вар-коп куриный KD-013</div><div class="weight">Курица, 0,5 кг</div><div class="price">274 ₽</div></div>
+      <div class="price-card"><div class="name">Вар-коп куриный KD-013</div><div class="weight">Курица, 0,5 кг</div><div class="price">PRICE_KD013</div></div>
     </div>
 
     <h2>Нарезка vs батон: как выбрать</h2>
@@ -422,8 +432,8 @@ NAREZKA_BODY = """    <p>Нарезка пепперони — самый удо
     <h2>Также доступны батоны</h2>
     <p>Если вы используете собственный слайсер — берите <strong>целый батон KD-014, 0,8 кг</strong>. Нарезка под нужную толщину.</p>
     <div class="prices-grid">
-      <div class="price-card"><div class="name">Вар-коп куриный KD-014</div><div class="weight">Батон 0,8 кг</div><div class="price">457 ₽</div></div>
-    </div>"""
+      <div class="price-card"><div class="name">Вар-коп куриный KD-014</div><div class="weight">Батон 0,8 кг</div><div class="price">PRICE_KD014</div></div>
+    </div>""")
 
 
 PAGES = [

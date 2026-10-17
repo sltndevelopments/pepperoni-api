@@ -1,0 +1,58 @@
+{
+  "_doc": "Canonical company facts for scripts/check_fact_consistency.py. Built only from facts already in the repo (data/site_facts.json, public/brand.txt, public/about.html, data/evidence_registry.json). Product SKUs, names, weights, RUB prices and shelf life are NOT here — those live only in public/products.json (Google Sheets sync). Where the repo already disagrees, the field is omitted and listed in the PR — do not invent a winner.",
+  "version": "2026-10-17",
+  "legal_name_ru": "ООО «Казанские Деликатесы»",
+  "legal_name_en": "Kazan Delicacies LLC",
+  "brand_name_ru": "Казанские Деликатесы",
+  "brand_name_en": "Kazan Delicacies",
+  "inn": "1686021074",
+  "ogrn": "1221600096893",
+  "address_ru": "420061, Республика Татарстан, г. Казань, ул. Аграрная, д. 2, офис 7",
+  "address_en": "420061 Kazan, Agrarnaya 2, office 7, Republic of Tatarstan, Russia",
+  "phones": ["+7 987 217-02-02"],
+  "phone_e164": "+79872170202",
+  "email": "info@kazandelikates.tatar",
+  "founding_year": 2022,
+  "production_since": 2023,
+  "halal_certificates": [
+    {
+      "number": "0008",
+      "valid_from": "2026-10-02",
+      "valid_until": "2029-10-01",
+      "issuer": "Комитет «Халяль» ДУМ РТ",
+      "_source": "data/site_facts.json certificates.halal_0008; public/brand.txt; /halal"
+    },
+    {
+      "number": "614A/2024",
+      "valid_from": "2024-02-17",
+      "valid_until": "2027-02-16",
+      "issuer": "Комитет «Халяль» ДУМ РТ",
+      "_source": "data/site_facts.json certificates.halal_614a; public/brand.txt; /halal"
+    },
+    {
+      "number": "884A/2025",
+      "valid_from": "2025-12-27",
+      "valid_until": "2026-12-26",
+      "issuer": "Комитет «Халяль» ДУМ РТ",
+      "_source": "data/site_facts.json certificates.halal_bakery; public/brand.txt; /halal"
+    }
+  ],
+  "production_capacity": "12 т/смена",
+  "moq": "1 паллета (сборная возможна)",
+  "private_label_min": "5 т",
+  "delivery_terms": "EXW Казань",
+  "delivery_terms_en": "EXW Kazan",
+  "_sources": {
+    "legal_name_ru": "data/site_facts.json company.legal_name_ru; public/brand.txt; public/about.html",
+    "inn": "data/site_facts.json company.inn; public/about.html",
+    "ogrn": "data/site_facts.json company.ogrn; public/about.html",
+    "address_ru": "data/site_facts.json company.address_ru (canonical punctuation)",
+    "phones": "data/site_facts.json company.phone; public/brand.txt; .cursor/rules/pepperoni-brand.mdc",
+    "email": "data/site_facts.json company.email; public/brand.txt",
+    "founding_year": "public/brand.txt (legal entity 2022); public/about.html; schema foundingDate = 2022",
+    "production_since": "public/brand.txt; public/about.html",
+    "production_capacity": "data/site_facts.json terms.capacity; public/brand.txt; evidence_registry capacity_12t_per_shift",
+    "moq": "data/site_facts.json terms.moq; public/brand.txt",
+    "delivery_terms": "data/site_facts.json terms.basis; public/brand.txt; products.json deliveryTerms"
+  }
+}

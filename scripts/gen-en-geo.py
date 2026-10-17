@@ -56,7 +56,7 @@ GEOS = [
         "case": "Two pilot inquiries in Q1 2026 — sample boxes shipped DHL Express Riyadh, awaiting registration completion before first commercial pallet.",
         "hs_codes": "1601.00 — KSA tariff 12% MFN; halal-cert + free trade agreement check possible via the local agent.",
         "labels": "Arabic labels mandatory under SFDA rules. Standard turnaround: 2 weeks artwork + 4 weeks SFDA registration. We supply Arabic-ready label templates.",
-        "payment": "SAR or USD. 50% prepayment for first shipment, balance against shipping documents. LC-at-sight available from $50k.",
+        "payment": "SAR or USD. 50% prepayment for first shipment, balance against shipping documents. Letter of credit is agreed in the contract.",
         "competitor_context": "KSA imports halal beef sausage primarily from Brazil and Turkey. Russian halal positioned as premium alternative with Eurasian recipe profile (mild smoke, beef+chicken blend).",
     },
     {
@@ -196,7 +196,7 @@ GEOS = [
         "case": "Quote sent Q1 2026 to a Doha foodservice consolidator covering 5 hotel chains; awaiting final spec sign-off.",
         "hs_codes": "1601.00 — GCC tariff 5% MFN, halal-cert exemption available.",
         "labels": "English + Arabic standard. Russian retail labels also accepted in HoReCa back-of-house.",
-        "payment": "USD or QAR. 50% prepayment first shipment, LC-at-sight available from $50k.",
+        "payment": "USD or QAR. 50% prepayment first shipment, Letter of credit is agreed in the contract.",
         "competitor_context": "Qatar imports halal beef sausage primarily from Brazil, Türkiye, India. Russian halal positions as premium Eurasian alternative.",
     },
     {
@@ -216,7 +216,7 @@ GEOS = [
         "case": "Inquiry pipeline from Cairo foodservice agent Q1 2026 — awaiting NFSA registration for first commercial shipment.",
         "hs_codes": "1601.00 — Egypt tariff 30% MFN. Russian-Egyptian trade agreement provisions may apply.",
         "labels": "Arabic + English mandatory under NFSA. Russian also accepted as supplementary.",
-        "payment": "USD or EGP. 50% prepayment first shipment, LC for orders ≥ $30k.",
+        "payment": "USD or EGP. 50% prepayment first shipment, Letter of credit is agreed in the contract.",
         "competitor_context": "Egypt imports halal sausage primarily from Brazil, India, Türkiye. Russian halal positions on premium consistency and Russian-tourism HoReCa channel.",
     },
     {
@@ -256,7 +256,7 @@ GEOS = [
         "case": "Pilot inquiries from a KL foodservice agent Q1 2026 — commercial terms and local registration confirmed with the importer.",
         "hs_codes": "1601.00 — Malaysia tariff 20% MFN. Preferential treatment, if any, is confirmed with the importer — not assumed.",
         "labels": "Bahasa Malaysia + English + Arabic mandatory under JAKIM standards.",
-        "payment": "USD or MYR. 50% prepayment first shipment, LC for orders ≥ $50k.",
+        "payment": "USD or MYR. 50% prepayment first shipment, Letter of credit is agreed in the contract.",
         "competitor_context": "Malaysia is the world's largest halal certification market. Russian halal is a niche premium alternative to Brazilian, Australian, NZ halal beef.",
     },
 ]
