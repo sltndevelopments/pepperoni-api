@@ -82,7 +82,10 @@ def _stamp_row(row: str, prices: dict[str, dict]) -> str:
     else:
         new_cell = ru_money(piece)
     start, end = target.span()
-    return row[:start] + target.group(1) + new_cell + target.group(3) + row[end:]
+    open_td = target.group(1)
+    if "data-catalog-price" not in open_td:
+        open_td = f'<td data-catalog-price="{sku}" data-price-field="pricePerUnit">'
+    return row[:start] + open_td + new_cell + target.group(3) + row[end:]
 
 
 def stamp_text(html: str, prices: dict[str, dict], rel: str = "") -> str:

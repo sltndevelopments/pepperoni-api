@@ -19,16 +19,16 @@ from pathlib import Path
 import sys
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from site_facts import sku_count  # noqa: E402  (data/site_facts.json registry)
-from catalog_prices import rub_int_if_whole, weight_en  # noqa: E402
+from catalog_prices import pack_format_en, rub_int_if_whole, stamp_attr  # noqa: E402
 
 def _p(sku: str) -> str:
-    return f"{rub_int_if_whole(sku)} ₽"
+    return f'<span {stamp_attr(sku, "price")}>{rub_int_if_whole(sku)} ₽</span>'
 
 def _pc(sku: str) -> str:
-    return f"{rub_int_if_whole(sku)} ₽/pc"
+    return f'<span {stamp_attr(sku, "pricePerUnit")}>{rub_int_if_whole(sku)} ₽/pc</span>'
 
 def _w(sku: str) -> str:
-    return weight_en(sku)
+    return pack_format_en(sku)
 
 ROOT = Path(__file__).resolve().parent.parent
 PUBLIC = ROOT / "public"
@@ -141,9 +141,9 @@ SEGMENTS = [
         ],
         "items_heading": "SKUs that work at fuel stations",
         "items": [
-            ("Classic halal sausages", "~80 g vac-pack", "—"),
-            ("Cheese sausages", "~80 g vac-pack", "—"),
-            ("Horse-meat sausages", "~80 g vac-pack", "—"),
+            ("Classic halal sausages", _w("KD-001"), "—"),
+            ("Cheese sausages", _w("KD-003"), "—"),
+            ("Horse-meat sausages", _w("KD-008"), "—"),
             ("Boiled-Smoked Pepperoni, sliced", "0.5 kg", _p("KD-013")),
             ("Burger patty", "100 g × 3 pcs", _p("KD-009")),
             ("Sausage roll", _w("KD-061"), _pc("KD-061")),
@@ -366,7 +366,7 @@ SEGMENTS = [
             ("Turkey ham KD-028", "0.5 kg", "—"),
             ("Semi-smoked turkey sausage KD-033", "0.45 kg", "—"),
             ("Kazylyk «Premium» (gift box)", "200 g", _p("KD-044")),
-            ("Cheese sausages", "0.65 kg × 5", _p("KD-007")),
+            ("Cheese sausages", _w("KD-007"), _p("KD-007")),
             ("Chak-chak (craft gift box)", "300 g", "by request"),
         ],
         "items_note": "Full live catalog: <a href=\"https://api.pepperoni.tatar/api/products\" style=\"color:#0066cc\">/api/products</a> (no auth). Daily price-list export to your CRM available.",
@@ -437,7 +437,7 @@ SEGMENTS = [
         "items": [
             ("Boiled-Smoked Pepperoni, sliced", "0.5 kg", _p("KD-013")),
             ("Lamb sausages «With lamb», 80 g × 6", "0.48 kg", _p("KD-005")),
-            ("Cheese sausages, 130 g × 5", "0.65 kg", _p("KD-007")),
+            ("Cheese sausages, 130 g × 5", _w("KD-007"), _p("KD-007")),
             ("Burger patty, fried", "100 g × 3", _p("KD-009")),
             ("Chicken ham, sliced", "0.5 kg", "by request"),
             ("Kazylyk «Premium», sliced", "100 g", _p("KD-045")),
