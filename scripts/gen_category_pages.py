@@ -17,6 +17,7 @@ from landing_chrome import (  # noqa: E402
     delayed_analytics,
     font_lcp_hints,
     is_lcp_render_slug,
+    lead_form_tag,
     stylesheet_link,
     topbar_html,
     ym_queue_stub,
@@ -311,6 +312,45 @@ def _first_product_image(products):
     return "", None
 
 
+def _ensure_hero_webp(src: str) -> str:
+    """Write a ≤12 KB WebP next to the JPEG. Same pixels (640×427)."""
+    from PIL import Image
+
+    path = src.split("?", 1)[0]
+    marker = "/images/products/"
+    if marker not in path:
+        return ""
+    name = path.split(marker, 1)[1]
+    jpg = PUBLIC / "images" / "products" / name
+    if not jpg.is_file():
+        return ""
+    webp = jpg.with_suffix(".webp")
+    if not webp.is_file() or webp.stat().st_mtime < jpg.stat().st_mtime:
+        im = Image.open(jpg)
+        if im.size != (640, 427):
+            im = im.resize((640, 427), Image.Resampling.LANCZOS)
+        for quality in (72, 64, 56, 48):
+            im.save(webp, "WEBP", quality=quality, method=6)
+            if webp.stat().st_size <= 12 * 1024:
+                break
+    query = f"?v={src.split('?v=', 1)[1]}" if "?v=" in src else ""
+    return path.rsplit(".", 1)[0] + ".webp" + query
+
+
+def _hero_picture(src: str, alt: str) -> str:
+    webp = _ensure_hero_webp(src)
+    img = (
+        f'<img src="{escape(src)}" alt="{escape(alt)}" '
+        f'width="640" height="427" fetchpriority="high" decoding="async">'
+    )
+    if not webp:
+        return img
+    return (
+        f'<picture><source type="image/webp" srcset="{escape(webp)}">'
+        f"{img}</picture>"
+    )
+
+
 def _hero_block(cfg, h1, intro, products, wholesale_html, table_html):
     src, product = _first_product_image(products)
     sku = (product or {}).get("sku") or ""
@@ -318,8 +358,7 @@ def _hero_block(cfg, h1, intro, products, wholesale_html, table_html):
     img = ""
     if src:
         img = (
-            f'<div class="hero__media"><img src="{escape(src)}" alt="{escape(alt)}" '
-            f'width="800" height="533" fetchpriority="high" decoding="async">'
+            f'<div class="hero__media">{_hero_picture(src, alt)}'
             f'<span class="hero__tag">{escape(sku)}</span></div>'
         )
     return f"""<section class="hero" id="hero"><div class="hero__grid">
@@ -353,7 +392,8 @@ def _hero_block(cfg, h1, intro, products, wholesale_html, table_html):
 
 
 def _lead_form(slug, label):
-    return f"""<form class="lead-form" id="lead-{slug}" novalidate data-experiment-id="{slug}-ru" data-msg-sending="Отправляем…" data-msg-ok="Заявка принята. Отдел продаж ответит по указанному контакту." data-msg-err-phone="Укажите телефон или WhatsApp." data-msg-err-phone-invalid="Проверьте номер." data-msg-err-consent="Нужно согласие на обработку данных." data-msg-err-rate="Слишком много попыток. Позвоните нам." data-msg-err-generic="Не удалось отправить. Позвоните +7 987 217-02-02." data-msg-err-network="Нет сети. Позвоните +7 987 217-02-02.">
+    return f"""<form class="lead-form" id="lead-{slug}" action="/lead-submit" method="POST" novalidate data-experiment-id="{slug}-ru" data-msg-sending="Отправляем…" data-msg-ok="Заявка принята. Отдел продаж ответит по указанному контакту." data-msg-err-phone="Укажите телефон или WhatsApp." data-msg-err-phone-invalid="Проверьте номер." data-msg-err-consent="Нужно согласие на обработку данных." data-msg-err-rate="Слишком много попыток. Позвоните нам." data-msg-err-generic="Не удалось отправить. Позвоните +7 987 217-02-02." data-msg-err-network="Нет сети. Позвоните +7 987 217-02-02.">
+      <input type="hidden" name="page" value="/{slug}">
       <input type="hidden" name="category" value="{label}">
       <label>Имя<input type="text" name="name" autocomplete="name"></label>
       <label>Телефон или WhatsApp *<input type="tel" name="phone" required autocomplete="tel" placeholder="+7 …"></label>
@@ -367,7 +407,7 @@ def _lead_form(slug, label):
       <button class="cta" type="submit">Отправить заявку</button>
       <p class="lead-form__status" role="status" aria-live="polite"></p>
     </form>
-    <script src="/assets/lead-form.js" defer></script>"""
+    {lead_form_tag(slug)}"""
 
 
 def faq_schema(pairs):
@@ -1583,7 +1623,8 @@ def build_commercial_page(cfg, lang):
 
   <h2 id="zayavka">{t['h_order']}</h2>
   <div class="order">
-    <form class="lead-form" id="lead-{cfg['slug']}-{lang}" novalidate data-experiment-id="{cfg['slug']}-{lang}" {msg_attrs}>
+    <form class="lead-form" id="lead-{cfg['slug']}-{lang}" action="/lead-submit" method="POST" novalidate data-experiment-id="{cfg['slug']}-{lang}" {msg_attrs}>
+      <input type="hidden" name="page" value="{t['prefix']}/{cfg['slug']}">
       <p style="margin:0 0 4px;font-size:.92rem;color:#555">{t['order_lead']}</p>
       <div class="shortlist" data-shortlist aria-live="polite"></div>
       <input type="hidden" name="category" value="{cfg['label']}">
@@ -1655,7 +1696,7 @@ def build_commercial_page(cfg, lang):
   }},true);
 }})();
 </script>
-<script src="/assets/lead-form.js" defer></script>
+{lead_form_tag(cfg["slug"])}
 {chrome["rest_css"]}
 {chrome["ld_tail"]}
 {chrome["analytics"]}

@@ -6,6 +6,7 @@ the same topbar + stylesheet without rewriting article text.
 """
 from __future__ import annotations
 
+import hashlib
 import re
 from html import escape
 from pathlib import Path
@@ -72,6 +73,8 @@ HERO_CRITICAL_CSS = (
     "body.kd-landing .badge{display:inline-block;background:#16723c;color:#fff;"
     "padding:4px 12px;border-radius:4px;font-size:.85rem;font-weight:600;"
     "margin:6px 4px 20px 0}"
+    "body.kd-landing .hero__media picture,body.kd-landing .hero__media img{"
+    "display:block;width:100%;height:auto;aspect-ratio:640/427}"
 )
 
 # Tiny Metrika queue + init in <head>. tag.js still loads after `load` so
@@ -169,12 +172,11 @@ def stylesheet_link(slug: str = "") -> str:
 
 
 def font_lcp_hints(slug: str = "") -> str:
-    """Preload the hero webfont with font-display:swap. Text-LCP hubs only."""
+    """@font-face with font-display:swap. No preload — it raced LCP on the hubs."""
     if slug and slug not in LCP_FONT_SLUGS:
         return ""
     return (
         '<!-- kd-font-lcp:start -->'
-        f'<link rel="preload" as="font" type="font/woff2" href="{LCP_FONT_HREF}" crossorigin>'
         "<style>"
         "@font-face{font-family:Nunito;font-style:normal;font-weight:500 800;"
         "font-display:swap;src:url(/fonts/f0.woff2) format(\"woff2\");"
@@ -184,6 +186,32 @@ def font_lcp_hints(slug: str = "") -> str:
         "</style>"
         "<!-- kd-font-lcp:end -->"
     )
+
+
+def lead_form_src() -> str:
+    data = (PUBLIC / "assets" / "lead-form.js").read_bytes()
+    digest = hashlib.sha256(data).hexdigest()[:8]
+    return f"/assets/lead-form.js?v={digest}"
+
+
+def lazy_lead_form_script() -> str:
+    """Inline loader. Does not start lead-form.js or conversion_async.js on parse."""
+    js = (Path(__file__).resolve().parent / "lead_form_lazy.js").read_text(encoding="utf-8")
+    js = re.sub(r"/\*.*?\*/", "", js, flags=re.S)
+    js = re.sub(r"^\s*//.*$", "", js, flags=re.M)
+    js = re.sub(r"\s+", " ", js).strip()
+    src = lead_form_src()
+    return (
+        f'<script id="kd-lead-form-lazy" data-src="{src}">{js}</script>'
+        f'<noscript><p>Форма отправляет заявку на /lead-submit.</p></noscript>'
+    )
+
+
+def lead_form_tag(slug: str) -> str:
+    """Defer the handler everywhere except the four LCP hubs."""
+    if slug in LCP_RENDER_SLUGS:
+        return lazy_lead_form_script()
+    return f'<script src="{lead_form_src()}" defer></script>'
 
 
 def _home(lang: str) -> str:
