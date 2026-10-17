@@ -104,7 +104,18 @@ def main() -> int:
     check("secrets.GSC_SERVICE_ACCOUNT_KEY" in wf, "workflow uses GSC secret")
     check("secrets.YANDEX_WM_TOKEN" in wf, "workflow uses Yandex secret")
     check("apt-get install -y age" in wf, "workflow installs age")
-    check("cryptography" in wf, "workflow installs cryptography for GSC JWT")
+    check(re.search(r"cryptography==\d+\.\d+\.\d+", wf),
+          "workflow pins cryptography to an exact version")
+    check(not re.search(r"pip install cryptography\s*$", wf, re.M),
+          "workflow does not install unpinned cryptography")
+    for action in ("actions/checkout", "actions/setup-python",
+                   "actions/upload-artifact"):
+        check(re.search(rf"uses:\s*{re.escape(action)}@[0-9a-f]{{40}}", wf),
+              f"{action} is pinned to a commit SHA")
+        check(not re.search(rf"uses:\s*{re.escape(action)}@v\d", wf),
+              f"{action} is not floating on a major tag")
+    check("::warning::search-queries-export: partial export" in wf,
+          "partial export is a warning, not a failure")
     check("seal_search_queries.py" in wf, "workflow seals via seal_search_queries.py")
     check("export_search_queries.py" in wf, "workflow exports via export_search_queries.py")
     check("ops/recon-age.pub" in wf, "workflow uses the committed recipient")
@@ -146,8 +157,16 @@ def main() -> int:
     check("e.read()" not in exporter_src, "export does not print HTTP bodies")
     check("_quiet_stderr" in exporter_src, "helper stderr is swallowed")
     check("search-queries-export: missing gsc key" in exporter_src, "fixed missing-key message")
-    check("search-queries-export: gsc failed" in exporter_src, "fixed gsc-failed message")
-    check("search-queries-export: yandex failed" in exporter_src, "fixed yandex-failed message")
+    check("search-queries-export: gsc unavailable" in exporter_src,
+          "fixed gsc-unavailable message")
+    check("search-queries-export: yandex unavailable" in exporter_src,
+          "fixed yandex-unavailable message")
+    check("search-queries-export: all sources failed" in exporter_src,
+          "fixed both-sources-failed message")
+    check("sys.tracebacklimit = 0" in exporter_src, "exporter disables traceback dumps")
+    check("except Exception" in exporter_src, "exporter main() catches Exception")
+    check("RETRY_ATTEMPTS = 3" in exporter_src, "each source retries 3 times")
+    check("HTTP_TIMEOUT = 8" in exporter_src, "HTTP timeout is short")
     check("sys.stdout.buffer.write" in exporter_src, "export writes the tar to stdout")
     check("write_text" not in exporter_src and "write_bytes" not in exporter_src,
           "export does not write plaintext files")
@@ -156,6 +175,12 @@ def main() -> int:
     check("print_counts" in sealer, "sealer prints counts only")
     check("seal_search_queries: age failed" in sealer, "sealer uses a fixed age-failed message")
     check("seal_search_queries: empty stdin" in sealer, "sealer uses a fixed empty-stdin message")
+    check("sys.tracebacklimit = 0" in sealer, "sealer disables traceback dumps")
+    check("except Exception" in sealer, "sealer wraps print_counts in except Exception")
+    check("sys.tracebacklimit = 0" in printer, "printer disables traceback dumps")
+    check("except Exception" in printer, "print_counts catches Exception")
+    check("yandex=unavailable" in exporter_src or 'UNAVAILABLE = "unavailable"' in exporter_src,
+          "partial export records yandex=unavailable")
 
     data = _fixture_tar()
     counts = counts_from_tar_bytes(data)
@@ -204,6 +229,162 @@ def main() -> int:
     check(seal.returncode == 2, "sealer empty stdin exits 2")
     check(b"seal_search_queries: empty stdin" in seal.stderr,
           "sealer empty stdin is a fixed message")
+
+    # Unexpected exception: class name only, no traceback, no planted query.
+    def boom(*_a, **_k):
+        raise OSError(f"Network is unreachable: {PLANTED_QUERY} {PLANTED_URL}")
+
+    old_collect = exporter.collect
+    exporter.collect = boom  # type: ignore[assignment]
+    buf_out, buf_err = io.StringIO(), io.StringIO()
+    old_out, old_err = sys.stdout, sys.stderr
+    try:
+        sys.stdout, sys.stderr = buf_out, buf_err
+        rc = exporter.main()
+    finally:
+        sys.stdout, sys.stderr = old_out, old_err
+        exporter.collect = old_collect
+    leaked = buf_out.getvalue() + buf_err.getvalue()
+    check(rc != 0, "unexpected OSError exits nonzero")
+    check("search-queries-export: OSError" in buf_err.getvalue(),
+          "unexpected error prints the class name only")
+    check("Traceback" not in leaked and 'File "' not in leaked,
+          "unexpected error prints no traceback")
+    check(PLANTED_QUERY not in leaked and PLANTED_URL not in leaked,
+          "unexpected error prints no query text")
+    check("Network is unreachable" not in leaked,
+          "unexpected error prints no exception message")
+
+    def gsc_ok(_sa: str) -> dict:
+        return {
+            "rows": [{"query": PLANTED_QUERY, "page": PLANTED_URL,
+                      "country": "rus", "device": "MOBILE",
+                      "clicks": 1, "impressions": 2, "ctr": 0.5, "position": 3}],
+            "indexed": 4,
+            "excluded": 1,
+        }
+
+    def ya_ok(_tok: str) -> dict:
+        return {
+            "rows": [{"query": PLANTED_QUERY, "shows": 1, "clicks": 0,
+                      "avg_position": 2.0}],
+            "urls": [],
+            "indexed": 3,
+            "excluded": 1,
+        }
+
+    def ya_down(_tok: str) -> dict:
+        raise OSError(f"Errno 101 Network is unreachable {PLANTED_QUERY}")
+
+    def gsc_down(_sa: str) -> dict:
+        raise OSError(f"GSC unreachable {PLANTED_URL}")
+
+    def run_collect(gsc_fn, ya_fn):
+        old_gsc, old_ya = exporter.collect_gsc, exporter.collect_yandex
+        saved = {
+            "gsc": os.environ.get("GSC_SERVICE_ACCOUNT_KEY"),
+            "b64": os.environ.get("GSC_SERVICE_ACCOUNT_KEY_B64"),
+            "ya": os.environ.get("YANDEX_WM_TOKEN"),
+        }
+        os.environ["GSC_SERVICE_ACCOUNT_KEY"] = '{"type":"service_account"}'
+        os.environ["YANDEX_WM_TOKEN"] = "token"
+        os.environ.pop("GSC_SERVICE_ACCOUNT_KEY_B64", None)
+        exporter.collect_gsc = gsc_fn  # type: ignore[assignment]
+        exporter.collect_yandex = ya_fn  # type: ignore[assignment]
+        buf_err = io.StringIO()
+        old_err = sys.stderr
+        sys.stderr = buf_err
+        files = None
+        code = 0
+        try:
+            files = exporter.collect()
+        except SystemExit as exc:
+            code = int(exc.code) if isinstance(exc.code, int) else 1
+        finally:
+            sys.stderr = old_err
+            exporter.collect_gsc, exporter.collect_yandex = old_gsc, old_ya
+            if saved["gsc"] is None:
+                os.environ.pop("GSC_SERVICE_ACCOUNT_KEY", None)
+            else:
+                os.environ["GSC_SERVICE_ACCOUNT_KEY"] = saved["gsc"]
+            if saved["b64"] is None:
+                os.environ.pop("GSC_SERVICE_ACCOUNT_KEY_B64", None)
+            else:
+                os.environ["GSC_SERVICE_ACCOUNT_KEY_B64"] = saved["b64"]
+            if saved["ya"] is None:
+                os.environ.pop("YANDEX_WM_TOKEN", None)
+            else:
+                os.environ["YANDEX_WM_TOKEN"] = saved["ya"]
+        return files, code, buf_err.getvalue()
+
+    files, code, err = run_collect(gsc_ok, ya_down)
+    check(code == 0 and files is not None, "Yandex down still collects GSC")
+    check("search-queries-export: yandex unavailable" in err,
+          "Yandex down prints yandex unavailable")
+    check("Traceback" not in err and PLANTED_QUERY not in err and PLANTED_URL not in err,
+          "Yandex down stderr has no traceback or query")
+    ya_counts = counts_from_tar_bytes(exporter._tar_bytes(files or {}))
+    check(ya_counts.get("yandex") == "unavailable",
+          "counts record yandex=unavailable")
+    check(ya_counts.get("gsc") == "ok", "counts record gsc=ok")
+    check(int(ya_counts["gsc_rows"]) == 1, "GSC rows are kept when Yandex is down")
+    check("yandex=unavailable" in format_counts(ya_counts),
+          "counts line prints yandex=unavailable")
+
+    files2, code2, err2 = run_collect(gsc_down, ya_ok)
+    check(code2 == 0 and files2 is not None, "GSC down still collects Yandex")
+    check("search-queries-export: gsc unavailable" in err2,
+          "GSC down prints gsc unavailable")
+    check("Traceback" not in err2 and PLANTED_QUERY not in err2 and PLANTED_URL not in err2,
+          "GSC down stderr has no traceback or query")
+    gsc_counts = counts_from_tar_bytes(exporter._tar_bytes(files2 or {}))
+    check(gsc_counts.get("gsc") == "unavailable", "counts record gsc=unavailable")
+    check(int(gsc_counts["yandex_rows"]) == 1, "Yandex rows are kept when GSC is down")
+
+    files3, code3, err3 = run_collect(gsc_down, ya_down)
+    check(code3 != 0 and files3 is None, "both sources down exits nonzero")
+    check("search-queries-export: all sources failed" in err3,
+          "both down uses a fixed message")
+    check("Traceback" not in err3 and PLANTED_QUERY not in err3,
+          "both down stderr has no traceback or query")
+
+    garbage = subprocess.run(
+        [sys.executable, str(ROOT / "scripts" / "seal_search_queries.py"),
+         "--out", str(ROOT / "does-not-matter.tar.age")],
+        cwd=ROOT,
+        input=b"not-a-tar " + PLANTED_QUERY.encode(),
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        check=False,
+    )
+    gerr = garbage.stderr.decode("utf-8", "replace")
+    gout = garbage.stdout.decode("utf-8", "replace")
+    check(garbage.returncode != 0, "sealer garbage tar exits nonzero")
+    check(re.fullmatch(r"seal_search_queries: [A-Za-z][A-Za-z0-9_]+\n", gerr),
+          "sealer garbage tar prints a fixed class-name message")
+    check("Traceback" not in gerr + gout and 'File "' not in gerr + gout,
+          "sealer garbage tar prints no traceback")
+    check(PLANTED_QUERY not in gerr and PLANTED_QUERY not in gout,
+          "sealer garbage tar prints no planted query")
+
+    # Retry count.
+    sleeps: list[float] = []
+    n = {"c": 0}
+
+    def always_fail():
+        n["c"] += 1
+        raise OSError("x")
+
+    old_sleep = exporter.time.sleep
+    exporter.time.sleep = lambda s: sleeps.append(s)  # type: ignore[assignment]
+    try:
+        exporter._retry(always_fail)
+        retried = False
+    except OSError:
+        retried = True
+    exporter.time.sleep = old_sleep
+    check(retried and n["c"] == 3, "retry helper attempts 3 times")
+    check(len(sleeps) == 2, "retry helper backs off between attempts")
 
     with tempfile.TemporaryDirectory() as tmp:
         out_age = Path(tmp) / "search-queries.tar.age"

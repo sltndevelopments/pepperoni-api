@@ -3,21 +3,26 @@
 
 Public repo: stdout is the tar only. Never print queries, URLs, or API
 bodies. Counts are printed by the sealer from meta.txt. Errors are
-fixed strings.
+fixed strings; tracebacklimit is 0 so an unexpected exception cannot
+leak a stack or message into Actions logs.
 """
 from __future__ import annotations
 
 import io
 import json
 import os
+import socket
 import sys
 import tarfile
+import time
 import urllib.error
 import urllib.parse
 import urllib.request
 from contextlib import contextmanager
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
+
+sys.tracebacklimit = 0
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from fetch_gsc_queries import (  # noqa: E402
@@ -35,6 +40,12 @@ import fetch_yandex_queries as yandex_mod  # noqa: E402
 
 DAYS = 90
 GSC_ROW_CAP = 25000
+HTTP_TIMEOUT = 8
+RETRY_ATTEMPTS = 3
+RETRY_BACKOFF = 0.4
+UNAVAILABLE = "unavailable"
+
+
 def _fail(code: int, msg: str) -> int:
     sys.stderr.write(f"{msg}\n")
     return code
@@ -50,6 +61,29 @@ def _quiet_stderr():
         sys.stderr = old
 
 
+@contextmanager
+def _short_timeout():
+    old = socket.getdefaulttimeout()
+    socket.setdefaulttimeout(HTTP_TIMEOUT)
+    try:
+        yield
+    finally:
+        socket.setdefaulttimeout(old)
+
+
+def _retry(fn):
+    last: BaseException | None = None
+    for attempt in range(RETRY_ATTEMPTS):
+        try:
+            return fn()
+        except Exception as exc:
+            last = exc
+            if attempt < RETRY_ATTEMPTS - 1:
+                time.sleep(RETRY_BACKOFF * (2 ** attempt))
+    assert last is not None
+    raise last
+
+
 def _http_json(url: str, *, token: str | None = None, oauth: str | None = None,
                data: bytes | None = None) -> dict:
     headers = {"Content-Type": "application/json"}
@@ -59,7 +93,7 @@ def _http_json(url: str, *, token: str | None = None, oauth: str | None = None,
         headers["Authorization"] = f"OAuth {oauth}"
     req = urllib.request.Request(url, data=data, headers=headers)
     try:
-        with urllib.request.urlopen(req, timeout=60) as resp:
+        with urllib.request.urlopen(req, timeout=HTTP_TIMEOUT) as resp:
             return json.loads(resp.read() or b"{}")
     except urllib.error.HTTPError:
         raise RuntimeError("http")
@@ -226,52 +260,64 @@ def fetch_yandex_index_counts(token: str, user_id: str, host_id: str) -> tuple[i
     return indexed, excluded
 
 
-def collect() -> dict[str, bytes]:
-    sa_raw = _load_gsc_key()
-    ya_token = os.environ.get("YANDEX_WM_TOKEN", "").strip()
-    if not sa_raw:
-        raise SystemExit(_fail(2, "search-queries-export: missing gsc key"))
-    if not ya_token:
-        raise SystemExit(_fail(2, "search-queries-export: missing yandex token"))
-
-    try:
+def collect_gsc(sa_raw: str) -> dict:
+    def _go() -> dict:
         sa = json.loads(sa_raw)
         with _quiet_stderr():
             gsc_token = get_access_token(sa)
-    except Exception:
-        raise SystemExit(_fail(1, "search-queries-export: gsc failed"))
-
-    gsc_start, gsc_end = _gsc_window()
-    try:
+        gsc_start, gsc_end = _gsc_window()
         raw_gsc = fetch_gsc_analytics(gsc_token, gsc_start, gsc_end)
         sitemap_submitted, _ = fetch_gsc_index_counts(gsc_token)
-    except Exception:
-        raise SystemExit(_fail(1, "search-queries-export: gsc failed"))
-    gsc_rows = normalize_gsc_rows(raw_gsc)
-    gsc_indexed = len({r["page"] for r in gsc_rows if r.get("page")})
-    gsc_excluded = max(0, sitemap_submitted - gsc_indexed) if sitemap_submitted else 0
+        gsc_rows = normalize_gsc_rows(raw_gsc)
+        gsc_indexed = len({r["page"] for r in gsc_rows if r.get("page")})
+        gsc_excluded = max(0, sitemap_submitted - gsc_indexed) if sitemap_submitted else 0
+        return {
+            "rows": gsc_rows,
+            "indexed": gsc_indexed,
+            "excluded": gsc_excluded,
+        }
+    return _retry(_go)
 
-    with _quiet_stderr():
-        user_id = resolve_user_id(ya_token)
-    if not user_id:
-        raise SystemExit(_fail(1, "search-queries-export: yandex failed"))
-    with _quiet_stderr():
-        host_id = resolve_host_id(ya_token, user_id)
-    if not host_id:
-        raise SystemExit(_fail(1, "search-queries-export: yandex failed"))
-    yandex_mod.USER_ID = user_id
-    yandex_mod.HOST_ID = host_id
-    ya_start, ya_end = _yandex_window()
-    try:
-        with _quiet_stderr():
+
+def collect_yandex(ya_token: str) -> dict:
+    def _go() -> dict:
+        with _short_timeout(), _quiet_stderr():
+            user_id = resolve_user_id(ya_token)
+            if not user_id:
+                raise RuntimeError("yandex")
+            host_id = resolve_host_id(ya_token, user_id)
+            if not host_id:
+                raise RuntimeError("yandex")
+            yandex_mod.USER_ID = user_id
+            yandex_mod.HOST_ID = host_id
+            ya_start, ya_end = _yandex_window()
             raw_ya = yandex_popular(ya_token, ya_start, ya_end)
-        ya_indexed, ya_excluded = fetch_yandex_index_counts(ya_token, user_id, host_id)
-        ya_urls = fetch_yandex_url_queries(ya_token, user_id, host_id, ya_start, ya_end)
-    except Exception:
-        raise SystemExit(_fail(1, "search-queries-export: yandex failed"))
-    ya_rows = normalize_yandex_rows(raw_ya)
+            ya_indexed, ya_excluded = fetch_yandex_index_counts(
+                ya_token, user_id, host_id)
+            ya_urls = fetch_yandex_url_queries(
+                ya_token, user_id, host_id, ya_start, ya_end)
+        return {
+            "rows": normalize_yandex_rows(raw_ya),
+            "urls": ya_urls,
+            "indexed": ya_indexed,
+            "excluded": ya_excluded,
+        }
+    return _retry(_go)
 
+
+def _pack(gsc: dict | None, ya: dict | None) -> dict[str, bytes]:
+    gsc_rows = (gsc or {}).get("rows") or []
+    ya_rows = (ya or {}).get("rows") or []
+    ya_urls = (ya or {}).get("urls") or []
+    gsc_indexed = int((gsc or {}).get("indexed") or 0)
+    gsc_excluded = int((gsc or {}).get("excluded") or 0)
+    ya_indexed = int((ya or {}).get("indexed") or 0)
+    ya_excluded = int((ya or {}).get("excluded") or 0)
+    gsc_status = "ok" if gsc is not None else UNAVAILABLE
+    ya_status = "ok" if ya is not None else UNAVAILABLE
     meta = (
+        f"gsc={gsc_status}\n"
+        f"yandex={ya_status}\n"
         f"gsc_rows={len(gsc_rows)}\n"
         f"yandex_rows={len(ya_rows)}\n"
         f"yandex_url_rows={len(ya_urls)}\n"
@@ -292,17 +338,46 @@ def collect() -> dict[str, bytes]:
             "gsc_excluded": gsc_excluded,
             "yandex_indexed": ya_indexed,
             "yandex_excluded": ya_excluded,
+            "gsc": gsc_status,
+            "yandex": ya_status,
         }).encode(),
     }
 
 
+def collect() -> dict[str, bytes]:
+    sa_raw = _load_gsc_key()
+    ya_token = os.environ.get("YANDEX_WM_TOKEN", "").strip()
+    if not sa_raw:
+        raise SystemExit(_fail(2, "search-queries-export: missing gsc key"))
+    if not ya_token:
+        raise SystemExit(_fail(2, "search-queries-export: missing yandex token"))
+
+    gsc = None
+    ya = None
+    try:
+        gsc = collect_gsc(sa_raw)
+    except Exception:
+        sys.stderr.write("search-queries-export: gsc unavailable\n")
+    try:
+        ya = collect_yandex(ya_token)
+    except Exception:
+        sys.stderr.write("search-queries-export: yandex unavailable\n")
+    if gsc is None and ya is None:
+        raise SystemExit(_fail(1, "search-queries-export: all sources failed"))
+    return _pack(gsc, ya)
+
+
 def main() -> int:
+    sys.tracebacklimit = 0
     try:
         files = collect()
+        sys.stdout.buffer.write(_tar_bytes(files))
+        return 0
     except SystemExit as exc:
         return int(exc.code) if isinstance(exc.code, int) else 1
-    sys.stdout.buffer.write(_tar_bytes(files))
-    return 0
+    except Exception as exc:
+        sys.stderr.write(f"search-queries-export: {type(exc).__name__}\n")
+        return 1
 
 
 if __name__ == "__main__":

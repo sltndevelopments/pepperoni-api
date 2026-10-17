@@ -3,6 +3,7 @@ name: Search queries export
 # Public repo: Actions logs and artifacts are world-readable.
 # Stream the export tar on stdout, print aggregate counts only, encrypt
 # with age, upload only the .age file. The plaintext tar never touches disk.
+# One source failing (Yandex or GSC) is a warning, not a job failure.
 on:
   workflow_dispatch:
   push:
@@ -20,17 +21,17 @@ jobs:
     timeout-minutes: 25
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
 
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5.6.0
         with:
           python-version: "3.11"
 
       - name: Install age and cryptography
         run: |
           sudo apt-get update -qq && sudo apt-get install -y age
-          pip install cryptography
+          pip install cryptography==50.0.2
 
       - name: Export, count, and encrypt
         env:
@@ -44,11 +45,17 @@ jobs:
           python3 scripts/export_search_queries.py \
             | python3 scripts/seal_search_queries.py \
                 --recipient-file ops/recon-age.pub \
-                --out search-queries.tar.age
+                --out search-queries.tar.age \
+            > counts.out
           rcs=("${PIPESTATUS[@]}")
           export_rc=${rcs[0]}
           seal_rc=${rcs[1]}
           set -e
+          cat counts.out
+          if grep -q '=unavailable' counts.out; then
+            echo "::warning::search-queries-export: partial export" >&2
+          fi
+          rm -f counts.out
           if [ "$export_rc" -ne 0 ]; then
             echo "search-queries-export: export failed" >&2
             exit 1
@@ -62,7 +69,7 @@ jobs:
           test ! -d search-queries
 
       - name: Upload encrypted export
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@b4b15b8c7c6ac21ea08fcf65892d2ee8f75cf882 # v4.4.3
         with:
           name: search-queries
           path: search-queries.tar.age
