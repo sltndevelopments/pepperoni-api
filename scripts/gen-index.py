@@ -497,7 +497,10 @@ select.dl-select{{padding:6px 10px;border-radius:6px;border:1px solid #ddd;font-
         <div class="footer__col-title">Разделы</div>
         <a href="/pepperoni">Пепперони</a>
         <a href="/kazylyk">Казылык</a>
+        <a href="/sosiski-dlya-hotdog">Сосиски для хот догов оптом</a>
+        <a href="/kotlety-dlya-burgerov">Котлеты для бургеров оптом</a>
         <a href="/sosiski-halyal-optom">Сосиски халяль оптом</a>
+        <a href="/dlya-horeca">Поставки мяса в рестораны</a>
         <a href="/vyipechka-halyal">Выпечка</a>
         <a href="/price">Прайс</a>
         <a href="/kak-zakazat">Как заказать</a>

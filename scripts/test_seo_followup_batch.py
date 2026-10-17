@@ -115,8 +115,10 @@ def main() -> int:
           "kazylyk meta has что это and no ruble price")
 
     pep_title = title_of("pepperoni.html")
-    check("что это" in pep_title.lower() and "из чего" in pep_title.lower(),
-          "/pepperoni title targets что это / из чего")
+    check("купить" in pep_title.lower() and "колбаса" in pep_title.lower(),
+          "/pepperoni title is commercial (купить / колбаса)")
+    check("что это" not in pep_title.lower(),
+          "/pepperoni title leaves «что это» to the blog")
     check("₽" not in pep_title, "/pepperoni title has no price")
     what = title_of("blog/what-is-halal-pepperoni.html")
     meat = title_of("blog/pepperoni-iz-kakogo-myasa.html")
