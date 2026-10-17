@@ -37,8 +37,7 @@ def encrypt_to_age(plaintext: bytes, recipient_file: Path, out_path: Path) -> No
     if proc.returncode != 0:
         if out_path.exists():
             out_path.unlink()
-        err = (proc.stderr or b"").decode("utf-8", errors="replace").strip()
-        raise SystemExit("seal_vps_git_recon: age failed: %s" % err)
+        raise SystemExit("seal_vps_git_recon: age failed")
     if not out_path.is_file() or out_path.stat().st_size == 0:
         raise SystemExit("seal_vps_git_recon: age produced no ciphertext")
 

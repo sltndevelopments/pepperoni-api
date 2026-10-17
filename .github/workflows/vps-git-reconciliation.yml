@@ -33,16 +33,34 @@ jobs:
           mkdir -p ~/.ssh
           printf '%s\n' "$VPS_SSH_KEY" > ~/.ssh/vps_key
           chmod 600 ~/.ssh/vps_key
+          trap 'rm -f ~/.ssh/vps_key' EXIT
           # Remote: python stdin, tar on stdout. Pipe straight into the sealer.
           # No recon-report.tar, no unpack, no plaintext on disk.
-          ssh -i ~/.ssh/vps_key -o IdentitiesOnly=yes -o StrictHostKeyChecking=accept-new \
+          # Public logs: hide ssh stderr; on failure print a fixed line only.
+          set +e
+          ssh -q -o BatchMode=yes -i ~/.ssh/vps_key \
+            -o IdentitiesOnly=yes -o StrictHostKeyChecking=accept-new \
             "root@${VPS_HOST}" \
             'export GIT_OPTIONAL_LOCKS=0; python3 -' \
             < scripts/vps_git_recon_readonly.sh \
+            2>/dev/null \
             | python3 scripts/seal_vps_git_recon.py \
                 --recipient-file ops/recon-age.pub \
                 --out recon-report.tar.age
-          rm -f ~/.ssh/vps_key
+          # Snapshot the whole array first. Reading PIPESTATUS[0] then [1]
+          # resets it; under set -u the second read is an unbound variable.
+          rcs=("${PIPESTATUS[@]}")
+          ssh_rc=${rcs[0]}
+          seal_rc=${rcs[1]}
+          set -e
+          if [ "$ssh_rc" -ne 0 ]; then
+            echo "vps-git-reconciliation: ssh failed" >&2
+            exit 1
+          fi
+          if [ "$seal_rc" -ne 0 ]; then
+            echo "vps-git-reconciliation: seal failed" >&2
+            exit 1
+          fi
           test -f recon-report.tar.age
           test ! -e recon-report.tar
           test ! -d recon-report
