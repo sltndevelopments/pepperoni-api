@@ -17,6 +17,11 @@ Workflow: `.github/workflows/vps-git-reconciliation.yml`. Triggers:
 - `push` to `main` filtered on `ops/recon-trigger.txt` (merge of that file
   runs the job; no `pull_request`, so PRs do not SSH to prod)
 
+Recon and `Deploy to VPS` share the workflow concurrency group
+`vps-pepperoni` with `cancel-in-progress: false`, so they queue instead
+of overlapping on the VPS. The recon job `sleep 60`s after it starts
+(and therefore after a just-finished deploy) before SSH.
+
 The repo is **public**: Actions logs and artifacts are world-readable. The
 runner therefore never writes the plaintext tar. SSH stdout is piped into
 `scripts/seal_vps_git_recon.py`, which keeps the tar in memory, prints

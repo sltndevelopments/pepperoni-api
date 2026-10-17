@@ -11,6 +11,11 @@ on:
     paths:
       - ops/recon-trigger.txt
 
+# Serialize with "Deploy to VPS" so recon never SSHes mid-reset.
+concurrency:
+  group: vps-pepperoni
+  cancel-in-progress: false
+
 jobs:
   report:
     runs-on: ubuntu-latest
@@ -21,6 +26,9 @@ jobs:
 
       - name: Install age
         run: sudo apt-get update -qq && sudo apt-get install -y age
+
+      - name: Wait for deploy post-steps
+        run: sleep 60
 
       - name: Collect, count, and encrypt
         env:

@@ -120,6 +120,18 @@ def main() -> int:
     check(bool(re.search(r"20\d{2}-\d{2}-\d{2}", trigger.read_text(encoding="utf-8"))),
           "recon-trigger.txt has a dated line")
 
+    check("group: vps-pepperoni" in wf and "group: vps-pepperoni" in deploy,
+          "recon and deploy share concurrency group vps-pepperoni")
+    check("cancel-in-progress: false" in wf and "cancel-in-progress: false" in deploy,
+          "shared concurrency does not cancel the in-progress workflow")
+    check(re.search(r"^concurrency:\s*$", wf, re.M) and re.search(r"^concurrency:\s*$", deploy, re.M),
+          "concurrency is workflow-level on recon and deploy")
+    check(re.search(r"\bsleep\s+60\b", wf), "recon job sleeps 60s before SSH")
+    check(wf.find("sleep 60") < wf.find("ssh "),
+          "sleep 60 appears before the SSH invocation")
+    check(not re.search(r"\bsleep\s+60\b", deploy),
+          "deploy behaviour is otherwise unchanged (no new sleep 60)")
+
     check("secrets.VPS_HOST" in wf and "secrets.VPS_SSH_KEY" in wf,
           "reuses deploy-vps.yml SSH secrets")
     check("secrets.VPS_HOST" in deploy and "secrets.VPS_SSH_KEY" in deploy,
@@ -229,6 +241,8 @@ def main() -> int:
     check("counts" in docs.lower(), "docs say the job log is counts-only")
     check("trap" in docs.lower() and "batchmode" in docs.lower(),
           "docs mention trap + BatchMode failure hygiene")
+    check("vps-pepperoni" in docs and "sleep 60" in docs,
+          "docs mention shared concurrency and the pre-SSH sleep")
 
     # Live local collector: stream tar, accept empty porcelain.
     with tempfile.TemporaryDirectory() as tmp:

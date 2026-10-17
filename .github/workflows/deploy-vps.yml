@@ -5,6 +5,11 @@ on:
     branches: [main]
   workflow_dispatch:
 
+# Same group as VPS git reconciliation: one SSH writer/reader at a time.
+concurrency:
+  group: vps-pepperoni
+  cancel-in-progress: false
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
