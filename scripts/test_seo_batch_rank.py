@@ -81,9 +81,9 @@ def main() -> int:
     check('href="/kazylyk"' in html("blog/kazylyk.html"), "blog/kazylyk bridges to commercial")
 
     desc_meat = desc_of("blog/pepperoni-iz-kakogo-myasa.html")
-    check("без свинины" in desc_meat, "pepperoni meat desc answers no-pork")
-    check("KD-013" in desc_meat, "pepperoni meat desc names KD-013")
     check("куриная" in desc_meat, "pepperoni meat desc names chicken")
+    check("KD-013" in desc_meat, "pepperoni meat desc names KD-013")
+    check("не выпускаются" in desc_meat, "pepperoni meat desc says beef/horse are not in the line")
 
     check("Котлеты для бургеров оптом" in title_of("blog/kotlety-dlya-burgerov-optom.html"), "kotlety blog title")
     check("гамбургеров" in desc_of("blog/kotlety-dlya-burgerov-optom.html"), "kotlety blog covers гамбургеров")
@@ -102,7 +102,7 @@ def main() -> int:
     check("wholesale from the maker" not in title_of("en/blog/kazylyk-horse-meat-sausage.html"), "EN kazylyk blog title not commercial")
 
     check("supplier" in title_of("en/pepperoni.html").lower(), "EN pepperoni title is B2B supplier")
-    check("no pork" in desc_of("en/pepperoni.html").lower(), "EN pepperoni desc says no pork")
+    check("chicken" in desc_of("en/pepperoni.html").lower(), "EN pepperoni desc names chicken")
 
     man = json.loads((ROOT / "data" / "index_manifest.json").read_text(encoding="utf-8"))
     keep = [e for e in man["entries"] if e.get("status") == "keep"]
