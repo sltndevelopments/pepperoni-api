@@ -1,12 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- perf-hints: preconnect -->
-<link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
-<link rel="dns-prefetch" href="https://www.googletagmanager.com">
-<link rel="preconnect" href="https://mc.yandex.ru" crossorigin>
-<link rel="dns-prefetch" href="https://mc.yandex.ru">
-
 <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
 <link rel="dns-prefetch" href="https://www.googletagmanager.com">
 <link rel="preconnect" href="https://mc.yandex.ru" crossorigin>
@@ -20,6 +14,7 @@
 <link rel="apple-touch-icon" sizes="180x180" href="/images/icon-180.png">
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="manifest" href="/manifest.json">
+<link rel="llms" href="/en/llms.txt" type="text/plain" title="LLM instructions (English)">
 <title>Halal Sausages for Bakeries & Tatar-Pastry Wholesale | Kazan Delicacies</title>
 <meta name="description" content="Halal supply for regional bakeries: casingless sausages for sausage-in-dough, beef & chicken mince fillings, ready Tatar pastries (echpochmak, samsa, peremyach). HACCP, Halal #614A/2024.">
 <meta name="keywords" content="halal sausages bakery wholesale, casingless sausage for sausage roll, halal meat fillings echpochmak, samsa filling halal, peremyach wholesale, Tatar pastries bakery">
@@ -27,7 +22,7 @@
 <link rel="canonical" href="https://pepperoni.tatar/en/dlya-pekaren">
 <link rel="alternate" hreflang="ru" href="https://pepperoni.tatar/dlya-pekaren">
 <link rel="alternate" hreflang="en" href="https://pepperoni.tatar/en/dlya-pekaren">
-<link rel="alternate" hreflang="x-default" href="https://pepperoni.tatar/dlya-pekaren">
+<link rel="alternate" hreflang="x-default" href="https://pepperoni.tatar/en/dlya-pekaren">
 
 <meta property="og:type" content="website">
 <meta property="og:title" content="Halal Sausages & Fillings for Bakeries — Wholesale">
@@ -41,7 +36,13 @@
 <meta name="twitter:description" content="Casingless sausages for sausage rolls, meat fillings, ready Tatar pastries. HACCP. Halal default.">
 <meta name="twitter:image" content="https://pepperoni.tatar/og-default.png">
 
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Catalog","item":"https://pepperoni.tatar/en/"},{"@type":"ListItem","position":2,"name":"Buyer segments","item":"https://pepperoni.tatar/en/#segments"},{"@type":"ListItem","position":3,"name":"Halal Sausages & Meat Fillings for Regional Bakeries","item":"https://pepperoni.tatar/en/dlya-pekaren"}]}</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[
+{"@type":"ListItem","position":1,"name":"Catalog","item":"https://pepperoni.tatar/en/"},
+{"@type":"ListItem","position":2,"name":"Buyer segments","item":"https://pepperoni.tatar/en/#segments"},
+{"@type":"ListItem","position":3,"name":"Halal Sausages & Meat Fillings for Regional Bakeries","item":"https://pepperoni.tatar/en/dlya-pekaren"}
+]}
+</script>
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
@@ -87,32 +88,6 @@ footer{text-align:center;color:#aaa;font-size:.85rem;padding-top:32px;margin-top
 footer a{color:#888;text-decoration:none}
 @media(max-width:600px){.grid-2,.prices-grid,.stats{grid-template-columns:1fr}}
 </style>
-<!-- perf-hints: speculation-rules -->
-<script type="speculationrules">
-{
-  "prerender": [{
-    "source": "document",
-    "where": {
-      "and": [
-        { "href_matches": "/*" },
-        { "not": { "href_matches": "/lead-submit*" } },
-        { "not": { "href_matches": "/lead-health*" } },
-        { "not": { "selector_matches": "[download]" } },
-        { "not": { "selector_matches": ".no-prerender" } }
-      ]
-    },
-    "eagerness": "moderate"
-  }]
-}
-</script>
-<!-- perf-hints: view-transitions -->
-<style>
-@media (prefers-reduced-motion: no-preference) {
-  @view-transition { navigation: auto; }
-}
-</style>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","@id":"https://pepperoni.tatar/#organization","name":"Казанские Деликатесы","legalName":"ООО «Казанские Деликатесы»","url":"https://pepperoni.tatar/","email":"info@kazandelikates.tatar","telephone":"+7 987 217-02-02","address":{"@type":"PostalAddress","streetAddress":"ул. Аграрная, 2, оф. 7","addressLocality":"Казань","postalCode":"420061","addressCountry":"RU"},"sameAs":["https://kazandelikates.tatar","https://www.wikidata.org/wiki/Q141108238","https://www.youtube.com/@kazandelikates"]}</script>
-<!-- localbusiness-ld:start --><script type="application/ld+json">{"@context":"https://schema.org","@type":"LocalBusiness","@id":"https://pepperoni.tatar/#localbusiness","name":"Казанские Деликатесы","legalName":"ООО «Казанские Деликатесы»","taxID":"1686021074","url":"https://pepperoni.tatar/","email":"info@kazandelikates.tatar","telephone":"+7 987 217-02-02","address":{"@type":"PostalAddress","streetAddress":"ул. Аграрная, д. 2, офис 7","addressLocality":"Казань","postalCode":"420061","addressCountry":"RU"},"parentOrganization":{"@id":"https://pepperoni.tatar/#organization"}}</script><!-- localbusiness-ld:end -->
 </head>
 <body>
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W2Q5S8HF" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
@@ -164,15 +139,14 @@ footer a{color:#888;text-decoration:none}
   <div class="feat-card"><div class="icon">🇷🇺</div><div class="title">Regional delivery</div><div class="desc">Volga, Central, Urals — weekly cadence.</div></div>
 </div>
 
-<!-- content-plan-pekaren:start --><p>Frozen bakery and sausage in dough for bakeries and coffee shops — <a href="/en/halyal-vypechka-optom-dlya-pekaren">/en/halyal-vypechka-optom-dlya-pekaren</a>. Chak-chak wholesale — <a href="/en/chak-chak-optom">/en/chak-chak-optom</a>. Bakery halal — <a href="/en/halal">/en/halal</a>.</p><!-- content-plan-pekaren:end -->
-    <h2>SKUs that work for bakery chains</h2>
+<h2>SKUs that work for bakery chains</h2>
 <div class="prices-grid">
   <div class="price-card"><div class="name">«K zavtraku» casingless sausage, 45 g</div><div class="weight">0.4 kg pack</div><div class="price">135 ₽</div></div>
   <div class="price-card"><div class="name">Beef mince</div><div class="weight">1 kg</div><div class="price">by request</div></div>
   <div class="price-card"><div class="name">Diced chicken thigh 1×1 cm</div><div class="weight">1 kg</div><div class="price">by request</div></div>
-  <div class="price-card"><div class="name">Echpochmak with beef & potato</div><div class="weight">frozen, 100 g</div><div class="price">from 69 ₽/pc</div></div>
-  <div class="price-card"><div class="name">Samsa with chicken</div><div class="weight">frozen, 120 g</div><div class="price">from 62 ₽/pc</div></div>
-  <div class="price-card"><div class="name">Peremyach, fried</div><div class="weight">frozen, 100 g</div><div class="price">from 59 ₽/pc</div></div>
+  <div class="price-card"><div class="name">Echpochmak with beef & potato</div><div class="weight">frozen, 100 g</div><div class="price">73.58 ₽/pc</div></div>
+  <div class="price-card"><div class="name">Samsa with chicken</div><div class="weight">frozen, 120 g</div><div class="price">66.05 ₽/pc</div></div>
+  <div class="price-card"><div class="name">Peremyach, fried</div><div class="weight">frozen, 100 g</div><div class="price">63.29 ₽/pc</div></div>
 </div>
 <p style="font-size:.85rem;color:#666"><em>Current price list in the <a href="/en/" style="color:#0066cc">catalog</a>. For private-label fillings or pastries — bespoke quotation.</em></p>
 
@@ -204,8 +178,8 @@ footer a{color:#888;text-decoration:none}
 
 <h2>See also</h2>
 <div class="grid-2">
-  <strong>Tatar pastry catalog</strong><br><span style="color:#666;font-size:.82rem">All 19 bakery SKUs</span>
-  <strong>Private Label</strong><br><span style="color:#666;font-size:.82rem">Filling and pastry under your brand</span>
+  <a href="/en/bakery" style="display:block;background:#fff;border:1px solid #e5e5e5;border-radius:8px;padding:14px;text-decoration:none;color:#1a1a1a;font-size:.9rem"><strong>Tatar pastry catalog</strong><br><span style="color:#666;font-size:.82rem">All 19 bakery SKUs</span></a>
+  <a href="/en/kontraktnoe-proizvodstvo" style="display:block;background:#fff;border:1px solid #e5e5e5;border-radius:8px;padding:14px;text-decoration:none;color:#1a1a1a;font-size:.9rem"><strong>Private Label</strong><br><span style="color:#666;font-size:.82rem">Filling and pastry under your brand</span></a>
   <a href="/en/dlya-setey" style="display:block;background:#fff;border:1px solid #e5e5e5;border-radius:8px;padding:14px;text-decoration:none;color:#1a1a1a;font-size:.9rem"><strong>For Retail Chains</strong><br><span style="color:#666;font-size:.82rem">Frozen pastries on the shelf</span></a>
   <a href="/en/dlya-horeca" style="display:block;background:#fff;border:1px solid #e5e5e5;border-radius:8px;padding:14px;text-decoration:none;color:#1a1a1a;font-size:.9rem"><strong>For HoReCa</strong><br><span style="color:#666;font-size:.82rem">Restaurants, hotels, catering</span></a>
   <a href="/en/dlya-azs" style="display:block;background:#fff;border:1px solid #e5e5e5;border-radius:8px;padding:14px;text-decoration:none;color:#1a1a1a;font-size:.9rem"><strong>For Gas Stations</strong><br><span style="color:#666;font-size:.82rem">Convenience-zone pastries</span></a>
@@ -219,15 +193,8 @@ footer a{color:#888;text-decoration:none}
 <a href="https://wa.me/79872170202?text=Hello%21%20I%27m%20interested%20in%20halal%20bakery%20supply%20%28sausages%2C%20fillings%2C%20pastries%29" class="cta cta-outline">💬 WhatsApp</a>
 
 <footer>
-  <p><a href="/en/">← Catalog</a> &middot; <a href="/en/pepperoni">Pepperoni</a> &middot; <a href="/en/about">About</a> &middot; <a href="/en/delivery">Delivery</a> &middot; <a href="/en/faq">FAQ</a></p>
+  <p><a href="/en/">← Catalog</a> &middot; <a href="/en/price">Price list</a> &middot; <a href="/en/kak-zakazat">How to order</a> &middot; <a href="/en/pepperoni">Pepperoni</a> &middot; <a href="/en/about">About</a> &middot; <a href="/en/delivery">Delivery</a> &middot; <a href="/en/faq">FAQ</a></p>
   <p>&copy; <a href="https://kazandelikates.tatar">Kazan Delicacies</a> &middot; <a href="https://pepperoni.tatar/en/">pepperoni.tatar</a></p>
-<!-- site-links:start -->
-<nav class="site-links" aria-label="Directions" style="font-size:.85rem;line-height:1.7;padding:12px 16px;text-align:center"><a href="/en/price">Price list</a> · <a href="/en/kak-zakazat">How to order</a> · <a href="/en/pepperoni">Halal pepperoni wholesale</a> · <a href="/en/pizzeria">For pizzerias</a> · <a href="/en/jerky">Private-label jerky</a> · <a href="/en/sosiska-v-teste">Sausage rolls</a> · <a href="/en/dlya-horeca">HoReCa</a> · <a href="/en/dlya-azs">Fuel stations</a> · <a href="/en/dlya-setey">Retail chains</a> · <a href="/en/zamorozhennaya-vypechka-dlya-kofeen">Bakery for coffee shops</a> · <a href="/en/dlya-distributorov">Distributors</a> · <a href="/en/export">Export</a> · <a href="/en/private-label">Private label</a><br>Company brand site: <a href="https://kazandelikates.tatar" rel="noopener">kazandelikates.tatar</a></nav>
-<script src="/assets/lead-goals.js" defer></script>
-<!-- site-links:end -->
-<!-- company-footer:start -->
-<div class="company-requisites" style="font-size:.82rem;line-height:1.65;padding:14px 16px;text-align:center;border-top:1px solid rgba(127,127,127,.25)">Kazan Delicacies LLC · INN 1686021074 · OGRN 1221600096893<br>420061 Kazan, Agrarnaya 2, office 7, Republic of Tatarstan, Russia<br><a href="tel:+79872170202">+7 987 217-02-02</a> · <a href="mailto:info@kazandelikates.tatar">info@kazandelikates.tatar</a> · <a href="/en/price">Price list</a> · <a href="/en/kak-zakazat">How to order</a></div>
-<!-- company-footer:end -->
 </footer>
 </div>
 <script>(function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};m[i].l=1*new Date();for(var j=0;j<document.scripts.length;j++){if(document.scripts[j].src===r)return}k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a);})(window,document,'script','https://mc.yandex.ru/metrika/tag.js','ym');ym(107064141,'init',{clickmap:true,trackLinks:true,accurateTrackBounce:true,ecommerce:'dataLayer'});</script><noscript><div><img src='https://mc.yandex.ru/watch/107064141' style='position:absolute;left:-9999px' alt='' width="1" height="1" loading="lazy" /></div></noscript>
