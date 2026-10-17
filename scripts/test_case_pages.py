@@ -88,6 +88,14 @@ def main() -> int:
     check("пепперони в этой линейке нет" in aslam or "пепперони нет" in aslam,
           "Aslam page keeps the no-pepperoni fact")
     check("private_label_min_run_5t" in aslam, "Aslam STM min is factory term, sourced")
+    check('href="https://aslamhalal.com/"' in aslam
+          and 'target="_blank"' in aslam and 'rel="noopener"' in aslam,
+          "Aslam page links brand site aslamhalal.com")
+    check('"url": "https://aslamhalal.com/"' in aslam
+          or '"url":"https://aslamhalal.com/"' in aslam,
+          "Aslam client Organization JSON-LD has url")
+    check('"sameAs"' in aslam and "aslamhalal.com" in aslam,
+          "Aslam client Organization JSON-LD has sameAs")
 
     # Not linked from public HTML except the drafts themselves
     for path in (ROOT / "public").rglob("*.html"):
