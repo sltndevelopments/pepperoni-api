@@ -46,6 +46,9 @@ def main() -> int:
     check("<h1" in ru and ru.lower().count("<h1") == 1, "new page one H1")
     check("Сосиски халяль оптом" in ru, "new page title/H1 query")
     check('class="hero"' in ru and 'class="hero__media"' in ru, "new page uses jerky-style hero")
+    check('class="kd-topbar"' in ru and 'class="hero__grid"' in ru, "new page uses jerks topbar/grid")
+    check('class="trust"' in ru and 'id="trust"' in ru, "new page has jerks trust strip")
+    check('jerks-landing' in ru, "new page marked as jerks landing")
     check('class="tbl"' in ru and "<table" in ru, "new page has catalog table")
     check("Минимальный заказ — 1 паллета" in ru, "canonical MOQ")
     check("/sosiski-dlya-hotdog" in ru and "/products" in ru, "new page links hubs")
@@ -105,8 +108,16 @@ def main() -> int:
     kaz = html_of("kazylyk.html")
     check('id="dostavka"' in kot and "Доставка в Москву и СПб" in kot, "cutlets delivery section")
     check('id="dostavka"' in kaz and "Доставка в Москву и СПб" in kaz, "kazylyk delivery section")
+    kot_del = kot.split('id="dostavka"', 1)[-1].split("</section>", 1)[0]
+    kaz_del = kaz.split('id="dostavka"', 1)[-1].split("</section>", 1)[0]
+    check("−18 °C или 0…+6 °C" not in kot_del and "карточке SKU" in kot_del,
+          "cutlets delivery points temperature at the SKU card")
+    check("−18 °C или 0…+6 °C" not in kaz_del and "карточке SKU" in kaz_del,
+          "kazylyk delivery points temperature at the SKU card")
     check("Москв" not in re.search(r"<title>(.*?)</title>", kot).group(1),
           "cutlets title still has no Москва")
+    check("alt=\"Сосиски &quot;Из говядины&quot;" in ru or "alt=\"Сосиски &#34;Из говядины&#34;" in ru,
+          "KD-022 alt quotes are escaped")
 
     home = html_of("index.html")
     check("/sosiski-halyal-optom" in home, "home links new page")
@@ -121,9 +132,17 @@ def main() -> int:
     burg_blog = html_of("en/blog/burger-patties-wholesale-halal.html")
     check("Are hot dogs halal?" in hot_blog, "EN hot-dog blog retitled")
     check("Is a beef burger halal?" in burg_blog, "EN burger blog retitled")
+    check("A beef burger is halal when" not in burg_blog, "burger blog dropped whole-burger-is-halal claim")
+    check("certified Halal by DUM RT" in burg_blog, "burger blog states KD-009/010 DUM RT Halal")
+    check("depends on all its ingredients and preparation" in burg_blog,
+          "burger blog says whole-burger status depends on all ingredients")
     check("/en/sosiski-dlya-hotdog" in hot_blog, "hot-dog blog links hub")
     check("/en/kotlety-dlya-burgerov" in burg_blog, "burger blog links hub")
     check('data-price-field="pricePerPiece"' in burg_blog, "burger blog stamps per-piece from catalog")
+    src = (ROOT / "scripts" / "gen_category_pages.py").read_text(encoding="utf-8")
+    check("100% говядина" not in src, "generator leftover 100% говядина removed")
+    check("KD-042 Ханский" not in src and "KD-044 из Индейки" not in src,
+          "generator leftover KD-042–045 names removed")
 
     bahrain = html_of("export/bahrain.html")
     check(re.search(r'name="robots"[^>]*content="noindex', bahrain, re.I),

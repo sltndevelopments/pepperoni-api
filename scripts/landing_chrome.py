@@ -32,6 +32,7 @@ LANDINGS: list[tuple[str, str, str]] = [
     ("en/dlya-horeca.html", "en", "dlya-horeca"),
     ("sosiski-dlya-hotdog.html", "ru", "sosiski-dlya-hotdog"),
     ("en/sosiski-dlya-hotdog.html", "en", "sosiski-dlya-hotdog"),
+    ("sosiski-halyal-optom.html", "ru", "sosiski-halyal-optom"),
     ("zamorozhennaya-vypechka-dlya-kofeen.html", "ru", "zamorozhennaya-vypechka-dlya-kofeen"),
     ("en/zamorozhennaya-vypechka-dlya-kofeen.html", "en", "zamorozhennaya-vypechka-dlya-kofeen"),
     ("export/uzbekistan.html", "ru", "export/uzbekistan"),

@@ -37,16 +37,12 @@ RUSSIA_DELIVERY_SLUGS = SAUSAGE_MEAT_SLUGS | {
     "kotlety-dlya-burgerov",
     "kazylyk",
 }
-# Backed by public/about.html (regular runs to Moscow / SPb, −18 °C or 0…+6 °C)
-# and public/delivery.html + company_facts (EXW Kazan, buyer pays).
-RUSSIA_DELIVERY_P = (
-    "Отгрузки по всей России. Регулярные рейсы в Москву и Санкт-Петербург — "
-    "собственная доставка и рефрижераторные перевозчики, терморежим −18 °C или "
-    "0…+6 °C (как на <a href=\"/about\">странице о компании</a>). Базис цен — "
-    "EXW Казань; доставку оплачивает покупатель. Маршрут и срок называем по "
-    "заказу — числа дней на странице нет. Минимальный заказ — 1 паллета. "
-    "Подробнее: <a href=\"/delivery\">доставка</a>."
-)
+# Backed by public/about.html (regular runs to Moscow / SPb) and
+# public/delivery.html + company_facts (EXW Kazan, buyer pays).
+# /kazylyk and /kotlety-dlya-burgerov point temperature at the SKU card
+# instead of the generic −18 °C / 0…+6 °C mix.
+SKU_CARD_TEMP_SLUGS = {"kazylyk", "kotlety-dlya-burgerov"}
+JERKS_LAYOUT_SLUGS = {"sosiski-halyal-optom"}
 PRODUCTS = json.loads((PUBLIC / "products.json").read_text())["products"]
 MANIFEST_PATH = Path(__file__).parent.parent / "data" / "index_manifest.json"
 
@@ -105,6 +101,25 @@ BASE_STYLE = """
     input,select,textarea{width:100%;max-width:420px;padding:8px 10px;border:1px solid #ddd;border-radius:6px;font:inherit}
     .consent{font-weight:400;font-size:.85rem}
     figure img{max-width:100%;height:auto;border-radius:8px}
+"""
+
+# Extra chrome for /jerks-styled catalog hubs. Tokens and hero/topbar live in
+# /assets/kd-landing.css (same system as /jerky and /en/investors). Do not
+# load BASE_STYLE on these slugs — it resets the jerks look.
+JERKS_EXTRA_STYLE = """
+    label{display:block;margin:12px 0 4px;font-size:.9rem;font-weight:600}
+    input,select,textarea{width:100%;max-width:420px;padding:8px 10px;border:1px solid var(--line);border-radius:9px;font:inherit}
+    .consent{font-weight:400;font-size:.85rem;display:flex;gap:8px;align-items:flex-start}
+    figure img{max-width:100%;height:auto;border-radius:var(--radius)}
+    .section{padding:36px 0;border-top:1px solid var(--line)}
+    .section--soft{background:var(--soft);margin:0 -24px;padding:36px 24px;border-top:1px solid var(--line)}
+    .trust{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:18px}
+    .trust__i{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:16px 18px;box-shadow:var(--shadow)}
+    .trust__l{font-size:.74rem;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-soft);font-weight:700}
+    .trust__v{font-weight:750;margin-top:4px}
+    .cards{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:16px}
+    @media(max-width:900px){.trust,.cards{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:560px){.trust,.cards{grid-template-columns:1fr}}
 """
 
 def get_products_by_skus(skus):
@@ -227,8 +242,10 @@ def _photo_block(products):
             if not src:
                 continue
             figures.append(
-                f'<figure class="product-card"><img src="{src}" alt="{p["name"]}, {cap}" '
-                f'loading="lazy" width="240" height="180"><figcaption>{p["sku"]} · {cap}</figcaption></figure>'
+                f'<figure class="product-card"><img src="{escape(src)}" '
+                f'alt="{escape(p["name"])}, {escape(cap)}" '
+                f'loading="lazy" width="240" height="180">'
+                f'<figcaption>{escape(p["sku"])} · {escape(cap)}</figcaption></figure>'
             )
     if not figures:
         return "<p>Фото этой категории в каталоге пока нет. Вид упаковки смотрите в карточке SKU.</p>"
@@ -350,17 +367,41 @@ def _sku_bit(product: dict) -> str:
     return f"{bit} ({extra})" if extra else bit
 
 
-def russia_delivery_html() -> str:
+def russia_delivery_html(slug: str = "") -> str:
+    if slug in SKU_CARD_TEMP_SLUGS:
+        temp = (
+            "температуру хранения смотрите в "
+            '<a href="#assortiment">карточке SKU</a> на этой странице'
+        )
+    else:
+        temp = (
+            "терморежим −18 °C или 0…+6 °C "
+            '(как на <a href="/about">странице о компании</a>)'
+        )
     return (
         '<section id="dostavka">'
         "<h2>Доставка в Москву и СПб / по России</h2>"
-        f"<p>{RUSSIA_DELIVERY_P}</p>"
+        "<p>Отгрузки по всей России. Регулярные рейсы в Москву и Санкт-Петербург — "
+        "собственная доставка и рефрижераторные перевозчики, "
+        f"{temp}. Базис цен — EXW Казань; доставку оплачивает покупатель. "
+        "Маршрут и срок называем по заказу — числа дней на странице нет. "
+        "Минимальный заказ — 1 паллета. "
+        'Подробнее: <a href="/delivery">доставка</a>.</p>'
         "</section>"
     )
 
 
+def _first_ingredient(ing: str) -> str:
+    match = re.search(r"состав:\s*([^,;]+)", ing or "", re.I)
+    return (match.group(1) if match else "").strip().lower()
+
+
 def _meat_groups(products: list) -> tuple[list[dict], list[dict]]:
-    """Split live catalog rows into beef / chicken when the Sheet says so."""
+    """First-ingredient classification, then a name override.
+
+    A lamb-named SKU whose recipe starts with beef must not land in «Говяжьи».
+    Name overrides also win for turkey / horse and for explicit beef / chicken names.
+    """
     beef, chicken = [], []
     seen_b, seen_c = set(), set()
     for p in products:
@@ -368,19 +409,24 @@ def _meat_groups(products: list) -> tuple[list[dict], list[dict]]:
         if not sku:
             continue
         name = (p.get("name") or "").lower()
-        ing = (p.get("ingredientsRU") or "").lower()
-        other_named = bool(re.search(r"баран|индейк|конин", name))
-        named_beef = "говяд" in name
-        named_chicken = "курин" in name
-        ing_beef = bool(re.search(r"состав:\s*говядин", ing))
-        ing_chicken = bool(
+        first = _first_ingredient(p.get("ingredientsRU") or "")
+        is_beef = bool(re.search(r"^говядин", first))
+        is_chicken = bool(
             re.search(
-                r"состав:\s*(мясо кур|филе кур|мякоть окорочка кур|мясо куриное|филе куриных)",
-                ing,
+                r"^(мясо кур|филе кур|мякоть окорочка кур|мясо куриное|"
+                r"филе куриных|филе куриное)",
+                first,
             )
         )
-        is_beef = named_beef or (ing_beef and not other_named and not named_chicken)
-        is_chicken = named_chicken or (ing_chicken and not other_named and not named_beef)
+        if re.search(r"баран|индейк|конин", name):
+            is_beef = False
+            is_chicken = False
+        elif "говяд" in name:
+            is_beef = True
+            is_chicken = False
+        elif "курин" in name:
+            is_chicken = True
+            is_beef = False
         if is_beef and sku not in seen_b:
             beef.append(p)
             seen_b.add(sku)
@@ -395,9 +441,9 @@ def meat_type_html(products: list, prefix: str = "") -> str:
     if not beef and not chicken:
         return ""
     blocks = [
-        "<p>Блоки ниже — только SKU этой страницы, у которых в названии или "
-        "в начале состава из каталога указана говядина или курица. Полный "
-        "состав — в карточке: название не заменяет рецептуру.</p>"
+        "<p>Блоки ниже — по первому ингредиенту из каталога, с поправкой на "
+        "название (SKU с бараниной, индейкой или кониной в имени не попадают "
+        "в говяжьи или куриные). Полный состав — в карточке SKU.</p>"
     ]
     for heading, rows in (("Говяжьи", beef), ("Куриные", chicken)):
         if not rows:
@@ -519,13 +565,36 @@ def _catalog_seo(cfg: dict, products: list) -> tuple[str, str, str, str] | None:
     return None
 
 
-def build_page(cfg):
+def _trust_strip(halal_no: str) -> str:
+    return (
+        '<section class="section section--soft" id="trust" data-track-section="trust">'
+        "<h2>Ключевые условия</h2>"
+        '<div class="trust">'
+        f'<div class="trust__i"><div class="trust__l">Халяль</div>'
+        f'<div class="trust__v">ДУМ РТ № {escape(halal_no)}</div></div>'
+        '<div class="trust__i"><div class="trust__l">Безопасность</div>'
+        '<div class="trust__v">HACCP · ISO 22000:2018</div></div>'
+        '<div class="trust__i"><div class="trust__l">Базис</div>'
+        '<div class="trust__v">EXW Казань</div></div>'
+        '<div class="trust__i"><div class="trust__l">Минимум</div>'
+        '<div class="trust__v">1 паллета</div></div>'
+        "</div></section>"
+    )
+
+
+def build_jerks_catalog_page(cfg):
+    """Bespoke /jerks (and /en/investors) layout for a priced catalog hub."""
+    return build_page(cfg, jerks=True)
+
+
+def build_page(cfg, jerks=False):
     """Build a catalog-backed category hub.
 
     Category copy is deliberately derived here instead of accepted from page
     config. This prevents fixed MOQ, delivery, shelf-life and composition
     claims from drifting away from the approved catalog.
     """
+    jerks = jerks or cfg.get("slug") in JERKS_LAYOUT_SLUGS
     products = page_products(cfg)
     cards = "\n".join(product_card_html(p) for p in products)
 
@@ -705,20 +774,21 @@ def build_page(cfg):
   </script>
 
   {stylesheet_link()}
-  <style>{BASE_STYLE}</style>
+  <style>{JERKS_EXTRA_STYLE if jerks else BASE_STYLE}</style>
 </head>
-<body class="kd-landing">
+<body class="kd-landing{' jerks-landing' if jerks else ''}">
 {GTM_BODY}
 {topbar_html("ru", cfg["slug"])}
 <div class="container">
   <nav><a href="/">← Все продукты</a></nav>
 
   {lead_html}
+  {_trust_strip(halal_no) if jerks else ""}
   <p>Производим эту категорию в Казани для HoReCa, сетей, АЗС и дистрибьюторов. Минимальный заказ — 1 паллета. Цены EXW Казань. С поставкой идут халяль-сертификат, декларация соответствия, ВСД («Меркурий») и маркировка «Честный знак».</p>
 
   {f'<h2>{cfg["extra_h2"]}</h2><p>{cfg["extra_p"]}</p>' if cfg.get("extra_h2") else ""}
   {meat_type_html(products) if cfg.get("slug") in SAUSAGE_MEAT_SLUGS else ""}
-  {russia_delivery_html() if cfg.get("slug") in RUSSIA_DELIVERY_SLUGS else ""}
+  {russia_delivery_html(cfg.get("slug") or "") if cfg.get("slug") in RUSSIA_DELIVERY_SLUGS else ""}
   <h2>Для кого</h2>
   <ul>
     <li><a href="/dlya-horeca">HoReCa</a></li>
@@ -727,7 +797,7 @@ def build_page(cfg):
     <li><a href="/dlya-distributorov">Дистрибьюторы</a></li>
   </ul>
 
-  <h2>Ассортимент ({len(products)} SKU)</h2>
+  <h2 id="assortiment">Ассортимент ({len(products)} SKU)</h2>
   {assortment_table}
   <div class="products-grid">
 {cards}
@@ -1254,7 +1324,7 @@ def build_commercial_page(cfg, lang):
 
   <p style="margin-top:20px;font-size:.9rem;color:#555">{t['related_h']}{related}</p>
 {('  <section class="section"><h2>' + t['extra_h2'] + '</h2>' + t['extra_html'] + '</section>') if t.get('extra_h2') else ''}
-{(meat_type_html(products) + russia_delivery_html()) if lang == "ru" else ""}
+{(meat_type_html(products) + russia_delivery_html(cfg.get("slug") or "")) if lang == "ru" else ""}
 
   <section class="faq-section">
     <h2>{t['h_faq']}</h2>
@@ -1400,7 +1470,18 @@ PAGES = [
             "Оптом от одной паллеты, доставка по России и СНГ",
         ],
         "faq_pairs": [
-            ("Какие виды копчёных колбас есть?", "Сервелаты: KD-042 Ханский, KD-043 По-татарски. Полукопчёные: KD-044 из Индейки, KD-045 из Говядины, KD-046 Колбаски с Сыром. Варено-копчёные: Рамазан, Мраморная, Филейный, Княжеская — каждая в целом батоне (~0,54 кг) и половинке (~0,27 кг)."),
+            ("Какие виды копчёных колбас есть?",
+             "Названия — из каталога (Sheet): "
+             + ", ".join(
+                 f"{p['sku']} {p['name']}"
+                 for p in PRODUCTS
+                 if (p.get("sku") or "") in {
+                     "KD-031", "KD-032", "KD-033", "KD-034",
+                     "KD-036", "KD-037", "KD-038", "KD-039",
+                     "KD-040", "KD-041", "KD-042", "KD-043",
+                 }
+             )
+             + ". Полный состав — в карточке SKU."),
             ("Колбасы из чего сделаны?", "Из говядины, индейки или курицы. Халяль, без ГМО, без антибиотиков. Состав каждого SKU — в карточке продукта."),
             ("Как организовать оптовый запрос?", "Укажите нужные SKU, объём и пункт назначения. Актуальные наличие, минимальный заказ, документы и логистику подтвердит отдел продаж: info@kazandelikates.tatar, +7 987 217-02-02."),
             ("Есть ли продукт в нарезке?", "Да, часть SKU доступна в нарезке. Уточните при оформлении заказа."),
@@ -1460,13 +1541,16 @@ PAGES = [
         "features": [
             "2 формата: 100 г и 150 г — под любой бургер",
             "Прожаренные — готовы к разогреву и подаче",
-            "100% говядина, халяль, без ГМО",
+            "Состав — в карточке SKU (говядина и мякоть куриного окорока), халяль",
             "Халяль-сертификат ДУМ РТ",
             "Оптом от одной паллеты, доставка по России и СНГ",
         ],
         "faq_pairs": [
             ("Котлеты уже прожарены?", "Да, котлеты прожаренные — достаточно разогреть на гриле, сковороде или в пароварке. Готовы к подаче за 3–5 минут."),
-            ("Из чего сделаны котлеты?", "100% говядина охлаждённая, специи, поваренная соль. Халяль, без ГМО, без антибиотиков."),
+            ("Из чего сделаны котлеты?",
+             "Состав в карточке: говядина, мякоть окорочка куриного, жир говяжий, "
+             "вода, клетчатка растительная, соль, смесь специй. Sheet не подтверждает "
+             "формулу «только говядина»."),
             ("Подходят ли для мусульманских заведений?", "Да, каждая партия сертифицирована ДУМ РТ. Вы получаете сертификат Halal с каждой поставкой."),
             ("Как заказать оптом?", "Email info@kazandelikates.tatar или +7 987 217-02-02. Минимальный заказ — 1 паллета."),
         ],
@@ -1579,9 +1663,10 @@ def main():
             print(f"✅ {out.name} (commercial, {len(shown)} SKU shown, {len(HELD_COMMERCIAL & {p['sku'] for p in get_products_by_category(cfg['categories'])})} on hold)")
             created += 1
             continue
-        html = ensure_metrika_html(build_page(cfg))
+        builder = build_jerks_catalog_page if cfg["slug"] in JERKS_LAYOUT_SLUGS else build_page
+        html = ensure_metrika_html(builder(cfg))
         out.write_text(html, encoding="utf-8")
-        n_skus = len(get_products_by_category(cfg["categories"])) if "categories" in cfg else len(cfg["skus"])
+        n_skus = len(page_products(cfg))
         print(f"✅ {out.name} ({n_skus} SKU)")
         created += 1
     print(f"\nВсего создано категорийных страниц: {created}")

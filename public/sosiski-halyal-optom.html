@@ -97,50 +97,22 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
   <!-- kd-landing-css:start --><link rel="stylesheet" href="/assets/kd-landing.css"><!-- kd-landing-css:end -->
   <style>
-    *{margin:0;padding:0;box-sizing:border-box}
-    body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#fafafa;color:#1a1a1a;line-height:1.8}
-    .container{max-width:860px;margin:0 auto;padding:40px 24px}
-    nav{font-size:.85rem;color:#888;margin-bottom:32px}
-    nav a{color:#0066cc;text-decoration:none}
-    h1{font-size:2rem;font-weight:700;margin-bottom:8px}
-    h2{font-size:1.3rem;font-weight:700;margin:36px 0 12px;color:#1b7a3d}
-    h3{font-size:1.05rem;font-weight:600;margin:20px 0 8px}
-    p{margin-bottom:14px}
-    .badge{display:inline-block;background:#1b7a3d;color:#fff;padding:4px 12px;border-radius:4px;font-size:.85rem;font-weight:600;margin:6px 4px 20px 0;letter-spacing:.5px}
-    .badge-outline{background:transparent;border:1.5px solid #1b7a3d;color:#1b7a3d}
-    .hero-subtitle{color:#666;font-size:1.05rem;margin-bottom:4px}
-    .products-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px;margin:20px 0}
-    .product-card{background:#fff;border:1px solid #e5e5e5;border-radius:10px;padding:20px;text-align:left}
-    .product-card .sku{font-size:.75rem;color:#aaa;margin-bottom:4px}
-    .product-card .name{font-weight:600;font-size:.95rem;margin-bottom:8px;color:#1a1a1a}
-    .product-card .meta{font-size:.8rem;color:#888}
-    .product-card a{display:inline-block;margin-top:12px;color:#1b7a3d;text-decoration:none;font-weight:600;font-size:.85rem}
-    .product-card a:hover{text-decoration:underline}
-    table{width:100%;border-collapse:collapse;margin:12px 0}
-    th,td{padding:8px 12px;text-align:left;border-bottom:1px solid #eee;font-size:.9rem}
-    th{background:#f5f5f5;font-weight:600}
-    ul{margin:8px 0 14px 24px}
-    li{margin-bottom:4px}
-    .cta{background:#1b7a3d;color:#fff;display:inline-block;padding:12px 28px;border-radius:8px;text-decoration:none;font-weight:600;margin:8px 8px 8px 0;font-size:.95rem}
-    .cta:hover{background:#15652f}
-    .cta-outline{background:transparent;border:2px solid #1b7a3d;color:#1b7a3d}
-    .cta-outline:hover{background:#1b7a3d;color:#fff}
-    .faq-section{margin:48px 0 32px}
-    .faq-section details{background:#fff;border:1px solid #e5e5e5;border-radius:8px;margin:8px 0;padding:4px 0}
-    .faq-section summary{padding:12px 16px;cursor:pointer;font-weight:600;font-size:.95rem;list-style:none}
-    .faq-section summary::-webkit-details-marker{display:none}
-    .faq-section summary::before{content:'＋ ';color:#1b7a3d}
-    .faq-section details[open] summary::before{content:'－ '}
-    .faq-section .ans{padding:4px 16px 14px;color:#555;font-size:.92rem}
-    footer{margin-top:60px;padding-top:20px;border-top:1px solid #eee;font-size:.8rem;color:#888;text-align:center}
-    footer a{color:#0066cc;text-decoration:none}
     label{display:block;margin:12px 0 4px;font-size:.9rem;font-weight:600}
-    input,select,textarea{width:100%;max-width:420px;padding:8px 10px;border:1px solid #ddd;border-radius:6px;font:inherit}
-    .consent{font-weight:400;font-size:.85rem}
-    figure img{max-width:100%;height:auto;border-radius:8px}
+    input,select,textarea{width:100%;max-width:420px;padding:8px 10px;border:1px solid var(--line);border-radius:9px;font:inherit}
+    .consent{font-weight:400;font-size:.85rem;display:flex;gap:8px;align-items:flex-start}
+    figure img{max-width:100%;height:auto;border-radius:var(--radius)}
+    .section{padding:36px 0;border-top:1px solid var(--line)}
+    .section--soft{background:var(--soft);margin:0 -24px;padding:36px 24px;border-top:1px solid var(--line)}
+    .trust{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:18px}
+    .trust__i{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:16px 18px;box-shadow:var(--shadow)}
+    .trust__l{font-size:.74rem;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-soft);font-weight:700}
+    .trust__v{font-weight:750;margin-top:4px}
+    .cards{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:16px}
+    @media(max-width:900px){.trust,.cards{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:560px){.trust,.cards{grid-template-columns:1fr}}
 </style>
 </head>
-<body class="kd-landing">
+<body class="kd-landing jerks-landing">
 <!-- Google Tag Manager (noscript) -->
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W2Q5S8HF"
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
@@ -202,11 +174,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <a class="cta" href="#zayavka">Получить КП</a>
   </div>
 </section>
+  <section class="section section--soft" id="trust" data-track-section="trust"><h2>Ключевые условия</h2><div class="trust"><div class="trust__i"><div class="trust__l">Халяль</div><div class="trust__v">ДУМ РТ № 0008</div></div><div class="trust__i"><div class="trust__l">Безопасность</div><div class="trust__v">HACCP · ISO 22000:2018</div></div><div class="trust__i"><div class="trust__l">Базис</div><div class="trust__v">EXW Казань</div></div><div class="trust__i"><div class="trust__l">Минимум</div><div class="trust__v">1 паллета</div></div></div></section>
   <p>Производим эту категорию в Казани для HoReCa, сетей, АЗС и дистрибьюторов. Минимальный заказ — 1 паллета. Цены EXW Казань. С поставкой идут халяль-сертификат, декларация соответствия, ВСД («Меркурий») и маркировка «Честный знак».</p>
 
   
   <section id="po-myasu">
-<p>Блоки ниже — только SKU этой страницы, у которых в названии или в начале состава из каталога указана говядина или курица. Полный состав — в карточке: название не заменяет рецептуру.</p>
+<p>Блоки ниже — по первому ингредиенту из каталога, с поправкой на название (SKU с бараниной, индейкой или кониной в имени не попадают в говяжьи или куриные). Полный состав — в карточке SKU.</p>
 <h2>Говяжьи</h2><ul>
 <li><a href="/products/kd-020">KD-020</a> — Сосиски «Казанские с молоком»</li><li><a href="/products/kd-021">KD-021</a> — Сосиски «С сыром»</li><li><a href="/products/kd-022">KD-022</a> — Сосиски &quot;Из говядины&quot;</li>
 </ul>
@@ -223,7 +196,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <li><a href="/dlya-distributorov">Дистрибьюторы</a></li>
   </ul>
 
-  <h2>Ассортимент (8 SKU)</h2>
+  <h2 id="assortiment">Ассортимент (8 SKU)</h2>
   
   <div class="products-grid">
         <div class="product-card">
@@ -277,7 +250,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </div>
 
   <h2>Фото</h2>
-  <div class="products-grid"><figure class="product-card"><img src="https://pepperoni.tatar/images/products/kd-017-main.jpg?v=b494e1b2" alt="Сосиски «К завтраку», продукт" loading="lazy" width="240" height="180"><figcaption>KD-017 · продукт</figcaption></figure><figure class="product-card"><img src="https://pepperoni.tatar/images/products/kd-017-slice.jpg?v=6dcaedab" alt="Сосиски «К завтраку», срез" loading="lazy" width="240" height="180"><figcaption>KD-017 · срез</figcaption></figure><figure class="product-card"><img src="https://pepperoni.tatar/images/products/kd-019-main.jpg?v=ec984c90" alt="Сосиски «Нежные», продукт" loading="lazy" width="240" height="180"><figcaption>KD-019 · продукт</figcaption></figure><figure class="product-card"><img src="https://pepperoni.tatar/images/products/kd-019-slice.jpg?v=f604bdc6" alt="Сосиски «Нежные», срез" loading="lazy" width="240" height="180"><figcaption>KD-019 · срез</figcaption></figure><figure class="product-card"><img src="https://pepperoni.tatar/images/products/kd-020-main.jpg?v=d4914aed" alt="Сосиски «Казанские с молоком», продукт" loading="lazy" width="240" height="180"><figcaption>KD-020 · продукт</figcaption></figure><figure class="product-card"><img src="https://pepperoni.tatar/images/products/kd-020-pack.jpg?v=b0764067" alt="Сосиски «Казанские с молоком», упаковка" loading="lazy" width="240" height="180"><figcaption>KD-020 · упаковка</figcaption></figure><figure class="product-card"><img src="https://pepperoni.tatar/images/products/kd-021-main.jpg?v=035fd35d" alt="Сосиски «С сыром», продукт" loading="lazy" width="240" height="180"><figcaption>KD-021 · продукт</figcaption></figure><figure class="product-card"><img src="https://pepperoni.tatar/images/products/kd-021-slice.jpg?v=23b3d285" alt="Сосиски «С сыром», срез" loading="lazy" width="240" height="180"><figcaption>KD-021 · срез</figcaption></figure><figure class="product-card"><img src="https://pepperoni.tatar/images/products/kd-021-pack.jpg?v=2b701481" alt="Сосиски «С сыром», упаковка" loading="lazy" width="240" height="180"><figcaption>KD-021 · упаковка</figcaption></figure><figure class="product-card"><img src="https://pepperoni.tatar/images/products/kd-022-main.jpg?v=d309cae9" alt="Сосиски "Из говядины", продукт" loading="lazy" width="240" height="180"><figcaption>KD-022 · продукт</figcaption></figure><figure class="product-card"><img src="https://pepperoni.tatar/images/products/kd-022-slice.jpg?v=0814dbbf" alt="Сосиски "Из говядины", срез" loading="lazy" width="240" height="180"><figcaption>KD-022 · срез</figcaption></figure><figure class="product-card"><img src="https://pepperoni.tatar/images/products/kd-023-main.jpg?v=af801b47" alt="Сосиски в/с Премиум, продукт" loading="lazy" width="240" height="180"><figcaption>KD-023 · продукт</figcaption></figure><figure class="product-card"><img src="https://pepperoni.tatar/images/products/kd-023-slice.jpg?v=9411fbae" alt="Сосиски в/с Премиум, срез" loading="lazy" width="240" height="180"><figcaption>KD-023 · срез</figcaption></figure><figure class="product-card"><img src="https://pepperoni.tatar/images/products/kd-023-pack.jpg?v=31c50f56" alt="Сосиски в/с Премиум, упаковка" loading="lazy" width="240" height="180"><figcaption>KD-023 · упаковка</figcaption></figure><figure class="product-card"><img src="https://pepperoni.tatar/images/products/kd-024-main.jpg?v=804a83c7" alt="Сосиски в/с Сочные, продукт" loading="lazy" width="240" height="180"><figcaption>KD-024 · продукт</figcaption></figure><figure class="product-card"><img src="https://pepperoni.tatar/images/products/kd-024-slice.jpg?v=b813f517" alt="Сосиски в/с Сочные, срез" loading="lazy" width="240" height="180"><figcaption>KD-024 · срез</figcaption></figure><figure class="product-card"><img src="https://pepperoni.tatar/images/products/kd-035-main.jpg?v=672fd6db" alt="Колбаски с Сыром, продукт" loading="lazy" width="240" height="180"><figcaption>KD-035 · продукт</figcaption></figure><figure class="product-card"><img src="https://pepperoni.tatar/images/products/kd-035-slice.jpg?v=12e8def1" alt="Колбаски с Сыром, срез" loading="lazy" width="240" height="180"><figcaption>KD-035 · срез</figcaption></figure></div><p>Фото короба в каталоге нет.</p>
+  <div class="products-grid"><figure class="product-card"><img src="https://pepperoni.tatar/images/products/kd-017-main.jpg?v=b494e1b2" alt="Сосиски «К завтраку», продукт" loading="lazy" width="240" height="180"><figcaption>KD-017 · продукт</figcaption></figure><figure class="product-card"><img src="https://pepperoni.tatar/images/products/kd-017-slice.jpg?v=6dcaedab" alt="Сосиски «К завтраку», срез" loading="lazy" width="240" height="180"><figcaption>KD-017 · срез</figcaption></figure><figure class="product-card"><img src="https://pepperoni.tatar/images/products/kd-019-main.jpg?v=ec984c90" alt="Сосиски «Нежные», продукт" loading="lazy" width="240" height="180"><figcaption>KD-019 · продукт</figcaption></figure><figure class="product-card"><img src="https://pepperoni.tatar/images/products/kd-019-slice.jpg?v=f604bdc6" alt="Сосиски «Нежные», срез" loading="lazy" width="240" height="180"><figcaption>KD-019 · срез</figcaption></figure><figure class="product-card"><img src="https://pepperoni.tatar/images/products/kd-020-main.jpg?v=d4914aed" alt="Сосиски «Казанские с молоком», продукт" loading="lazy" width="240" height="180"><figcaption>KD-020 · продукт</figcaption></figure><figure class="product-card"><img src="https://pepperoni.tatar/images/products/kd-020-pack.jpg?v=b0764067" alt="Сосиски «Казанские с молоком», упаковка" loading="lazy" width="240" height="180"><figcaption>KD-020 · упаковка</figcaption></figure><figure class="product-card"><img src="https://pepperoni.tatar/images/products/kd-021-main.jpg?v=035fd35d" alt="Сосиски «С сыром», продукт" loading="lazy" width="240" height="180"><figcaption>KD-021 · продукт</figcaption></figure><figure class="product-card"><img src="https://pepperoni.tatar/images/products/kd-021-slice.jpg?v=23b3d285" alt="Сосиски «С сыром», срез" loading="lazy" width="240" height="180"><figcaption>KD-021 · срез</figcaption></figure><figure class="product-card"><img src="https://pepperoni.tatar/images/products/kd-021-pack.jpg?v=2b701481" alt="Сосиски «С сыром», упаковка" loading="lazy" width="240" height="180"><figcaption>KD-021 · упаковка</figcaption></figure><figure class="product-card"><img src="https://pepperoni.tatar/images/products/kd-022-main.jpg?v=d309cae9" alt="Сосиски &quot;Из говядины&quot;, продукт" loading="lazy" width="240" height="180"><figcaption>KD-022 · продукт</figcaption></figure><figure class="product-card"><img src="https://pepperoni.tatar/images/products/kd-022-slice.jpg?v=0814dbbf" alt="Сосиски &quot;Из говядины&quot;, срез" loading="lazy" width="240" height="180"><figcaption>KD-022 · срез</figcaption></figure><figure class="product-card"><img src="https://pepperoni.tatar/images/products/kd-023-main.jpg?v=af801b47" alt="Сосиски в/с Премиум, продукт" loading="lazy" width="240" height="180"><figcaption>KD-023 · продукт</figcaption></figure><figure class="product-card"><img src="https://pepperoni.tatar/images/products/kd-023-slice.jpg?v=9411fbae" alt="Сосиски в/с Премиум, срез" loading="lazy" width="240" height="180"><figcaption>KD-023 · срез</figcaption></figure><figure class="product-card"><img src="https://pepperoni.tatar/images/products/kd-023-pack.jpg?v=31c50f56" alt="Сосиски в/с Премиум, упаковка" loading="lazy" width="240" height="180"><figcaption>KD-023 · упаковка</figcaption></figure><figure class="product-card"><img src="https://pepperoni.tatar/images/products/kd-024-main.jpg?v=804a83c7" alt="Сосиски в/с Сочные, продукт" loading="lazy" width="240" height="180"><figcaption>KD-024 · продукт</figcaption></figure><figure class="product-card"><img src="https://pepperoni.tatar/images/products/kd-024-slice.jpg?v=b813f517" alt="Сосиски в/с Сочные, срез" loading="lazy" width="240" height="180"><figcaption>KD-024 · срез</figcaption></figure><figure class="product-card"><img src="https://pepperoni.tatar/images/products/kd-035-main.jpg?v=672fd6db" alt="Колбаски с Сыром, продукт" loading="lazy" width="240" height="180"><figcaption>KD-035 · продукт</figcaption></figure><figure class="product-card"><img src="https://pepperoni.tatar/images/products/kd-035-slice.jpg?v=12e8def1" alt="Колбаски с Сыром, срез" loading="lazy" width="240" height="180"><figcaption>KD-035 · срез</figcaption></figure></div><p>Фото короба в каталоге нет.</p>
 
   <h2>Спецификации</h2>
   <p>Состав, масса, хранение и срок годности — в карточке SKU и на маркировке. Полный прайс: <a href="/price">/price</a> · <a href="/prices.xlsx">Excel</a> · <a href="/prices.pdf">PDF</a>. Как заказать: <a href="/kak-zakazat">/kak-zakazat</a>.</p>
