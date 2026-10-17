@@ -91,6 +91,9 @@ body.kd-landing .hero__media img {
   box-shadow: var(--shadow);
   width: 100%;
   height: auto;
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+  background: #e8ebe8;
 }
 body.kd-landing .hero__tag {
   position: absolute;
