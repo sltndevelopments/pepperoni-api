@@ -10,6 +10,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "scripts"))
 
+import index_safety  # noqa: E402
 from qa_pages import _visible_words  # noqa: E402
 
 SLUGS = ("gfc", "sweet-life", "tatneft", "aslam-ompk")
@@ -46,6 +47,19 @@ def main() -> int:
     sitemap = (ROOT / "public" / "sitemap.xml").read_text(encoding="utf-8")
     robots = (ROOT / "public" / "robots.txt").read_text(encoding="utf-8")
     check("Disallow: /cases/" in robots, "robots.txt disallows /cases/")
+    cases_ngx = (ROOT / "deploy/nginx/cases-noindex.conf").read_text(encoding="utf-8")
+    check('X-Robots-Tag "noindex, nofollow"' in cases_ngx,
+          "nginx /cases/ sends X-Robots-Tag noindex, nofollow")
+    check(re.search(r"location\s+=\s+/cases/\s*\{", cases_ngx) is not None,
+          "nginx exact /cases/ is a one-hop 301")
+    check("return 301 https://pepperoni.tatar/cases;" in cases_ngx,
+          "nginx /cases/ 301s to the public hub")
+    check(re.search(r"location\s+\^~\s+/cases/\s*\{", cases_ngx) is not None,
+          "nginx prefix ^~ /cases/ covers draft slugs")
+    check(re.search(r"location\s+=\s+/cases\s", cases_ngx) is None,
+          "nginx does not noindex the public /cases hub")
+    check("cases-noindex.conf" in index_safety.NGINX_INSTALL,
+          "cases-noindex.conf is deploy-managed")
     ua_blocks = re.split(r"(?=^User-agent:)", robots, flags=re.M)
     named = [b for b in ua_blocks if re.match(r"User-agent:\s+\S+", b)]
     missing_ua = []
