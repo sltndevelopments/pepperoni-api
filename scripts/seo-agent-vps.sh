@@ -361,9 +361,9 @@ git pull --rebase --autostash origin main >> "$LOG_FILE" 2>&1 \
     && log "  ✅ Rebased on origin/main" \
     || fail_hard "git pull --rebase failed — refusing to commit on top of a diverged/broken tree"
 
-# Inject deploy-stamp into index.html BEFORE git add so the stamp lands in the
-# commit and reaches the live site. .deploy_stamp is gitignored (local only).
-python3 scripts/deploy_check.py --inject >> "$LOG_FILE" 2>&1 || log_degradation "⚠️  deploy stamp inject failed (non-fatal)"
+# Do not inject a deploy stamp into public/index.html: that file is no
+# longer committed, so --verify would compare a local-only token to live
+# and fire a false notify_emergency. Deploy publishes the commit SHA.
 
 # Do NOT auto-commit generated HTML (geo/blog/export/product cards).
 # 2026-10-17: git add -u 'public/**/*.html' pushed a stale export/uzbekistan
@@ -422,13 +422,18 @@ if ! python3 scripts/index_safety.py --refuse-staged-keep-deletions >> "$LOG_FIL
         || log_degradation "⚠️  could not restore allowlisted deletions"
 fi
 
+# Belt-and-suspenders: never commit generated HTML even if a helper staged it.
+staged_html=$(git diff --cached --name-only | grep -E '^public/.*\.html$' || true)
+if [ -n "$staged_html" ]; then
+    echo "$staged_html" | xargs -r git reset -q --
+    log "  ⚠️  Unstaged generated public HTML before commit"
+fi
+
 if ! git diff --cached --quiet 2>/dev/null; then
     CHANGED=$(git diff --cached --name-only | wc -l | tr -d ' ')
     if git commit -m "chore(seo): auto-update by SEO agent $(date +%Y-%m-%d)" >> "$LOG_FILE" 2>&1; then
         if git push origin HEAD:main >> "$LOG_FILE" 2>&1; then
             log "  ✅ Pushed $CHANGED file(s) to GitHub — deploy will follow automatically"
-            # Verify stamp reaches live site (2 retries × 90s). Fires emergency if not.
-            python3 scripts/deploy_check.py --verify >> "$LOG_FILE" 2>&1 &
             # Guard: critical homepage sections (segments + partners) still present.
             python3 scripts/deploy_check.py --check-sections >> "$LOG_FILE" 2>&1 &
         else

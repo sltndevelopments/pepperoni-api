@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import json
 import re
+import shlex
 import subprocess
 import sys
 from pathlib import Path
@@ -62,6 +63,207 @@ def git_show(rel: str) -> str | None:
     if proc.returncode != 0:
         return None
     return proc.stdout
+
+
+# Generated pages must not auto-commit. Only these four public JSON files
+# may appear in an automatic `git add` (SKU-count reconcile output).
+ALLOWED_PUBLIC_ADD = {
+    "public/manifest.json",
+    "public/.well-known/ai-plugin.json",
+    "public/.well-known/mcp.json",
+    "public/ai.json",
+}
+
+_COMMENT_LINE = re.compile(r"^\s*(#|//)")
+_GIT_ADD_PY = re.compile(
+    r'\[\s*[\'"]git[\'"]\s*,\s*[\'"]add[\'"]\s*,(.*?)\]',
+    re.S,
+)
+_GIT_COMMIT_PY = re.compile(
+    r'\[\s*[\'"]git[\'"]\s*,\s*[\'"]commit[\'"]\s*,(.*?)\]',
+    re.S,
+)
+_PY_STR = re.compile(r'''['"]([^'"]+)['"]''')
+
+
+def active_shell(text: str) -> str:
+    """Drop comments and join backslash-continued lines (sh/yml/py)."""
+    joined: list[str] = []
+    buf = ""
+    for raw in text.splitlines():
+        if _COMMENT_LINE.match(raw):
+            continue
+        line = raw.split("#", 1)[0].rstrip()
+        if not line.strip():
+            continue
+        if line.endswith("\\"):
+            buf += line[:-1] + " "
+            continue
+        joined.append(buf + line)
+        buf = ""
+    if buf.strip():
+        joined.append(buf)
+    return "\n".join(joined)
+
+
+def format_hits(hits: list[str]) -> str:
+    if not hits:
+        return ""
+    preview = "; ".join(hits[:6])
+    extra = f" (+{len(hits) - 6} more)" if len(hits) > 6 else ""
+    return f": {preview}{extra}"
+
+
+def _is_dot_path(tok: str) -> bool:
+    return tok in {".", "./"}
+
+
+def _public_path(tok: str) -> str | None:
+    cleaned = tok.strip("'\"")
+    cleaned = cleaned.lstrip("./")
+    if cleaned == "public" or cleaned.startswith("public/") or cleaned.startswith("public\\"):
+        return cleaned.replace("\\", "/")
+    return None
+
+
+def _add_forbidden(rel: str, args: list[str]) -> list[str]:
+    hits: list[str] = []
+    paths: list[str] = []
+    update_only = False
+    i = 0
+    while i < len(args):
+        tok = args[i]
+        if tok in {"-A", "--all"}:
+            hits.append(f"{rel}: git add -A/--all")
+        elif tok in {"-u", "--update"}:
+            update_only = True
+        elif tok in {"-f", "--force", "-n", "--dry-run", "-v", "--verbose",
+                     "-p", "--patch", "--ignore-errors", "--intent-to-add",
+                     "--renormalize", "--refresh", "--ignore-removal"}:
+            pass
+        elif tok == "--":
+            paths.extend(args[i + 1:])
+            break
+        elif tok.startswith("-"):
+            pass
+        else:
+            paths.append(tok)
+        i += 1
+    if update_only and not paths:
+        hits.append(f"{rel}: git add -u with no path (would stage public/)")
+    for path in paths:
+        if _is_dot_path(path):
+            hits.append(f"{rel}: git add .")
+            continue
+        pub = _public_path(path)
+        if pub and pub not in ALLOWED_PUBLIC_ADD:
+            hits.append(f"{rel}: git add {pub}")
+    return hits
+
+
+def _commit_forbidden(rel: str, args: list[str]) -> list[str]:
+    for tok in args:
+        if tok in {"-a", "--all", "-am"}:
+            return [f"{rel}: git commit -a"]
+        if tok.startswith("-") and not tok.startswith("--") and "a" in tok[1:]:
+            return [f"{rel}: git commit -a"]
+    return []
+
+
+def _shlex_args(rest: str) -> list[str]:
+    try:
+        return shlex.split(rest, posix=True)
+    except ValueError:
+        return rest.split()
+
+
+def _scan_shell_text(rel: str, text: str) -> list[str]:
+    hits: list[str] = []
+    active = active_shell(text)
+    for line in active.splitlines():
+        if "print(" in line or "echo " in line or "log " in line:
+            continue
+        add_m = re.search(r"\bgit\s+add\b(.*)$", line)
+        if add_m:
+            hits.extend(_add_forbidden(rel, _shlex_args(add_m.group(1))))
+        commit_m = re.search(r"\bgit\s+commit\b(.*)$", line)
+        if commit_m:
+            hits.extend(_commit_forbidden(rel, _shlex_args(commit_m.group(1))))
+    return hits
+
+
+def _scan_python(rel: str, text: str) -> list[str]:
+    hits = _scan_shell_text(rel, text)
+    for match in _GIT_ADD_PY.finditer(text):
+        args = _PY_STR.findall(match.group(1))
+        hits.extend(_add_forbidden(rel, args))
+    for match in _GIT_COMMIT_PY.finditer(text):
+        args = _PY_STR.findall(match.group(1))
+        hits.extend(_commit_forbidden(rel, args))
+    return hits
+
+
+def _scan_workflow(rel: str, text: str) -> list[str]:
+    hits = _scan_shell_text(rel, text)
+    # git-auto-commit-action file_pattern is a commit of those paths.
+    in_pattern = False
+    for raw in text.splitlines():
+        stripped = raw.strip()
+        if stripped.startswith("#"):
+            continue
+        if re.match(r"file_pattern\s*:", stripped):
+            in_pattern = True
+            inline = stripped.split(":", 1)[1].strip()
+            if inline and inline != "|" and inline != ">":
+                pub = _public_path(inline)
+                if pub and pub not in ALLOWED_PUBLIC_ADD:
+                    hits.append(f"{rel}: file_pattern {pub}")
+            continue
+        if in_pattern:
+            if not raw.startswith(" ") and not raw.startswith("\t"):
+                in_pattern = False
+                continue
+            if stripped.startswith("#") or not stripped:
+                continue
+            if stripped.endswith(":") and not stripped.startswith("public"):
+                in_pattern = False
+                continue
+            pub = _public_path(stripped)
+            if pub and pub not in ALLOWED_PUBLIC_ADD:
+                hits.append(f"{rel}: file_pattern {pub}")
+    return hits
+
+
+def scan_public_git_adds() -> list[str]:
+    hits: list[str] = []
+    scripts = ROOT / "scripts"
+    for path in sorted(scripts.rglob("*")):
+        if not path.is_file() or path.suffix not in {".sh", ".py"}:
+            continue
+        rel = path.relative_to(ROOT).as_posix()
+        if rel == "scripts/test_landing_design.py":
+            continue
+        text = path.read_text(encoding="utf-8", errors="replace")
+        if path.suffix == ".py":
+            hits.extend(_scan_python(rel, text))
+        else:
+            hits.extend(_scan_shell_text(rel, text))
+    workflows = ROOT / ".github" / "workflows"
+    if workflows.is_dir():
+        for path in sorted(workflows.iterdir()):
+            if not path.is_file() or path.suffix not in {".yml", ".yaml"}:
+                continue
+            rel = path.relative_to(ROOT).as_posix()
+            text = path.read_text(encoding="utf-8", errors="replace")
+            hits.extend(_scan_workflow(rel, text))
+    # Dedup while preserving order
+    seen: set[str] = set()
+    unique: list[str] = []
+    for hit in hits:
+        if hit not in seen:
+            seen.add(hit)
+            unique.append(hit)
+    return unique
 
 
 def main() -> int:
@@ -144,18 +346,21 @@ def main() -> int:
     check("stylesheet_link()" in geo_src and "topbar_html(" in geo_src,
           "gen-geo-pages emit shared chrome")
 
-    def no_html_git_add(rel: str) -> None:
-        text = (ROOT / rel).read_text(encoding="utf-8")
-        active = "\n".join(
-            line for line in text.splitlines()
-            if line.strip() and not line.lstrip().startswith("#")
-        )
-        hits = [line.strip() for line in active.splitlines()
-                if "git add" in line and ".html" in line]
-        check(not hits, f"{rel} does not git-add generated HTML")
+    no_public_auto_commit_hits = scan_public_git_adds()
+    check(not no_public_auto_commit_hits,
+          "scripts and workflows do not git-add public/ HTML "
+          f"(except allowed JSON){format_hits(no_public_auto_commit_hits)}")
 
-    no_html_git_add("scripts/seo-agent-vps.sh")
-    no_html_git_add(".github/workflows/seo-agent.yml")
+    agent_sh = (ROOT / "scripts" / "seo-agent-vps.sh").read_text(encoding="utf-8")
+    check("deploy_check.py --inject" not in active_shell(agent_sh)
+          and "deploy_check.py --verify" not in active_shell(agent_sh),
+          "seo-agent-vps.sh does not run deploy_check --inject/--verify")
+    check("git reset -q" in agent_sh and r"^public/.*\.html$" in agent_sh,
+          "seo-agent-vps.sh unstages public/**/*.html before commit")
+    sweep_src = (ROOT / "scripts" / "tech_debt_sweep.py").read_text(encoding="utf-8")
+    check("deploy_check.py" not in sweep_src
+          or "--inject" not in sweep_src and "--verify" not in sweep_src,
+          "tech_debt_sweep.py does not call deploy_check --inject/--verify")
 
     former = {
         "price.html": ["/", "/kak-zakazat", "/delivery", "/about", "/en/price"],

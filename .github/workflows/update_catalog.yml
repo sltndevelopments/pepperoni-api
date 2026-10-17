@@ -37,12 +37,12 @@ jobs:
         run: python3 scripts/gen-en-products.py
 
       - name: Commit and push changes
+        # Workflow is if:false. Do not auto-commit public/ HTML or products.json.
+        # Catalog sync is VPS-only (scripts/sync-vps.sh).
+        if: false
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: 'chore: auto-update catalog from Google Sheets'
-          file_pattern: |
-            public/products.json
-            public/products/
-            public/en/products/
+          file_pattern: data/descriptions-overrides.json
           commit_user_name: 'github-actions[bot]'
           commit_user_email: 'github-actions[bot]@users.noreply.github.com'

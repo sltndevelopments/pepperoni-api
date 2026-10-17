@@ -20,12 +20,14 @@ After applying fixes, Phase 5 runs sanity_check (fail-closed):
   → If ANY check fails: git checkout -- public/ (full rollback), emergency alert,
     exit 2.  "Better not close the debt than break prod."
 
-Phase 6 (only on --run): deploy_check --inject then commit+push then
-  deploy_check --verify (background).
+Phase 6 is intentionally a no-op for git: generated public/ HTML must not
+  be auto-committed (weekly chore(sweep) commits on 2026-10-04 / 2026-10-11
+  published a dirty working tree to main). Sweep repairs stay local and are
+  reproduced by the VPS deploy.
 
 Usage:
   python3 scripts/tech_debt_sweep.py --dry-run   # measure only, no writes
-  python3 scripts/tech_debt_sweep.py --run        # apply + sanity + deploy
+  python3 scripts/tech_debt_sweep.py --run        # apply + sanity (no git push)
   python3 scripts/tech_debt_sweep.py --sanity     # sanity only (no sweep)
 """
 
@@ -393,7 +395,7 @@ def main() -> int:
     parser.add_argument("--dry-run", action="store_true",
                         help="Measure only — no writes, no git, no deploy")
     parser.add_argument("--run", action="store_true",
-                        help="Apply all phases + sanity + deploy_check")
+                        help="Apply all phases + sanity (does not commit public/)")
     parser.add_argument("--sanity", action="store_true",
                         help="Run sanity check only (no sweep)")
     args = parser.parse_args()
@@ -479,54 +481,13 @@ def main() -> int:
     except Exception:
         pass
 
-    # ── Phase 6: deploy_check --inject → commit → push → verify ──────────────
-    print("\n🚀 Phase 6: stamp + commit + push")
-
-    # Inject deploy stamp BEFORE git add
-    subprocess.run([sys.executable, str(SCRIPTS / "deploy_check.py"), "--inject"],
-                   cwd=str(ROOT))
-
-    # Stage all changed public/ files
-    subprocess.run(["git", "add", "public/"], cwd=str(ROOT))
-
-    # An automatic sweep must not commit the deletion of an allowlisted page.
-    guard = subprocess.run(
-        [sys.executable, str(SCRIPTS / "index_safety.py"),
-         "--refuse-staged-keep-deletions"],
-        cwd=str(ROOT),
-    )
-    if guard.returncode != 0:
-        print("🛑 sweep: restoring allowlisted deletions; they will not be pushed")
-        subprocess.run(
-            [sys.executable, str(SCRIPTS / "index_safety.py"),
-             "--restore-staged-keep-deletions"],
-            cwd=str(ROOT),
-        )
-
-    # Commit (only if there are staged changes)
-    status = subprocess.run(
-        ["git", "diff", "--cached", "--quiet"], cwd=str(ROOT)
-    )
-    if status.returncode != 0:
-        msg = f"chore(sweep): tech-debt sweep — {summary}"
-        subprocess.run(["git", "commit", "-m", msg], cwd=str(ROOT))
-        push = subprocess.run(["git", "push", "origin", "HEAD:main"],
-                               cwd=str(ROOT), capture_output=True, text=True)
-        if push.returncode == 0:
-            print("  ✅ pushed — verifying stamp in background …")
-            subprocess.Popen(
-                [sys.executable, str(SCRIPTS / "deploy_check.py"), "--verify"],
-                cwd=str(ROOT),
-            )
-        else:
-            print(f"  ⚠️  push failed: {push.stderr[:200]}")
-            try:
-                from daily_ledger import append_event
-                append_event("needs_help", f"sweep push failed: {push.stderr[:120]}")
-            except Exception:
-                pass
-    else:
-        print("  ℹ️  nothing changed — no commit needed")
+    # ── Phase 6: do not commit public/ ───────────────────────────────────────
+    # Weekly Sunday path used to `git add public/` + commit + push origin
+    # HEAD:main (chore(sweep) fae09cec8 / 43c1ce635). That published every
+    # generator-dirty HTML file from the live working tree. Deploy already
+    # rebuilds pages from origin/main; leave sweep output uncommitted.
+    print("\nℹ️  Phase 6: skip git add/commit/push of public/ "
+          "(generated pages stay local; deploy reproduces them)")
 
     return 0
 

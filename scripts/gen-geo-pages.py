@@ -739,7 +739,7 @@ def main():
 
     update_sitemap(slugs)
     print(f"\n🎉 Готово! Страницы в: public/geo/")
-    print("Запусти: git add public/geo/ public/sitemap.xml && git commit && git push")
+    print("Next: open a human PR with the generated geo pages (do not auto-commit HTML).")
 
 
 if __name__ == "__main__":
