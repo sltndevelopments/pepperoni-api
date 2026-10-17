@@ -107,9 +107,10 @@ body.kd-landing nav:not(.kd-topnav):not(.site-links) a:hover { color: var(--bran
   white-space: nowrap;
 }
 .kd-brand span { color: var(--brand); }
-.kd-navwrap { display: flex; align-items: center; }
+.kd-navwrap { display: none; }
 .kd-navtoggle {
-  display: none;
+  display: inline-flex;
+  align-items: center;
   list-style: none;
   cursor: pointer;
   font-size: .86rem;
@@ -339,9 +340,8 @@ body.kd-landing .kd-clarify {
 }
 
 @media (max-width: 900px) {
-  .kd-navwrap { position: relative; }
-  .kd-navtoggle { display: inline-flex; align-items: center; gap: 6px; }
-  .kd-navwrap:not([open]) .kd-topnav { display: none; }
+  .kd-topnav--wide { display: none; }
+  .kd-navwrap { display: block; position: relative; }
   .kd-navwrap[open] .kd-topnav {
     display: flex;
     flex-direction: column;

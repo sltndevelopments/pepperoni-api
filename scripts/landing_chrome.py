@@ -114,6 +114,7 @@ def topbar_html(lang: str, slug: str, *, cta_href: str | None = None,
     inner = (
         f'<header class="kd-topbar"><div class="kd-topbar__in">\n'
         f'  <a class="kd-brand" href="{home}">Kazan <span>Delicacies</span></a>\n'
+        f'  <nav class="kd-topnav kd-topnav--wide" aria-label="{nav_label}">{nav}</nav>\n'
         f'  <details class="kd-navwrap">\n'
         f'    <summary class="kd-navtoggle">{escape(menu_label)}</summary>\n'
         f'    <nav class="kd-topnav" aria-label="{nav_label}">{nav}</nav>\n'

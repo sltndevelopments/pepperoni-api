@@ -125,8 +125,11 @@ def main() -> int:
           "RU topbar has language switch to EN")
     check('class="kd-langs"' in en_bar and 'href="/price"' in en_bar,
           "EN topbar has language switch to RU")
-    check(".kd-navwrap:not([open]) .kd-topnav { display: none; }" in css
-          or ".kd-navwrap:not([open]) .kd-topnav{display:none;}" in css.replace(" ", ""),
+    compact = css.replace(" ", "").replace("\n", "")
+    check(".kd-topnav--wide" in css and ".kd-navwrap{display:none;}" in compact,
+          "desktop CSS shows wide nav and hides the hamburger")
+    check(".kd-topnav--wide{display:none;}" in compact
+          and ".kd-navwrap{display:block;" in compact,
           "CSS shows hamburger panel under 900px instead of hiding nav")
     check(stylesheet_link().startswith("<!-- kd-landing-css:start -->"),
           "stylesheet marker present")
