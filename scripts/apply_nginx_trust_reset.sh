@@ -3,13 +3,50 @@
 # Snippet list is scripts/index_safety.py::NGINX_INSTALL (single source).
 # pepperoni-halyal-redirects.conf is copied here and kept as the one include
 # marker — do not insert a second include of that file.
+#
+# SITE may be a symlink (sites-enabled → sites-available). Backup and restore
+# the real file via readlink -f and cp -aL so rollback cannot replace the
+# symlink with a regular file.
 set -euo pipefail
 
 REPO="${1:-/var/www/pepperoni/repo}"
 SITE="${NGINX_SITE:-/etc/nginx/sites-enabled/pepperoni.tatar}"
 SNIPPETS="/etc/nginx/snippets"
 
-if [[ ! -f "$SITE" ]]; then
+resolve_site() {
+  readlink -f "$1"
+}
+
+copy_site_file() {
+  cp -aL "$1" "$2"
+}
+
+if [[ "${1:-}" == "--symlink-rollback-test" ]]; then
+  work="${2:?}"
+  site="$work/site"
+  real="$(resolve_site "$site")"
+  bak="$work/backup-site"
+  copy_site_file "$real" "$bak"
+  printf 'CHANGED\n' > "$real"
+  copy_site_file "$bak" "$real"
+  if [[ ! -L "$site" ]]; then
+    echo "symlink-rollback-test: site is no longer a symlink" >&2
+    exit 1
+  fi
+  if [[ "$(resolve_site "$site")" != "$real" ]]; then
+    echo "symlink-rollback-test: symlink target changed" >&2
+    exit 1
+  fi
+  if [[ "$(cat "$real")" != "$(cat "$bak")" ]]; then
+    echo "symlink-rollback-test: real file not restored" >&2
+    exit 1
+  fi
+  echo "OK: symlink rollback restored the real file"
+  exit 0
+fi
+
+SITE_REAL="$(resolve_site "$SITE")"
+if [[ ! -f "$SITE_REAL" ]]; then
   echo "missing nginx site: $SITE" >&2
   exit 1
 fi
@@ -29,12 +66,12 @@ fi
 backup_dir="$(mktemp -d)"
 cleanup() { rm -rf "$backup_dir"; }
 trap cleanup EXIT
-cp -a "$SITE" "$backup_dir/site"
+copy_site_file "$SITE_REAL" "$backup_dir/site"
 copied=0
 
 rollback() {
   if [[ -f "$backup_dir/site" ]]; then
-    cp -a "$backup_dir/site" "$SITE"
+    copy_site_file "$backup_dir/site" "$SITE_REAL"
   fi
   if [[ "$copied" -eq 1 ]]; then
     for name in "${INSTALL_NAMES[@]}"; do
@@ -60,7 +97,7 @@ for name in "${INSTALL_NAMES[@]}"; do
   copied=1
 done
 
-if ! python3 - "$REPO" "$SITE" <<'PY'
+if ! python3 - "$REPO" "$SITE_REAL" <<'PY'
 import sys
 from pathlib import Path
 
