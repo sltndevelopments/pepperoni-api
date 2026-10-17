@@ -6,6 +6,7 @@ the same topbar + stylesheet without rewriting article text.
 """
 from __future__ import annotations
 
+import hashlib
 import re
 from html import escape
 from pathlib import Path
@@ -36,6 +37,11 @@ HERO_CRITICAL_CSS = (
     "body.kd-landing .eyebrow,body.kd-landing .hero__sub{"
     "color:#5c6660;font-size:1.05rem;max-width:70ch;line-height:1.65}"
     "body.kd-landing .hero{padding:12px 0 28px}"
+    "body.kd-landing .hero__grid{display:grid;grid-template-columns:1.08fr .92fr;"
+    "gap:0 40px;align-items:start;grid-template-areas:\"copy media\" \"actions media\"}"
+    "body.kd-landing .hero__copy{grid-area:copy}"
+    "body.kd-landing .hero__media{grid-area:media;align-self:center;position:relative}"
+    "body.kd-landing .hero__actions{grid-area:actions}"
     "body.kd-landing nav:not(.kd-topnav):not(.site-links):not(.kd-langs){"
     "font-size:.8rem;color:#5c6660;margin-bottom:20px;line-height:1.65}"
     "body.kd-landing nav:not(.kd-topnav):not(.site-links) a{"
@@ -65,13 +71,18 @@ HERO_CRITICAL_CSS = (
     "border-radius:99px;font-weight:650;font-size:.88rem;text-decoration:none}"
     ".kd-btn--primary{background:#111614;color:#fff}"
     "@media(max-width:900px){.kd-topnav--wide{display:none}"
-    ".kd-navwrap{display:block}}"
+    ".kd-navwrap{display:block}"
+    "body.kd-landing .hero__grid{grid-template-columns:1fr;"
+    "grid-template-areas:\"copy\" \"media\" \"actions\";gap:22px}}"
     "@media(max-width:560px){.kd-topphone{display:none}"
     "body.kd-landing h1{font-size:1.7rem}"
     "body.kd-landing .container{padding:20px 16px 88px}}"
     "body.kd-landing .badge{display:inline-block;background:#16723c;color:#fff;"
     "padding:4px 12px;border-radius:4px;font-size:.85rem;font-weight:600;"
     "margin:6px 4px 20px 0}"
+    "body.kd-landing .hero__media picture{display:contents}"
+    "body.kd-landing .hero__media img{"
+    "display:block;width:100%;height:auto;aspect-ratio:640/427}"
 )
 
 # Tiny Metrika queue + init in <head>. tag.js still loads after `load` so
@@ -169,12 +180,11 @@ def stylesheet_link(slug: str = "") -> str:
 
 
 def font_lcp_hints(slug: str = "") -> str:
-    """Preload the hero webfont with font-display:swap. Text-LCP hubs only."""
+    """@font-face with font-display:swap. No preload — it raced LCP on the hubs."""
     if slug and slug not in LCP_FONT_SLUGS:
         return ""
     return (
         '<!-- kd-font-lcp:start -->'
-        f'<link rel="preload" as="font" type="font/woff2" href="{LCP_FONT_HREF}" crossorigin>'
         "<style>"
         "@font-face{font-family:Nunito;font-style:normal;font-weight:500 800;"
         "font-display:swap;src:url(/fonts/f0.woff2) format(\"woff2\");"
@@ -184,6 +194,32 @@ def font_lcp_hints(slug: str = "") -> str:
         "</style>"
         "<!-- kd-font-lcp:end -->"
     )
+
+
+def lead_form_src() -> str:
+    data = (PUBLIC / "assets" / "lead-form.js").read_bytes()
+    digest = hashlib.sha256(data).hexdigest()[:8]
+    return f"/assets/lead-form.js?v={digest}"
+
+
+def lazy_lead_form_script() -> str:
+    """Inline loader. Does not start lead-form.js or conversion_async.js on parse."""
+    js = (Path(__file__).resolve().parent / "lead_form_lazy.js").read_text(encoding="utf-8")
+    js = re.sub(r"/\*.*?\*/", "", js, flags=re.S)
+    js = re.sub(r"^\s*//.*$", "", js, flags=re.M)
+    js = re.sub(r"\s+", " ", js).strip()
+    src = lead_form_src()
+    return (
+        f'<script id="kd-lead-form-lazy" data-src="{src}">{js}</script>'
+        f'<noscript><p>Форма отправляет заявку на /lead-submit.</p></noscript>'
+    )
+
+
+def lead_form_tag(slug: str) -> str:
+    """Defer the handler everywhere except the four LCP hubs."""
+    if slug in LCP_RENDER_SLUGS:
+        return lazy_lead_form_script()
+    return f'<script src="{lead_form_src()}" defer></script>'
 
 
 def _home(lang: str) -> str:

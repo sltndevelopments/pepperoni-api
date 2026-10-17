@@ -193,8 +193,12 @@ def main() -> int:
     for rel in LCP_HUBS:
         html = (PUBLIC / rel).read_text(encoding="utf-8")
         head = html.split("</head>", 1)[0]
-        check('rel="preload"' in html and "as=\"font\"" in html.replace("'", '"'),
-              f"{rel} preloads the main font")
+        font_preloads = [
+            tag for tag in re.findall(r"<link[^>]+>", head, re.I)
+            if re.search(r'rel=["\']preload["\']', tag, re.I)
+            and ("f0.woff2" in tag or 'as="font"' in tag.replace("'", '"'))
+        ]
+        check(not font_preloads, f"{rel} does not preload f0.woff2")
         check("font-display:swap" in html.replace(" ", ""),
               f"{rel} fonts use font-display:swap")
         check('id="kd-hero-critical"' in head, f"{rel} inlines hero critical CSS")
@@ -246,9 +250,16 @@ def main() -> int:
               or 'addEventListener("load",armAnalytics)' in html,
               f"{rel} arms analytics on window load")
         check(
-            re.search(r'<script[^>]+src=["\']/assets/lead-form\.js["\'][^>]*\bdefer', html, re.I),
-            f"{rel} lead-form.js is defer",
+            not re.search(
+                r'<script(?![^>]*id="kd-lead-form-lazy")[^>]*\ssrc=["\']/assets/lead-form\.js',
+                html,
+                re.I,
+            ),
+            f"{rel} does not load lead-form.js in the initial HTML",
         )
+        check('id="kd-lead-form-lazy"' in html, f"{rel} inlines the lazy lead-form loader")
+        check('action="/lead-submit"' in html and 'method="POST"' in html,
+              f"{rel} form keeps the /lead-submit POST fallback")
         head_wo_ns = re.sub(r"<noscript\b[^>]*>.*?</noscript>", "", head, flags=re.I | re.S)
         blocking_css = re.findall(
             r'<link[^>]+rel=["\']stylesheet["\'][^>]*>', head_wo_ns, re.I,

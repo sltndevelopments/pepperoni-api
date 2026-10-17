@@ -8,12 +8,16 @@
 (function () {
   "use strict";
 
+  window.__leadFormJs = true;
+
   // Google Ads lead conversion.
   // Primary path: googleadservices.com pixels (works when googletagmanager.com
   // DNS is blocked — common on RU ISPs / filters). gtag/GTM is optional bonus.
   var ADS_CONV_ID = "18346189266";
   var ADS_CONV_LABEL = "dznsCLar19UcENLDkqxE";
   var ADS_SEND_TO = "AW-18346189266/" + ADS_CONV_LABEL;
+  var ADS_CONV_SRC = "https://www.googleadservices.com/pagead/conversion_async.js";
+  var ADS_CONV_WAIT_MS = 1500;
 
   function loadScriptOnce(src, flag) {
     if (window[flag]) return;
@@ -33,15 +37,36 @@
     window.gtag("js", new Date());
     window.gtag("config", "AW-18346189266");
     // Optional — may fail with ERR_NAME_NOT_RESOLVED; conversion still fires below.
+    // gtag.js stays out of first paint; it is requested only after this file loads.
     loadScriptOnce(
       "https://www.googletagmanager.com/gtag/js?id=AW-18346189266",
       "__gtagJsRequested"
     );
-    // Classic async conversion lib — hosted on googleadservices, not GTM.
-    loadScriptOnce(
-      "https://www.googleadservices.com/pagead/conversion_async.js",
-      "__adsConvAsyncRequested"
-    );
+    // conversion_async.js is loaded at submit (ensureAdsConvReady), not here.
+  }
+
+  function ensureAdsConvReady(cb) {
+    loadScriptOnce(ADS_CONV_SRC, "__adsConvAsyncRequested");
+    if (typeof cb !== "function") return;
+    if (typeof window.google_trackConversion === "function") {
+      cb();
+      return;
+    }
+    var done = false;
+    var finish = function () {
+      if (done) return;
+      done = true;
+      cb();
+    };
+    var started = Date.now();
+    var poll = setInterval(function () {
+      if (typeof window.google_trackConversion === "function" ||
+          Date.now() - started >= ADS_CONV_WAIT_MS) {
+        clearInterval(poll);
+        finish();
+      }
+    }, 40);
+    setTimeout(finish, ADS_CONV_WAIT_MS);
   }
 
   function fireAdsLeadConversion(userData, leadId) {
@@ -150,6 +175,10 @@
 
     form.addEventListener("submit", function (e) {
       e.preventDefault();
+      // Start conversion_async.js now so it overlaps the /lead-submit fetch.
+      // Fire the conversion only after the lib is ready (or the timeout).
+      // There is no redirect today; if one is added, wait on this callback first.
+      ensureAdsConvReady();
 
       var phone = (form.querySelector('[name="phone"]') || {}).value || "";
       var consent = form.querySelector('[name="consent"]');
@@ -283,7 +312,9 @@
                 }
                 window.dataLayer.push(leadEvent);
                 if (typeof ym === "function") ym(107064141, "reachGoal", "lead_form_submit");
-                fireAdsLeadConversion(userData, leadId);
+                ensureAdsConvReady(function () {
+                  fireAdsLeadConversion(userData, leadId);
+                });
               }
             } catch (err) {}
           } else {
