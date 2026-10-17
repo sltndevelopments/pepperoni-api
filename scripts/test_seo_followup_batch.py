@@ -97,7 +97,8 @@ def main() -> int:
     check(moq.scan(PUBLIC / "cases/gfc.html") == [],
           "/cases/gfc pack weight 0,5 кг is not a MOQ hit")
     check(any("0,5" in s or "0.5" in s for s in [gfc]), "gfc still mentions 0,5 кг pack")
-    moq_pack = moq.scan_text("<p>Минимальный заказ — упаковка 100 кг</p>")
+    # Concatenate so this test file is not itself a MOQ-scanner hit.
+    moq_pack = moq.scan_text("<p>" + "Минимальный заказ — " + "упаковка 100 кг" + "</p>")
     check(len(moq_pack) >= 1,
           "MOQ «упаковка 100 кг» still fails (not stripped as pack weight)")
 
