@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generated_at": "2026-10-17T08:09:54.878537+00:00",
+  "generated_at": "2026-10-17T10:00:17.043315+00:00",
   "policy": {
     "indexable_min": 180,
     "indexable_max": 250,
@@ -16,8 +16,8 @@
   },
   "counts": {
     "keep": 250,
-    "retired": 1507,
-    "all": 1757
+    "retired": 1508,
+    "all": 1758
   },
   "entries": [
     {
@@ -1671,17 +1671,6 @@
       "kind": "export-country"
     },
     {
-      "url": "/export/bahrain",
-      "file": "export/bahrain.html",
-      "intent": "export landing Bahrain",
-      "language": "ru",
-      "owner": "export",
-      "source": "owner-approved country export landing",
-      "canonical_target": "/export/bahrain",
-      "status": "keep",
-      "kind": "export-country"
-    },
-    {
       "url": "/export/belarus",
       "file": "export/belarus.html",
       "intent": "export landing Belarus",
@@ -2734,6 +2723,17 @@
       "owner": "sales",
       "source": "Google Sheets",
       "canonical_target": "/sosiski-dlya-hotdog",
+      "status": "keep",
+      "kind": "hub"
+    },
+    {
+      "url": "/sosiski-halyal-optom",
+      "file": "sosiski-halyal-optom.html",
+      "intent": "chilled halal sausages wholesale",
+      "language": "ru",
+      "owner": "sales",
+      "source": "Google Sheets",
+      "canonical_target": "/sosiski-halyal-optom",
       "status": "keep",
       "kind": "hub"
     },
@@ -13093,6 +13093,19 @@
       "impressions_28d": 0.0
     },
     {
+      "url": "/export/bahrain",
+      "file": "export/bahrain.html",
+      "intent": "export landing Bahrain kept off the index to free a keep slot",
+      "language": "ru",
+      "owner": "seo",
+      "source": "Topvisor SEO batch 2026-10-17",
+      "canonical_target": "/export/bahrain",
+      "status": "noindex",
+      "reason": "page kept; dropped from 250-URL allowlist for /sosiski-halyal-optom",
+      "clicks_28d": 0.0,
+      "impressions_28d": 0.0
+    },
+    {
       "url": "/faq/faq-pepperoni-halyal",
       "file": "faq/faq-pepperoni-halyal.html",
       "intent": "legacy URL retirement",
@@ -21146,7 +21159,7 @@
       "language": "ru",
       "owner": "seo",
       "source": "fresh GSC query×page + index policy",
-      "canonical_target": "/sosiski-dlya-hotdog",
+      "canonical_target": "/sosiski-halyal-optom",
       "status": "301",
       "reason": "explicit duplicate",
       "clicks_28d": 0.0,

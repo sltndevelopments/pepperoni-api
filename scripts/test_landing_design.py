@@ -314,7 +314,11 @@ def main() -> int:
     check("stylesheet_link()" in src and "topbar_html(" in src,
           "gen_category_pages uses shared chrome")
 
-    check(len(LANDINGS) == 22, f"22 listed landings (got {len(LANDINGS)})")
+    check(len(LANDINGS) == 23, f"23 listed landings (got {len(LANDINGS)})")
+    check(
+        ("sosiski-halyal-optom.html", "ru", "sosiski-halyal-optom") in LANDINGS,
+        "chilled sausages hub is a listed jerks landing",
+    )
 
     for rel, lang, slug in LANDINGS:
         html = html_of(rel)

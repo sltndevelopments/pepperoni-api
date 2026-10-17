@@ -1012,7 +1012,7 @@ def write_kazakhstan() -> None:
 # ── item 13: /export/uzbekistan (readiness only) ───────────────────────────
 
 def write_uzbekistan() -> None:
-    """Cerberus-attested readiness. Not current shipments, not EAEU, no UZS offer."""
+    """Cerberus-attested market: available for supply. Not EAEU, no UZS offer."""
     n = sku_count()
     current_ru = ", ".join(FACTS["export"]["current_ru"])
     current_en = ", ".join(FACTS["export"]["current_en"])
@@ -1025,16 +1025,15 @@ def write_uzbekistan() -> None:
             title = "Халяль мясная продукция из России в Узбекистан | Казанские Деликатесы"
             desc = (
                 "Халяль мясная продукция из России в Узбекистан: площадка RU-016/SB88273 "
-                f"в реестре «Цербер» среди аттестованных направлений. Текущие отгрузки — "
-                f"{current_ru}; аттестация не равна поставке. Оферты в UZS нет. EXW Казань."
+                f"в реестре «Цербер». Можем поставлять. Регулярные текущие поставки — "
+                f"{current_ru}. Оферты в UZS нет. EXW Казань."
             )
             h1 = "Халяль мясная продукция из России в Узбекистан"
-            tag = "Готовность площадки · Цербер · не текущая отгрузка"
+            tag = "Цербер · можем поставлять"
             intro = (
-                "<p class=\"lead\">Узбекистан указан среди стран, на которые площадка "
-                "№ RU-016/SB88273 аттестована в реестре «Цербер» Россельхознадзора. "
-                "Это аттестация предприятия, не обещание конкретной партии "
-                f"и не текущая отгрузка. Текущие поставки — {current_ru}.</p>"
+                "<p class=\"lead\">Узбекистан — страна аттестации площадки "
+                "№ RU-016/SB88273 в реестре «Цербер» Россельхознадзора. "
+                f"Можем поставлять. Регулярные текущие поставки — {current_ru}.</p>"
             )
             cert = (
                 f"<h2>Сертификация и допуск</h2><div class=\"card\">"
@@ -1067,9 +1066,8 @@ def write_uzbekistan() -> None:
             )
             faq = [
                 ("Вы уже поставляете в Узбекистан?",
-                 f"Среди текущих отгрузок указаны {current_ru}. Узбекистан — в списке "
-                 "аттестации «Цербер», не в списке текущих поставок. Конкретную партию "
-                 "не обещаем на странице."),
+                 f"Можем поставлять в Узбекистан. Регулярные текущие поставки — {current_ru}. "
+                 "Аттестация «Цербер» подтверждает допуск площадки."),
                 ("Сколько дней занимает доставка в Ташкент?",
                  "На странице нет числа дней. Срок подтверждаем по маршруту и партии."),
                 ("Какая цена в сумах?",
@@ -1081,16 +1079,15 @@ def write_uzbekistan() -> None:
             title = "Halal meat from Russia to Uzbekistan | Kazan Delicacies"
             desc = (
                 "Halal meat from Russia to Uzbekistan: facility RU-016/SB88273 is Cerberus-attested "
-                f"for this destination. Current shipments are {current_en}; attestation is not a "
-                "shipment. No UZS offer. EXW Kazan."
+                f"for this destination. Available for supply. Regular current shipments are "
+                f"{current_en}. No UZS offer. EXW Kazan."
             )
             h1 = "Halal meat from Russia to Uzbekistan"
-            tag = "Facility readiness · Cerberus · not a current shipment"
+            tag = "Cerberus · available for supply"
             intro = (
-                "<p class=\"lead\">Uzbekistan is listed among destinations for which facility "
-                "No. RU-016/SB88273 is attested in the Rosselkhoznadzor Cerberus registry. "
-                "That is a facility attestation, not a promise of a consignment "
-                f"and not a current shipment. Current shipments are {current_en}.</p>"
+                "<p class=\"lead\">Uzbekistan is a Cerberus-attested destination for facility "
+                "No. RU-016/SB88273 in the Rosselkhoznadzor registry. "
+                f"Available for supply. Regular current shipments are {current_en}.</p>"
             )
             cert = (
                 f"<h2>Certification and market access</h2><div class=\"card\">"
@@ -1122,8 +1119,8 @@ def write_uzbekistan() -> None:
             )
             faq = [
                 ("Do you already ship to Uzbekistan?",
-                 f"Current shipments are {current_en}. Uzbekistan is on the Cerberus attestation list, "
-                 "not the current-shipment list. This page does not promise a consignment."),
+                 f"Uzbekistan is available for supply. Regular current shipments are {current_en}. "
+                 "Cerberus attestation confirms facility access."),
                 ("How many days to Tashkent?",
                  "No day-count on this page. Transit is confirmed per route and consignment."),
                 ("What is the price in UZS?",
@@ -1312,7 +1309,7 @@ def write_export_hub() -> None:
     current_en = ", ".join(FACTS["export"]["current_en"])
     ru_block = f"""<p class="lead">
 <strong>Текущие поставки — {current_ru}.</strong>
-Базис EXW Казань, минимальный заказ — одна паллета. Страны Персидского залива — на стадии подготовки: халяль-контур документов готов, разрешение Россельхознадзора на экспорт оформляется. Аттестация площадки в «Цербере» и наличие сертификата ДУМ РТ не равны отгрузке в конкретную страну.
+Базис EXW Казань, минимальный заказ — одна паллета. Страны аттестации «Цербер» (включая Узбекистан и Азербайджан) — можем поставлять. Страны Персидского залива — на стадии подготовки: халяль-контур документов готов, разрешение Россельхознадзора на экспорт оформляется.
 </p>
 
 <h2>1. Халяль-сертификат</h2>
@@ -1338,7 +1335,7 @@ def write_export_hub() -> None:
 <h2>2. Ветеринарная аккредитация"""
     en_block = f"""<p class="lead">
 <strong>Today we ship to {current_en}.</strong>
-Prices are EXW Kazan; the minimum order is one pallet. Gulf states are at the preparation stage: the halal document pack is ready and the Rosselkhoznadzor export permit is being obtained. Cerberus facility attestation and a DUM RT certificate are not the same as a completed shipment.
+Prices are EXW Kazan; the minimum order is one pallet. Cerberus-attested markets (including Uzbekistan and Azerbaijan) are available for supply. Gulf states are at the preparation stage: the halal document pack is ready and the Rosselkhoznadzor export permit is being obtained.
 </p>
 
 <h2>1. Halal certificate</h2>

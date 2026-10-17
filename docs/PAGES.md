@@ -32,6 +32,7 @@ python3 scripts/rebuild_sitemap.py
 - EN private label: `/en/private-label`
 - Halal pepperoni commercial hub: `/pepperoni` and `/en/pepperoni`
 - Catalog: `/products` and `/en/products`
+- Chilled sausages wholesale: `/sosiski-halyal-optom` (indexable; `/export/bahrain` is noindex to stay at 250)
 - Company identity: `/about` and `/en/about`
 - Certificate verification: `/halal` and `/en/halal` (`/certificates` → 301 `/halal`)
 

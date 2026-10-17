@@ -101,7 +101,7 @@ def llms_map_ru() -> str:
 
 Ключевые условия (подтверждены владельцем):
 - Цены EXW Казань, с НДС и без НДС; оптовый расчёт — за паллету. Минимальный заказ — 1 паллета.
-- Текущие экспортные поставки: Казахстан, Беларусь, Кыргызстан. Узбекистан — аттестация «Цербер», не текущая отгрузка.
+- Текущие экспортные поставки: Казахстан, Беларусь, Кыргызстан. Узбекистан и Азербайджан — аттестация «Цербер», можем поставлять.
 - Контрактное производство (СТМ): от 5 тонн. Этапы и сроки — по договору. Мощность производства — 12 тонн в смену.
 - Документы к отгрузке: халяль-сертификат, декларация соответствия, ВСД («Меркурий»), «Честный знак», ЭТрН.
 - Доставка, сроки, образцы — согласуются индивидуально. Продукция соответствует стандарту «Халяль». Алкоголь в рецептуре не используется.
@@ -123,7 +123,7 @@ def llms_map_ru() -> str:
 - [Кейсы и покупатели](https://pepperoni.tatar/cases): сети АЗС, ретейл, фудсервис, СТМ.
 - [Экспорт](https://pepperoni.tatar/export): страны и статус признания сертификата.
 - [Экспорт в Казахстан](https://pepperoni.tatar/export/kazakhstan): текущие поставки, Цербер, без выдуманных сроков.
-- [Халяль в Узбекистан](https://pepperoni.tatar/export/uzbekistan): аттестация «Цербер», не текущая отгрузка, без оферты в UZS.
+- [Халяль в Узбекистан](https://pepperoni.tatar/export/uzbekistan): аттестация «Цербер», можем поставлять, без оферты в UZS.
 - [Сосиска в тесте для пекарен](https://pepperoni.tatar/sosiska-v-teste): KD-018 без оболочки и KD-061 готовая.
 - [Выпечка халяль](https://pepperoni.tatar/vyipechka-halyal): татарская линейка KD-046–052, 065, 066.
 - [Пепперони для пиццерии](https://pepperoni.tatar/pepperoni-dlya-pizzerii): применение KD-013/014, без выдуманного теста в печи.
@@ -171,7 +171,7 @@ def llms_map_en() -> str:
 
 Key terms (owner-approved):
 - Prices EXW Kazan, with and without VAT; wholesale volumes are calculated per pallet. Minimum order: 1 pallet.
-- Current export shipments: Kazakhstan, Belarus, Kyrgyzstan. Uzbekistan is Cerberus attestation, not a current shipment.
+- Current export shipments: Kazakhstan, Belarus, Kyrgyzstan. Uzbekistan and Azerbaijan are Cerberus attestation, available for supply.
 - Private label (contract manufacturing): from 5 tonnes. Stages and lead times per contract. Production capacity — 12 tonnes per shift.
 - Shipping documents: halal certificate, declaration of conformity, veterinary certificate (Mercury), Chestny Znak marking, electronic waybill.
 - Delivery, lead times and samples are agreed individually. Every product is certified to the Halal standard. No alcohol is used.
@@ -193,7 +193,7 @@ Contacts: +7 987 217-02-02 · info@kazandelikates.tatar · 2 Agrarnaya St., offi
 - [Cases and buyers](https://pepperoni.tatar/en/cases): fuel-station chains, retail, foodservice, private label.
 - [Export](https://pepperoni.tatar/en/export): countries and certificate-recognition status.
 - [Export to Kazakhstan](https://pepperoni.tatar/en/export/kazakhstan): current shipments, Cerberus, no invented transit days.
-- [Halal to Uzbekistan](https://pepperoni.tatar/en/export/uzbekistan): Cerberus attestation, not a current shipment, no UZS offer.
+- [Halal to Uzbekistan](https://pepperoni.tatar/en/export/uzbekistan): Cerberus attestation, available for supply, no UZS offer.
 - [Sausage in dough for bakeries](https://pepperoni.tatar/en/sosiska-v-teste): KD-018 casing-free and KD-061 ready roll.
 - [Halal bakery](https://pepperoni.tatar/en/vyipechka-halyal): Tatar line KD-046–052, 065, 066.
 - [Pepperoni for pizzerias](https://pepperoni.tatar/en/pepperoni-dlya-pizzerii): KD-013/014 application, no invented oven test.

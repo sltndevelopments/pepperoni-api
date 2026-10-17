@@ -242,6 +242,8 @@ def parse_bakery(lines, section, reg):
     category = ""
     products = []
     excl_idx = 5
+    shelf_idx = 6
+    storage_idx = 7
 
     reader = csv.reader(io.StringIO(lines))
     parsed_rows = []
@@ -256,7 +258,10 @@ def parse_bakery(lines, section, reg):
                 hn = re.sub(r"\s+", " ", (h or "").lower().replace("\u00a0", " "))
                 if "без ндс" in hn:
                     excl_idx = j
-                    break
+                if "срок годности" in hn or hn == "срок":
+                    shelf_idx = j
+                if hn == "хранение":
+                    storage_idx = j
 
     for cols in parsed_rows:
         if len(cols) < 5:
@@ -313,8 +318,8 @@ def parse_bakery(lines, section, reg):
                 "exportPricesBasis": "unit",
                 "exportPricesPerBox": ep_box if (qty_n > 1 and ep_box) else None,
             },
-            "shelfLife": (cols[6] or "").strip() if len(cols) > 6 else "",
-            "storage": (cols[7] or "").strip() if len(cols) > 7 else "",
+            "shelfLife": (cols[shelf_idx] or "").strip() if len(cols) > shelf_idx else "",
+            "storage": (cols[storage_idx] or "").strip() if len(cols) > storage_idx else "",
             "hsCode": (cols[8] or "").strip() if len(cols) > 8 else "",
         }
         if image:
@@ -710,7 +715,7 @@ def _canonical_answers_ru(products: list) -> str:
 - **Инкотермс:** EXW Казань, Россия
 - **Минимальный заказ:** 1 паллета
 - **Оплата:** безналичный расчёт, условия — по договору
-- **Экспортные рынки (текущие поставки):** Казахстан, Беларусь, Кыргызстан. Аттестация «Цербер» (не текущая отгрузка): Казахстан, Кыргызстан, Беларусь, Армения, Таджикистан, Грузия, Азербайджан, Узбекистан. Персидский залив — подготовка.
+- **Экспортные рынки (текущие поставки):** Казахстан, Беларусь, Кыргызстан. Аттестация «Цербер» (можем поставлять): Казахстан, Кыргызстан, Беларусь, Армения, Таджикистан, Грузия, Азербайджан, Узбекистан. Персидский залив — подготовка.
 - **Экспортные документы:** Халяль-сертификат, ветеринарный сертификат, СТ-1, инвойс, упаковочный лист
 - **Холодовая цепь:** заморозка –18°C / охлаждённая продукция 0…+6°C
 - **ТН ВЭД:** 160100 (колбасы), 160232 (из птицы), 190590 (выпечка)
@@ -801,7 +806,7 @@ def _canonical_answers_en(products: list) -> str:
 
 - **Minimum order:** 1 pallet
 - **Payment:** bank transfer, terms per contract
-- **Export markets (current shipments):** Kazakhstan, Belarus, Kyrgyzstan. Cerberus attestation (not a current shipment): Kazakhstan, Kyrgyzstan, Belarus, Armenia, Tajikistan, Georgia, Azerbaijan, Uzbekistan. Gulf — preparation.
+- **Export markets (current shipments):** Kazakhstan, Belarus, Kyrgyzstan. Cerberus attestation (available for supply): Kazakhstan, Kyrgyzstan, Belarus, Armenia, Tajikistan, Georgia, Azerbaijan, Uzbekistan. Gulf — preparation.
 - **Export docs:** Halal certificate, veterinary certificate, certificate of origin (ST-1), invoice, packing list
 - **Cold chain:** frozen –18°C / chilled 0…+6°C
 - **HS codes:** 160100 (sausages), 160232 (poultry), 190590 (bakery)

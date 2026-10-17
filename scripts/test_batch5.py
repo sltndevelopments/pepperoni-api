@@ -55,9 +55,10 @@ def main() -> int:
     uz_en = html_of("en/export/uzbekistan.html")
     check("RU-016/SB88273" in uz and "Цербер" in uz, "UZ RU has Cerberus id")
     check("Cerberus" in uz_en and "RU-016/SB88273" in uz_en, "UZ EN has Cerberus id")
-    check("не текущая отгрузка" in uz or "не обещание" in uz, "UZ RU readiness, not shipment")
-    check("not a current shipment" in uz_en.lower() or "not a promise" in uz_en.lower(),
-          "UZ EN readiness, not shipment")
+    check("можем поставлять" in uz, "UZ RU available for supply")
+    check("available for supply" in uz_en.lower(), "UZ EN available for supply")
+    check("не можем" not in uz, "UZ RU not framed as cannot-supply")
+    check("cannot supply" not in uz_en.lower(), "UZ EN not framed as cannot-supply")
     check("ЕАЭС" in uz and "не входит" in uz, "UZ states not EAEU")
     check("not an EAEU" in uz_en, "UZ EN states not EAEU")
     check("варено-копченый" not in uz_en, "UZ EN sku table uses EN names")

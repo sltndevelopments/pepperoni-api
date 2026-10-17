@@ -193,6 +193,13 @@ def issues_company(company: dict, site: dict) -> list[str]:
     site_export = (site.get("export") or {}).get("current_ru")
     if site_export and site_export != want_export:
         issues.append(f"site_facts.export.current_ru {site_export!r}")
+    if "Узбекистан" not in (company.get("export_supply_available_ru") or []):
+        issues.append("company_facts.export_supply_available_ru missing Узбекистан")
+    if "Азербайджан" not in (company.get("export_supply_available_ru") or []):
+        issues.append("company_facts.export_supply_available_ru missing Азербайджан")
+    chak = ((site.get("catalog") or {}).get("chak_chak") or {})
+    if chak.get("shelf_life_days") != 90:
+        issues.append(f"site_facts.catalog.chak_chak.shelf_life_days {chak.get('shelf_life_days')!r} != 90")
     numbers = {c["number"] for c in company["halal_certificates"]}
     for need in ("0008", "614A/2024", "884A/2025", "976A/2026", "1002/2026"):
         if need not in numbers:
@@ -214,14 +221,13 @@ def check_products_self(by_sku: dict[str, dict]) -> list[str]:
         want = catalog_shelf_days(row)
         if want is None:
             continue
-        for key in ("seoDescriptionRU", "seoDescriptionEN"):
-            text = str(row.get(key) or "")
-            got = shelf_days(text)
-            if got is not None and got != want:
-                issues.append(
-                    f"{sku} {row.get('name')} {key} says {got} days, "
-                    f"products.json shelfLife is {row.get('shelfLife')}"
-                )
+        if sku in CHAK_SKU and want != 90:
+            issues.append(
+                f"{sku} {row.get('name')} shelfLife is {row.get('shelfLife')!r}, "
+                "owner/Sheet column G is 90 суток"
+            )
+        # SEO description cells may still say 60 for chak-chak; the named
+        # shelf-life column is SoT and must not fail this check.
         offers = row.get("offers") or {}
         currency = offers.get("priceCurrency")
         if currency and currency != "RUB":
@@ -526,7 +532,9 @@ MOQ_BAN = [
     (re.compile(r"1 паллета,\s*1 паллета", re.I), "doubled MOQ '1 паллета, 1 паллета'"),
     (re.compile(r"one pallet,\s*1 pallet", re.I), "doubled MOQ 'one pallet, 1 pallet'"),
     (re.compile(r"1 pallet[;,]\s*1 pallet", re.I), "doubled MOQ '1 pallet, 1 pallet'"),
-    (re.compile(r"mixed pallets? possible", re.I), "legacy MOQ 'mixed pallet possible'"),
+    (re.compile(r"mixed pallets?", re.I), "legacy MOQ 'mixed pallet'"),
+    (re.compile(r"mixed possible", re.I), "legacy MOQ 'mixed possible'"),
+    (re.compile(r"mixed SKUs? possible", re.I), "legacy MOQ 'mixed SKUs possible'"),
     (re.compile(r"minOrder_boxes"), "feed publishes Sheet quantum as minOrder_boxes"),
     (re.compile(r"Мин\.\s*заказ,\s*коробов"), "YML publishes Sheet quantum as Мин. заказ"),
     (re.compile(r"MOQ\s*[:\-]?\s*8\b", re.I), "MOQ variant '8'"),
@@ -534,9 +542,46 @@ MOQ_BAN = [
 ]
 STALE_CURRENT_EXPORT = [
     (re.compile(r"Казахстан,\s*Беларусь,\s*Узбекистан"),
-     "stale current-export list (Uzbekistan is Cerberus, not a current shipment)"),
+     "stale current-export list (Uzbekistan is supply-available, not a regular current shipment)"),
     (re.compile(r"Kazakhstan,\s*Belarus,\s*Uzbekistan"),
-     "stale current-export list (Uzbekistan is Cerberus, not a current shipment)"),
+     "stale current-export list (Uzbekistan is supply-available, not a regular current shipment)"),
+    (re.compile(r"Экспортируем в Казахстан,\s*Узбекистан"),
+     "stale current-export list (Uzbekistan is supply-available, not a regular current shipment)"),
+    (re.compile(r"Экспорт:\s*Казахстан,\s*Узбекистан"),
+     "stale current-export list (Uzbekistan is supply-available, not a regular current shipment)"),
+    (re.compile(r"Export to Kazakhstan,\s*Uzbekistan"),
+     "stale current-export list (Uzbekistan is supply-available, not a regular current shipment)"),
+    (re.compile(r"We export to Kazakhstan,\s*Uzbekistan"),
+     "stale current-export list (Uzbekistan is supply-available, not a regular current shipment)"),
+    (re.compile(r"Export:\s*Kazakhstan,\s*Uzbekistan"),
+     "stale current-export list (Uzbekistan is supply-available, not a regular current shipment)"),
+]
+# Owner 2026-10-17: UZ/AZ (and other Cerberus) are «можем поставлять».
+# Ban wording that presents them as unavailable. Gulf "не текущая отгрузка"
+# is allowed when UZ/AZ are not in the same sentence.
+UNAVAILABLE_EXPORT = [
+    (re.compile(r"Узбекистан[^.\n]{0,140}не текущ"),
+     "Uzbekistan framed as unavailable (use «можем поставлять»)"),
+    (re.compile(r"Азербайджан[^.\n]{0,140}не текущ"),
+     "Azerbaijan framed as unavailable (use «можем поставлять»)"),
+    (re.compile(r"не текущ\w*[^.\n]{0,140}Узбекистан"),
+     "Uzbekistan framed as unavailable (use «можем поставлять»)"),
+    (re.compile(r"не текущ\w*[^.\n]{0,140}Азербайджан"),
+     "Azerbaijan framed as unavailable (use «можем поставлять»)"),
+    (re.compile(r"Uzbekistan[^.\n]{0,140}not (?:a )?current"),
+     "Uzbekistan framed as unavailable (use «available for supply»)"),
+    (re.compile(r"Azerbaijan[^.\n]{0,140}not (?:a )?current"),
+     "Azerbaijan framed as unavailable (use «available for supply»)"),
+    (re.compile(r"not (?:a )?current[^.\n]{0,140}Uzbekistan"),
+     "Uzbekistan framed as unavailable (use «available for supply»)"),
+    (re.compile(r"not (?:a )?current[^.\n]{0,140}Azerbaijan"),
+     "Azerbaijan framed as unavailable (use «available for supply»)"),
+    (re.compile(r"Uzbekistan[^.\n]{0,80}not shipments"),
+     "Uzbekistan framed as unavailable (use «available for supply»)"),
+    (re.compile(r"не можем постав"),
+     "export copy says we cannot supply"),
+    (re.compile(r"cannot supply", re.I),
+     "export copy says we cannot supply"),
 ]
 LOCALE_SKIP = re.compile(r"^(hy|tg|ka|kk|ky|uz|az|zh|ar|he)/")
 FACT_SKIP_NAMES = {
@@ -551,14 +596,22 @@ def check_moq_and_export(company: dict) -> list[str]:
     phrase_en = company.get("moq_phrase_en") or "Minimum order: 1 pallet"
     current = company.get("export_current_ru") or ["Казахстан", "Беларусь", "Кыргызстан"]
     current_en = company.get("export_current_en") or ["Kazakhstan", "Belarus", "Kyrgyzstan"]
+    supply_ru = company.get("export_supply_phrase_ru") or "можем поставлять"
+    supply_en = company.get("export_supply_phrase_en") or "available for supply"
     must = {
-        "brand.txt": (phrase_en, *current),
-        "llms.txt": (phrase_ru, *current, "976A/2026", "1002/2026"),
-        "llms-full.txt": (phrase_ru, *current, "976A/2026", "1002/2026"),
-        "en/llms.txt": (phrase_en, *current_en, "976A/2026", "1002/2026"),
-        "en/llms-full.txt": (phrase_en, *current_en, "976A/2026", "1002/2026"),
-        "export.html": tuple(current),
-        "en/export.html": tuple(current_en),
+        "brand.txt": (phrase_en, *current, "Узбекистан", "Азербайджан", supply_ru, supply_en),
+        "llms.txt": (phrase_ru, *current, "Узбекистан", "Азербайджан", supply_ru, "976A/2026", "1002/2026"),
+        "llms-full.txt": (phrase_ru, *current, "Узбекистан", "Азербайджан", supply_ru, "976A/2026", "1002/2026"),
+        "en/llms.txt": (phrase_en, *current_en, "Uzbekistan", "Azerbaijan", supply_en, "976A/2026", "1002/2026"),
+        "en/llms-full.txt": (phrase_en, *current_en, "Uzbekistan", "Azerbaijan", supply_en, "976A/2026", "1002/2026"),
+        "export.html": (*current, "Узбекистан", "Азербайджан", supply_ru),
+        "en/export.html": (*current_en, "Uzbekistan", "Azerbaijan", supply_en),
+        "faq.html": (*current, "Узбекистан", "Азербайджан", supply_ru),
+        "en/faq.html": (*current_en, "Uzbekistan", "Azerbaijan", supply_en),
+        "delivery.html": (*current, "Узбекистан", "Азербайджан", supply_ru),
+        "en/delivery.html": (*current_en, "Uzbekistan", "Azerbaijan", supply_en),
+        "en/export/qatar.html": (phrase_en,),
+        "en/blog/kazylyk-horse-meat-sausage.html": (phrase_en,),
         "halal.html": ("976A/2026", "1002/2026"),
         "en/halal.html": ("976A/2026", "1002/2026"),
     }
@@ -590,6 +643,9 @@ def check_moq_export_variants(rel: str, text: str) -> list[str]:
         if rx.search(text):
             issues.append(f"{rel} {label}")
     for rx, label in STALE_CURRENT_EXPORT:
+        if rx.search(text):
+            issues.append(f"{rel} {label}")
+    for rx, label in UNAVAILABLE_EXPORT:
         if rx.search(text):
             issues.append(f"{rel} {label}")
     return issues

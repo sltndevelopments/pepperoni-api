@@ -251,7 +251,7 @@ def write_distributorov() -> None:
                 f"<p>Full list: <a href=\"/en/price\">price list</a> and <a href=\"/en/\">catalog</a>.</p>"
                 f"<h2>Terms</h2><div class=\"card\"><ul>"
                 f"<li>RUB price list, EXW Kazan; catalog export currencies are reference, not an offer</li>"
-                f"<li>MOQ: one pallet (mixed possible)</li>"
+                f"<li>Minimum order: 1 pallet</li>"
                 f"<li>Pilot / samples: <a href=\"/en/kak-zakazat#samples\">individually, same pallet basis</a></li>"
                 f"<li>Shipment cadence per contract — no invented timetable</li>"
                 f"<li>Claims against the consignment and shipping documents</li>"
@@ -264,7 +264,7 @@ def write_distributorov() -> None:
                 ("Is regional exclusivity available?",
                  "Not as a public promise. The site wording is: discussed individually."),
                 ("What is a pilot?",
-                 "A wholesale order: one pallet, mixed SKUs possible. There is no separate distributor kilogram."),
+                 "A wholesale order: Minimum order: 1 pallet. There is no separate distributor kilogram."),
             ]
         html = cp.ensure_metrika_html(
             cp.shell(lang, "dlya-distributorov", title, desc, h1, body, faq)
@@ -359,7 +359,7 @@ def write_horeca() -> None:
                 ("Where are ham and patties?",
                  "Their own pages /en/vetchina-optom and /en/kotlety-dlya-burgerov, so this URL does not copy the assortment."),
                 ("What is the café minimum?",
-                 "One pallet (mixed possible). Samples: /en/kak-zakazat#samples."),
+                 "Minimum order: 1 pallet. Samples: /en/kak-zakazat#samples."),
             ]
         html = cp.ensure_metrika_html(
             cp.shell(lang, "dlya-horeca", title, desc, h1, body, faq)
@@ -529,7 +529,7 @@ def patch_delivery() -> None:
             block = (
                 f"{DELIVERY_MARK}<p>📦 <a href=\"/en/kak-zakazat#samples\" style=\"color:#0066cc\">"
                 "Samples and a pilot shipment</a> — assortment and how the sample is sent are agreed "
-                "individually; a pilot is a normal wholesale order (one pallet, mixed possible), EXW Kazan.</p>"
+                "individually; a pilot is a normal wholesale order (Minimum order: 1 pallet), EXW Kazan.</p>"
                 f"{DELIVERY_MARK_END}"
             )
             needle = '<p>🛒 <a href="/en/kak-zakazat"'

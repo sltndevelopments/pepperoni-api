@@ -17,7 +17,7 @@
   "counts": {
     "301": 418,
     "410": 1050,
-    "noindex": 39
+    "noindex": 40
   },
   "verification_files_excluded": [
     "d0a735c825c78ddf.html",
@@ -10347,6 +10347,19 @@
       "impressions_28d": 0.0
     },
     {
+      "url": "/export/bahrain",
+      "file": "export/bahrain.html",
+      "intent": "export landing Bahrain kept off the index to free a keep slot",
+      "language": "ru",
+      "owner": "seo",
+      "source": "Topvisor SEO batch 2026-10-17",
+      "canonical_target": "/export/bahrain",
+      "status": "noindex",
+      "reason": "page kept; dropped from 250-URL allowlist for /sosiski-halyal-optom",
+      "clicks_28d": 0.0,
+      "impressions_28d": 0.0
+    },
+    {
       "url": "/faq/faq-pepperoni-halyal",
       "file": "faq/faq-pepperoni-halyal.html",
       "intent": "legacy URL retirement",
@@ -18400,7 +18413,7 @@
       "language": "ru",
       "owner": "seo",
       "source": "fresh GSC query×page + index policy",
-      "canonical_target": "/sosiski-dlya-hotdog",
+      "canonical_target": "/sosiski-halyal-optom",
       "status": "301",
       "reason": "explicit duplicate",
       "clicks_28d": 0.0,

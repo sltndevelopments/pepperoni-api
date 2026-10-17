@@ -61,6 +61,10 @@
   "export_current_ru": ["Казахстан", "Беларусь", "Кыргызстан"],
   "export_current_en": ["Kazakhstan", "Belarus", "Kyrgyzstan"],
   "export_current_iso": ["KZ", "BY", "KG"],
+  "export_supply_available_ru": ["Узбекистан", "Азербайджан", "Армения", "Таджикистан", "Грузия"],
+  "export_supply_available_en": ["Uzbekistan", "Azerbaijan", "Armenia", "Tajikistan", "Georgia"],
+  "export_supply_phrase_ru": "можем поставлять",
+  "export_supply_phrase_en": "available for supply",
   "private_label_min": "5 т",
   "delivery_terms": "EXW Казань",
   "delivery_terms_en": "EXW Kazan",
@@ -76,6 +80,7 @@
     "production_capacity": "data/site_facts.json terms.capacity; public/brand.txt; evidence_registry capacity_12t_per_shift",
     "moq": "owner 2026-10-17 canonical wording; data/site_facts.json terms.moq",
     "export_current_ru": "live https://pepperoni.tatar/export 2026-10-17 current shipments",
+    "export_supply_available_ru": "owner 2026-10-17: Cerberus countries including UZ/AZ are supply-available",
     "delivery_terms": "data/site_facts.json terms.basis; public/brand.txt; products.json deliveryTerms"
   }
 }
