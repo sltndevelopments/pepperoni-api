@@ -12,9 +12,11 @@ scripts/gsc-key.json
 .vscode/
 *.swp
 
-# Local env (never commit)
+# Local env (never commit). *.env covers deploy/rinatsultan-mcp.env
+# and any other named env file; keep examples commitable.
 .env
 .env.*
+*.env
 !.env.example
 
 # Google OAuth / YouTube client secrets (never commit)
@@ -44,6 +46,11 @@ data/quarantine_baseline.json
 data/quarantine_baseline.json.tmp
 # Proxy lock + transient runtime artifacts
 data/llm_costs.json.lock
+# Spec-hold raw snapshots and bot alert state (runtime). Do not
+# git rm already-tracked snapshots — deploy syncs the index.
+data/spec_holds_raw-*.json
+data/kazandel_health_alert.json
+scripts/_wtest
 
 # Sales intel: keep README, scripts, reports, small guides — not raw scrapes / big spreadsheets
 sales-intel/raw/
