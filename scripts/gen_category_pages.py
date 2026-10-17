@@ -854,7 +854,7 @@ COMMERCIAL_T = {
             "Documents: halal certificate, declaration of conformity, veterinary certificate (Mercury), Chestny ZNAK marking, electronic waybill (ETrN).",
             "Volume pricing and payment terms — discussed and confirmed for each order.",
         ],
-        "samples": "Before a contract you can test the product on your own equipment — samples are agreed individually. A pilot shipment is one pallet (mixed possible), same as wholesale. Details: <a href=\"/en/kak-zakazat#samples\">how to order</a>.",
+        "samples": "Before a contract you can test the product on your own equipment — samples are agreed individually. A pilot shipment is one pallet, same as wholesale. Details: <a href=\"/en/kak-zakazat#samples\">how to order</a>.",
         "contact": "Phone & WhatsApp: <a href=\"tel:+79872170202\">+7 987 217-02-02</a> · <a href=\"https://wa.me/79872170202\">WhatsApp</a> · <a href=\"mailto:info@kazandelikates.tatar\">info@kazandelikates.tatar</a>",
         "h_case": "Who already buys",
         "case": "Hot dog sausages and burger patties from this line are supplied to the Tatneft petrol-station network; our halal products also go to the checkout zones of the SMARTEN petrol-station operator, EuroSpar, Metro and Bakhetle. Customer names and the scope of each supply are on the <a href=\"/en/cases\">Cases &amp; customers</a> page; volumes and contract prices are not disclosed.",

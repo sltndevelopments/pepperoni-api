@@ -94,7 +94,8 @@ def main() -> int:
     check("Какая колбаса для пиццы" in pizza, "pizzeria block present")
 
     pep = html_of("en/blog/what-is-halal-pepperoni.html")
-    check("porkless pepperoni" in pep.lower(), "EN pepperoni article has porkless pepperoni")
+    check("chicken pepperoni" in pep.lower() and "poultry-only" in pep.lower(),
+          "EN pepperoni article targets poultry-only / chicken pepperoni")
 
     hot_blog = html_of("en/blog/beef-hotdog-sausages-halal.html")
     burg_blog = html_of("en/blog/burger-patties-wholesale-halal.html")
@@ -102,7 +103,7 @@ def main() -> int:
     check("Is a beef burger halal?" in burg_blog, "EN burger blog retitled")
     check("/en/sosiski-dlya-hotdog" in hot_blog, "hot-dog blog links hub")
     check("/en/kotlety-dlya-burgerov" in burg_blog, "burger blog links hub")
-    check("RUB 276" not in burg_blog, "burger blog dropped hardcoded pack price")
+    check('data-price-field="pricePerPiece"' in burg_blog, "burger blog stamps per-piece from catalog")
 
     bahrain = html_of("export/bahrain.html")
     check(re.search(r'name="robots"[^>]*content="noindex', bahrain, re.I),
