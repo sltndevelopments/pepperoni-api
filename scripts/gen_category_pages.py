@@ -215,18 +215,34 @@ def _price_label(p):
 _PACK_FMT_RE = re.compile(r"\(?\s*(\d+)\s*г\s*[×xх]\s*(\d+)\s*шт\s*\)?", re.I)
 
 
+def _catalog_weight_kg(p):
+    raw = str(p.get("weight") or "").strip()
+    if not raw:
+        return None
+    try:
+        return float(
+            raw.lower().replace(",", ".").replace(" ", "").replace("кг", "").replace("kg", "")
+        )
+    except ValueError:
+        return None
+
+
 def _table_format(p) -> str:
-    """Pack format for the «Формат» column — never the casing yes/no field."""
-    for text in (
-        p.get("name") or "",
-        (p.get("seoDescriptionRU") or "").split("|")[0],
-    ):
+    """Pack format from the name or packageType — never SEO text.
+
+    Same disagreement rule as the commercial pages: if pieces × grams
+    does not equal catalog ``weight``, show «—».
+    """
+    for text in (p.get("name") or "", p.get("packageType") or ""):
         match = _PACK_FMT_RE.search(text)
-        if match:
-            return f"{match.group(2)} × {match.group(1)} г"
-    pkg = (p.get("packageType") or "").strip()
-    if pkg:
-        return pkg
+        if not match:
+            continue
+        grams, pieces = int(match.group(1)), int(match.group(2))
+        pack_kg = pieces * grams / 1000.0
+        weight_kg = _catalog_weight_kg(p)
+        if weight_kg is None or abs(pack_kg - weight_kg) > 0.01:
+            return "—"
+        return f"{pieces} × {grams} г"
     return "—"
 
 

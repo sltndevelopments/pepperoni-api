@@ -34,10 +34,18 @@ FIGURE = re.compile(
     re.I,
 )
 ALLOW = re.compile(r"паллет|pallet|тонн|tonnes?|\btons?\b", re.I)
-# Pack/net weight next to нарезка / упаковка / фасовка / вес / батон is not MOQ.
+# Pack/net weight next to нарезка / упаковка / фасовка / вес / батон is not MOQ
+# — unless that phrase is the object of the minimum-order verb
+# («Минимальный заказ — упаковка 100 кг» must still fail).
 PACK_WEIGHT = re.compile(
     r"(?:нарезк\w*|упаковк\w*|фасовк\w*|вес(?:ом)?|батон|net\s+weight|pack(?:age)?)"
     r"\s*(?:—|-|:)?\s*\d[\d\s,.]*\s*(?:кг|kg)",
+    re.I,
+)
+_MOQ_OBJECT_PREFIX = re.compile(
+    r"(?:минимальн\w*\s+(?:оптов\w+\s+)?(?:заказ|парти|объ[её]м)|"
+    r"мин\.\s*заказ|minimum\s+(?:wholesale\s+)?order|"
+    r"min(?:\.|imum)?\s*order|\bmoq)\s*[—\-:]?\s*$",
     re.I,
 )
 
@@ -59,16 +67,26 @@ def sentences(text: str):
             yield s
 
 
-def scan(path: Path) -> list[str]:
-    try:
-        text = path.read_text(encoding="utf-8", errors="ignore")
-    except Exception:
-        return []
+def _strip_pack_weight(sent: str) -> str:
+    """Drop pack-weight phrases, but keep a kg figure that *is* the MOQ."""
+    chunks = []
+    last = 0
+    for match in PACK_WEIGHT.finditer(sent):
+        if _MOQ_OBJECT_PREFIX.search(sent[: match.start()]):
+            continue
+        chunks.append(sent[last:match.start()])
+        chunks.append(" ")
+        last = match.end()
+    chunks.append(sent[last:])
+    return "".join(chunks)
+
+
+def scan_text(text: str) -> list[str]:
     hits = []
     for sent in sentences(text):
         if not CTX.search(sent):
             continue
-        stripped = PACK_WEIGHT.sub(" ", sent)
+        stripped = _strip_pack_weight(sent)
         m = FIGURE.search(stripped)
         if not m:
             continue
@@ -81,6 +99,14 @@ def scan(path: Path) -> list[str]:
             continue
         hits.append(re.sub(r"\s+", " ", sent.strip())[:170])
     return hits
+
+
+def scan(path: Path) -> list[str]:
+    try:
+        text = path.read_text(encoding="utf-8", errors="ignore")
+    except Exception:
+        return []
+    return scan_text(text)
 
 
 def main() -> int:

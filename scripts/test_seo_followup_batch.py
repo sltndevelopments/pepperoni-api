@@ -39,13 +39,30 @@ def main() -> int:
           or 'class="card"' in ru.split('id="dlya-kogo"', 1)[-1].split('id="assortiment"', 1)[0],
           "audience block is cards, not a lone list")
     check("есть</td>" not in ru, "Формат column is not the casing yes-field")
-    check("6 × 80 г" in ru or "6 × 80" in ru, "Формат column shows pack format")
+    gen_src = (SCRIPTS / "gen_category_pages.py").read_text(encoding="utf-8")
+    fmt_fn = gen_src[gen_src.find("def _table_format"):gen_src.find("def _sku_table")]
+    check("seoDescription" not in fmt_fn, "_table_format does not read SEO text")
+    check("6 × 80 г" not in ru and "5 × 130 г" not in ru,
+          "Формат does not take pack size from SEO text")
+    for sku in ("KD-017", "KD-019", "KD-021"):
+        row = re.search(rf"<tr>\s*<td><a[^>]*>{sku}</a></td>.*?</tr>", ru, re.S)
+        check(row is not None, f"{sku} row exists in sosiski table")
+        if row:
+            cells = re.findall(r"<td[^>]*>(.*?)</td>", row.group(0), re.S)
+            fmt = re.sub(r"<[^>]+>", "", cells[2]).strip() if len(cells) > 2 else ""
+            check(fmt == "—", f"{sku} Формат is — when pack math ≠ weight (got {fmt!r})")
 
     src = (SCRIPTS / "check_fact_consistency.py").read_text(encoding="utf-8")
     check("seoDescriptionRU" in src and "seoDescriptionEN" in src,
           "shelf-life check covers SEO text for all SKUs")
+    check("дней" in src and "SHELF_UNIT" in src,
+          "shelf-life regex includes дней")
     check('r"не можем постав")' not in src and "не можем постав[^.\\n]{0,140}" in src,
           "cannot-supply ban is scoped to UZ/AZ/Cerberus")
+    ban_block = src[src.find("UNAVAILABLE_EXPORT"):src.find("LOCALE_SKIP")]
+    check(ban_block.count("re.compile(") >= 8
+          and ban_block.count("re.compile(") == ban_block.count("re.I"),
+          "RU unavailable-export bans are case-insensitive")
 
     burg = html_of("en/blog/burger-patties-wholesale-halal.html")
     article = None
@@ -80,6 +97,9 @@ def main() -> int:
     check(moq.scan(PUBLIC / "cases/gfc.html") == [],
           "/cases/gfc pack weight 0,5 кг is not a MOQ hit")
     check(any("0,5" in s or "0.5" in s for s in [gfc]), "gfc still mentions 0,5 кг pack")
+    moq_pack = moq.scan_text("<p>Минимальный заказ — упаковка 100 кг</p>")
+    check(len(moq_pack) >= 1,
+          "MOQ «упаковка 100 кг» still fails (not stripped as pack weight)")
 
     kaz_title = title_of("kazylyk.html")
     check("казылык" in kaz_title.lower() and "опт" in kaz_title.lower(),
@@ -99,8 +119,10 @@ def main() -> int:
     check("₽" not in pep_title, "/pepperoni title has no price")
     what = title_of("blog/what-is-halal-pepperoni.html")
     meat = title_of("blog/pepperoni-iz-kakogo-myasa.html")
-    check("что это" in what.lower() and "из чего" in what.lower(),
-          "what-is-halal-pepperoni title CTR")
+    check(what != pep_title, "what-is-halal-pepperoni title differs from /pepperoni")
+    check("что такое" in what.lower() and "халяль-пепперони" in what.lower()
+          and "из чего" in what.lower(),
+          "what-is-halal-pepperoni title is informational")
     check("из какого" in meat.lower() or "из чего" in meat.lower(),
           "pepperoni-iz-kakogo-myasa title CTR")
 
@@ -112,6 +134,20 @@ def main() -> int:
     check(ch.count('"@type":"Organization"') + ch.count('"@type": "Organization"') == 1,
           "chicken guide has one Organization node")
     check("/halal" in ch and "/products" in ch, "chicken guide links hubs")
+    check("аккредитованн" in ch and "убойн" in ch,
+          "chicken raw meat from accredited slaughterhouses")
+    check(re.search(r"производств\w*.{0,80}сертифицир", ch, re.I)
+          and "0008" in ch and ("614А/2024" in ch or "614A/2024" in ch),
+          "chicken plant production certified 0008 / 614А/2024")
+    check(not re.search(
+        r"забое?н?\w*.{0,80}заводе в Казани|заводе в Казани.{0,80}забое",
+        ch, re.I,
+    ), "chicken does not claim slaughter at the Kazan plant")
+    check(not re.search(
+        r"забое?н?\w*.{0,80}подтвержда.{0,60}сертификат|"
+        r"сертификат.{0,40}подтвержда.{0,40}забое",
+        ch, re.I,
+    ), "chicken plant certs do not confirm slaughter")
 
     gone = (ROOT / "deploy/nginx/trust-reset-gone.conf").read_text(encoding="utf-8")
     check("kuritsa-halyal-chem-otlichaetsya" not in gone,
