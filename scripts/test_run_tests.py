@@ -41,6 +41,7 @@ def main() -> int:
         "test_case_pages.py",
         "test_seo_batch_rank.py",
         "test_landing_design.py",
+        "test_vps_git_recon.py",
         "test_run_tests.py",
     ):
         check(name in py_names, f"discovers {name}")
