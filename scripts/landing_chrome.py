@@ -73,7 +73,8 @@ HERO_CRITICAL_CSS = (
     "body.kd-landing .badge{display:inline-block;background:#16723c;color:#fff;"
     "padding:4px 12px;border-radius:4px;font-size:.85rem;font-weight:600;"
     "margin:6px 4px 20px 0}"
-    "body.kd-landing .hero__media picture,body.kd-landing .hero__media img{"
+    "body.kd-landing .hero__media picture{display:contents}"
+    "body.kd-landing .hero__media img{"
     "display:block;width:100%;height:auto;aspect-ratio:640/427}"
 )
 

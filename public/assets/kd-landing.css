@@ -105,7 +105,7 @@ body.kd-landing .hero__grid {
 body.kd-landing .hero__copy { grid-area: copy; }
 body.kd-landing .hero__media { grid-area: media; align-self: center; position: relative; }
 body.kd-landing .hero__actions { grid-area: actions; }
-body.kd-landing .hero__media picture,
+body.kd-landing .hero__media picture { display: contents; }
 body.kd-landing .hero__media img {
   border-radius: var(--radius);
   box-shadow: var(--shadow);
