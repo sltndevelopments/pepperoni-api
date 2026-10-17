@@ -121,8 +121,18 @@ def main() -> int:
     check(script.find("do_backup()") < apply_fn, "do_backup() is defined before apply")
     check(script.find("sed -i") > apply_fn, "sed -i is inside apply_*")
     check(script.find("install -m 600") > apply_fn, "install -m 600 is inside apply_*")
-    check(script.find("tar czf") > script.find("do_backup()"),
-          "tar czf is inside do_backup")
+    check("tar -I 'gzip -1'" in script, "backup uses fast gzip -1")
+    check("tar czf" not in script, "backup does not use tar czf")
+    check("gzip -t" in script, "backup still verifies with gzip -t")
+    check("df -PB1" in script, "space check uses df -PB1")
+    check("1073741824" in script, "space check adds 1 GB headroom")
+    check("* 3 / 2" in script, "space check requires 1.5x planned bytes")
+    check("backup space: ok" in script, "dry-run can print space ok")
+    check("backup space: insufficient" in script, "dry-run can print space insufficient")
+    check("vps-cleanup: backup space insufficient" in script,
+          "apply space failure uses the fixed line")
+    check(script.find("check_backup_space") < script.find("\ndo_backup\n"),
+          "space check runs before do_backup")
     check("no crontab" in script, "crontab dumps tell no crontab from a read error")
 
     names = _names_in_find(script)
@@ -232,6 +242,20 @@ def _run(env: dict[str, str]) -> subprocess.CompletedProcess[str]:
         text=True,
         env=merged,
     )
+
+
+def _tiny_df_path(base: Path) -> str:
+    bindir = base / "tiny-df"
+    bindir.mkdir(exist_ok=True)
+    df = bindir / "df"
+    df.write_text(
+        "#!/bin/sh\n"
+        "echo 'Filesystem 1B-blocks Used Available Use% Mounted on'\n"
+        "echo '/dev/fake 2000 1950 50 98% /'\n",
+        encoding="utf-8",
+    )
+    df.chmod(0o755)
+    return f"{bindir}{os.pathsep}{os.environ.get('PATH', '/usr/bin:/bin')}"
 
 
 def _fixture() -> None:
@@ -370,6 +394,8 @@ def _fixture() -> None:
         check(dry.returncode == 0, f"fixture dry-run exits 0 ({dry.stderr.strip()})")
         out = dry.stdout
         check("backup would include" in out, "dry-run reports backup would include")
+        check("backup space: ok" in out, "dry-run reports backup space: ok")
+        check("backup space: insufficient" not in out, "dry-run is not space-insufficient")
         check(keep_db.read_text(encoding="utf-8") == "live", "dry-run leaves agent.db")
         check(mcp.is_file(), "dry-run does not move the env file")
         check(not backups.exists() or not list(backups.glob("cleanup-*.tar.gz")),
@@ -377,6 +403,29 @@ def _fixture() -> None:
         check(not backups.exists(), "dry-run does not mkdir the backup dir")
         check("/opt/pepperoni-api/" in (cron_d / "pepperoni-ai-bots").read_text(encoding="utf-8"),
               "dry-run does not rewrite cron")
+
+        tight = dict(env)
+        tight["PATH"] = _tiny_df_path(base)
+        tight_dry = _run(tight)
+        check(tight_dry.returncode == 0, "dry-run with tiny free space exits 0")
+        check("backup space: insufficient" in tight_dry.stdout,
+              "dry-run reports backup space: insufficient")
+        check("vps-cleanup: backup space insufficient" not in tight_dry.stdout,
+              "dry-run does not abort on insufficient space")
+        check(mcp.is_file(), "dry-run insufficient space does not move the env file")
+
+        tight["MODE"] = "apply"
+        tight_apply = _run(tight)
+        check(tight_apply.returncode != 0, "apply with tiny free space exits nonzero")
+        check("vps-cleanup: backup space insufficient" in tight_apply.stdout,
+              "apply prints backup space insufficient")
+        check(mcp.is_file(), "insufficient space leaves env source")
+        check((repo / "scripts" / "_wtest").is_file(), "insufficient space leaves _wtest")
+        check((repo / "sales-agent" / "data" / "agent.bak.1.db").is_file(),
+              "insufficient space leaves item 4 files")
+        check(not backups.exists() or not list(backups.glob("cleanup-*.tar.gz")),
+              "insufficient space writes no backup")
+
         for line in out.splitlines():
             check("agent.db" not in line, "dry-run log has no agent.db name")
             check("rinatsultan" not in line, "dry-run log has no env filename")
