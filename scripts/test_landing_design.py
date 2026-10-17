@@ -311,7 +311,7 @@ def main() -> int:
           "commercial_page inherits shared chrome")
 
     src = (ROOT / "scripts" / "gen_category_pages.py").read_text(encoding="utf-8")
-    check("stylesheet_link()" in src and "topbar_html(" in src,
+    check("stylesheet_link(" in src and "topbar_html(" in src,
           "gen_category_pages uses shared chrome")
 
     check(len(LANDINGS) == 23, f"23 listed landings (got {len(LANDINGS)})")

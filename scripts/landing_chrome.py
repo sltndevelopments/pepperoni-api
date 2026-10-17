@@ -31,6 +31,7 @@ HERO_CRITICAL_CSS = (
     "body.kd-landing .container{max-width:1120px;margin:0 auto;padding:28px 24px 72px}"
     "body.kd-landing h1{font-size:clamp(1.85rem,4.2vw,2.9rem);font-weight:800;"
     "line-height:1.2;letter-spacing:-.02em;margin:8px 0 16px;color:#111614}"
+    "body.kd-landing p{margin-bottom:14px;color:#111614}"
     "body.kd-landing .hero-subtitle,body.kd-landing .eyebrow,"
     "body.kd-landing .hero__sub{color:#5c6660;font-size:1.05rem;max-width:70ch}"
     "body.kd-landing .hero{padding:12px 0 28px}"

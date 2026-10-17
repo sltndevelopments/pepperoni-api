@@ -202,6 +202,8 @@ def main() -> int:
               f"{rel} hero text has no opacity/transform animation")
         check("gtm.js" not in head.lower() and "GTM-W2Q5S8HF" not in head,
               f"{rel} has no GTM in <head>")
+        check("googletagmanager.com" not in head and "mc.yandex.ru" not in head,
+              f"{rel} does not preconnect third-party analytics")
         check("application/ld+json" not in head, f"{rel} keeps JSON-LD out of <head>")
         check("loadAnalytics" in html, f"{rel} delays GTM/Metrika until after load")
         check(
