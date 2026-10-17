@@ -22,8 +22,8 @@ Deploy and recon use **distinct** concurrency groups (`deploy-vps` and
 cancel a pending deploy. Before SSH, recon polls the Actions API until
 two consecutive checks find no Deploy to VPS run in queued / in_progress
 / waiting / pending / requested (10 minute deadline; fixed error line
-only). If the clock minute is 0 or 9 modulo 10 it then sleeps 90 s to
-miss `sync-vps.sh`'s `*/10` window.
+only). Immediately before SSH, recon loops until minute % 10 is in
+2..8 (`sleep 15`, cap 3 min) to miss `sync-vps.sh`'s `*/10` window.
 
 The repo is **public**: Actions logs and artifacts are world-readable. The
 runner therefore never writes the plaintext tar. SSH stdout is piped into

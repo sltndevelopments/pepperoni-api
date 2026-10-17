@@ -57,11 +57,6 @@ jobs:
             fi
             sleep 20
           done
-          min=$(date +%M)
-          min=$((10#$min))
-          if [ $(( min % 10 )) -eq 0 ] || [ $(( min % 10 )) -eq 9 ]; then
-            sleep 90
-          fi
 
       - name: Install age
         run: sudo apt-get update -qq && sudo apt-get install -y age
@@ -78,6 +73,20 @@ jobs:
           printf '%s\n' "$VPS_SSH_KEY" > ~/.ssh/vps_key
           chmod 600 ~/.ssh/vps_key
           trap 'rm -f ~/.ssh/vps_key' EXIT
+          # Avoid sync-vps.sh */10: wait until minute%10 is 2..8 (cap 3 min).
+          guard_deadline=$(( $(date +%s) + 180 ))
+          while :; do
+            min=$(date +%M)
+            min=$((10#$min))
+            rem=$(( min % 10 ))
+            if [ "$rem" -ge 2 ] && [ "$rem" -le 8 ]; then
+              break
+            fi
+            if [ "$(date +%s)" -ge "$guard_deadline" ]; then
+              break
+            fi
+            sleep 15
+          done
           # Remote: python stdin, tar on stdout. Pipe straight into the sealer.
           # No recon-report.tar, no unpack, no plaintext on disk.
           # Public logs: hide ssh stderr; on failure print a fixed line only.
